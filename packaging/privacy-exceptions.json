@@ -1,0 +1,1446 @@
+{
+  "scope": "Exact selected path, file SHA256 and matched prefix hash only. Upstream author paths are reported as retained personal-path data; no blanket vendor exemption.",
+  "exceptions": [
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/SDL2/include/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/tests/http/README.md",
+      "sha256": "d292ecc111c3b3971a08bd2cee36c9a7ae457f733b867656c3f50c9390c1ffc1",
+      "characters": 24,
+      "matchPrefixSha256": "0855db97524fb5074ac048ac3d5c516955ee5508e23a5f3af38ac56fea35a188",
+      "reason": "Unchanged upstream curl test documentation example."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-008/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-009/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-010/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-011/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-012/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-013/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-014/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-015/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-016/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-017/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-018/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-019/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-020/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-021/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-022/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-023/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-024/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-025/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-026/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-027/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-028/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-029/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-030/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-031/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-032/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-033/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-034/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-035/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-046/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 55,
+      "matchPrefixSha256": "fc9bda2761bedf132e63d8cbaaec925942fe9d5f91955791f10bea7e106fb8de",
+      "reason": "Unchanged upstream SDL API documentation example, not this project user."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/archives/OpenXR-SDK-Source-release-1.1.62.tar.gz!/OpenXR-SDK-Source-release-1.1.62/specification/loader/images/app_dispatch_table_call_chain.svg",
+      "sha256": "2ebae46e04c84c5e805a0575ff008235ed92af0e1af2634604edac60b41c72c4",
+      "characters": 89,
+      "matchPrefixSha256": "905146558fd2ffb83983dedb8f2827a09e85c82ebc280d012d82b3f1150b5935",
+      "kind": "upstream-author-path",
+      "reason": "Retained unchanged upstream author/editor path in public dependency source; not a fixture or project build path. Report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/archives/OpenXR-SDK-Source-release-1.1.62.tar.gz!/OpenXR-SDK-Source-release-1.1.62/specification/loader/images/call_chain_example.svg",
+      "sha256": "a4ae099a3cb2e9d0edf3c81aba8be2711005bf17afb08d0e3d1ab929ed52eb47",
+      "characters": 89,
+      "matchPrefixSha256": "905146558fd2ffb83983dedb8f2827a09e85c82ebc280d012d82b3f1150b5935",
+      "kind": "upstream-author-path",
+      "reason": "Retained unchanged upstream author/editor path in public dependency source; not a fixture or project build path. Report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/archives/OpenXR-SDK-Source-release-1.1.62.tar.gz!/OpenXR-SDK-Source-release-1.1.62/specification/loader/images/high_level_loader.svg",
+      "sha256": "9fe5c47a1ed4cb1241b3fda71b4620d86c520270c50da7816f79c61b35a980e0",
+      "characters": 89,
+      "matchPrefixSha256": "905146558fd2ffb83983dedb8f2827a09e85c82ebc280d012d82b3f1150b5935",
+      "kind": "upstream-author-path",
+      "reason": "Retained unchanged upstream author/editor path in public dependency source; not a fixture or project build path. Report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/archives/OpenXR-SDK-Source-release-1.1.62.tar.gz!/OpenXR-SDK-Source-release-1.1.62/specification/loader/images/loader_layer_order_calls.svg",
+      "sha256": "feec73d9d33da732dc9f52f59b6b4b9bca945fde502d9689213cdf8e93b83c48",
+      "characters": 94,
+      "matchPrefixSha256": "e9960e0e4cf5f0c808bed342acbccf6004244e594eeb49ace2266fb27a7b13a2",
+      "kind": "upstream-author-path",
+      "reason": "Retained unchanged upstream author/editor path in public dependency source; not a fixture or project build path. Report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/archives/OpenXR-SDK-Source-release-1.1.62.tar.gz!/OpenXR-SDK-Source-release-1.1.62/specification/loader/images/optional_layer_function_impl.svg",
+      "sha256": "ff7c41269350beb0c0a16b811b5e186699051b74e13ebd40703433435882779e",
+      "characters": 89,
+      "matchPrefixSha256": "905146558fd2ffb83983dedb8f2827a09e85c82ebc280d012d82b3f1150b5935",
+      "kind": "upstream-author-path",
+      "reason": "Retained unchanged upstream author/editor path in public dependency source; not a fixture or project build path. Report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/archives/OpenXR-SDK-Source-release-1.1.62.tar.gz!/OpenXR-SDK-Source-release-1.1.62/specification/loader/images/standard_call_chains.svg",
+      "sha256": "ba610e71198e4d9b7b97496524516eb875887712b9c601937810a5cd3c6d8672",
+      "characters": 89,
+      "matchPrefixSha256": "905146558fd2ffb83983dedb8f2827a09e85c82ebc280d012d82b3f1150b5935",
+      "kind": "upstream-author-path",
+      "reason": "Retained unchanged upstream author/editor path in public dependency source; not a fixture or project build path. Report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/archives/OpenXR-SDK-Source-release-1.1.62.tar.gz!/OpenXR-SDK-Source-release-1.1.62/specification/loader/runtime.adoc",
+      "sha256": "1421ae355fc3e53c73adaf6a23334dd6ec7a416109cbec319b087369abf7fc0b",
+      "characters": 40,
+      "matchPrefixSha256": "82eaeedb2895a4280673aeae0f1fdfeb6b5d7344c869fefed6f710fc88942e2c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/archives/OpenXR-SDK-Source-release-1.1.62.tar.gz!/OpenXR-SDK-Source-release-1.1.62/specification/registry/xr.fragmented.xml",
+      "sha256": "283a9c580057659d12f73486878fafab394ef0aa69bddc0832a5567b1212f202",
+      "characters": 11,
+      "matchPrefixSha256": "c418500db39f336b051375202617b50eb7d872c5b4a6ea365ac1aef014f8a98e",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/archives/OpenXR-SDK-Source-release-1.1.62.tar.gz!/OpenXR-SDK-Source-release-1.1.62/specification/registry/xr.xml",
+      "sha256": "0a9b6a925a106d17c56961424e8b4f775e7746c4767c18e97e9b5d9311f8705f",
+      "characters": 11,
+      "matchPrefixSha256": "c418500db39f336b051375202617b50eb7d872c5b4a6ea365ac1aef014f8a98e",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/archives/OpenXR-SDK-Source-release-1.1.62.tar.gz!/OpenXR-SDK-Source-release-1.1.62/specification/scripts/bare_normatives_allowlist.txt",
+      "sha256": "db0bbe6d46919f99acf143196464b86efb942cbc808a09bcc07eefa534a9f772",
+      "characters": 55,
+      "matchPrefixSha256": "97608263ec02eda9bcc4a88170c9275d5b3fda756ea40eabe9dfdf80c445304a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/archives/OpenXR-SDK-Source-release-1.1.62.tar.gz!/OpenXR-SDK-Source-release-1.1.62/src/tests/test_runtimes/runtime_test.cpp",
+      "sha256": "f5e0fda56932711743cbf06686481ccc54c2cab472ac514e555aff1cdd34cf4e",
+      "characters": 11,
+      "matchPrefixSha256": "c418500db39f336b051375202617b50eb7d872c5b4a6ea365ac1aef014f8a98e",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/SDL2/.github/workflows/create-test-plan.py",
+      "sha256": "17c3bf1745834ea7110f424291074f22e4282b7af0376600c71443f91ccbff22",
+      "characters": 39,
+      "matchPrefixSha256": "0bb5ef1a6e50c23e9922198cf4dc1791c896d2535edc0d31abc20be96439ba6f",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/SDL2/acinclude/libtool.m4",
+      "sha256": "7cf8105267322d4089e7ff4c01f276b5147a57302cd9004dbfa38a534605a2a8",
+      "characters": 51,
+      "matchPrefixSha256": "42329613804543de64bbe7f7cd6ae55343cf7da1cf44c61ba10e885ee1c6748c",
+      "kind": "vendor-platform-path",
+      "reason": "Retained Haiku /boot directory search configuration; match is a substring of the platform path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/SDL2/configure",
+      "sha256": "7e674ebca847de92c88931d3ae23ed5e893f5f3ff9bf4fa3db38fbb70015e037",
+      "characters": 51,
+      "matchPrefixSha256": "42329613804543de64bbe7f7cd6ae55343cf7da1cf44c61ba10e885ee1c6748c",
+      "kind": "vendor-platform-path",
+      "reason": "Retained Haiku /boot directory search configuration; match is a substring of the platform path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/SDL2/include/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/SDL2/include/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/SDL2/include/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/SDL2/src/hidapi/testgui/start.sh",
+      "sha256": "bb2dfed8ac382a04b8c1cf6c93f090b6e104539399cc1676d77ae5a41b642dab",
+      "characters": 61,
+      "matchPrefixSha256": "23bce8cb9aa9ea4c18c304f92eca93b1a06176f65870c9867b92cdc9432a3973",
+      "kind": "upstream-author-path",
+      "reason": "Retained unchanged upstream author/editor path in public dependency source; not a fixture or project build path. Report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/awslc.yml",
+      "sha256": "a0952394350ee3ee4b9627c2ca3f5d3e3bae4d9383ae6f40e7590aedd1f2183b",
+      "characters": 18,
+      "matchPrefixSha256": "6272b39f5b43ae1b28466165bd1debf838c849f37f585cc50dcbe8784b7810d4",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/linux.yml",
+      "sha256": "9544479f5e6c29e72e57494928145ceba6b4c65082b6df8bef515c7f47533937",
+      "characters": 20,
+      "matchPrefixSha256": "b57f473c273358d8fbe3a0e085d278ddf50922ac105ccd9ee2db35f919b2a59b",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/linux.yml",
+      "sha256": "9544479f5e6c29e72e57494928145ceba6b4c65082b6df8bef515c7f47533937",
+      "characters": 21,
+      "matchPrefixSha256": "4f60ec4d85840fa67568ede433a050bdfea52164f3580b37fd5e79c6d154bae8",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/linux.yml",
+      "sha256": "9544479f5e6c29e72e57494928145ceba6b4c65082b6df8bef515c7f47533937",
+      "characters": 20,
+      "matchPrefixSha256": "e2204986ba4d65cc3d3e7e5b6520ffbf1074bf0b0b8d1bef5350b082498aed8d",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/linux.yml",
+      "sha256": "9544479f5e6c29e72e57494928145ceba6b4c65082b6df8bef515c7f47533937",
+      "characters": 21,
+      "matchPrefixSha256": "f235bb9ffd9114ef40a5462a4e3fe544f40eba123f14660133ae357695179d74",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/linux.yml",
+      "sha256": "9544479f5e6c29e72e57494928145ceba6b4c65082b6df8bef515c7f47533937",
+      "characters": 20,
+      "matchPrefixSha256": "c9e8a1ff96f93ed873c8cbca8ed16b125f79717ff9e2b2afe7316a6997c28496",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/linux.yml",
+      "sha256": "9544479f5e6c29e72e57494928145ceba6b4c65082b6df8bef515c7f47533937",
+      "characters": 17,
+      "matchPrefixSha256": "864de57b92aa0a3a2311de59aa5e43c5e3dc79e7b4aab07a14a964990200380d",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/linux.yml",
+      "sha256": "9544479f5e6c29e72e57494928145ceba6b4c65082b6df8bef515c7f47533937",
+      "characters": 19,
+      "matchPrefixSha256": "0103592eceb9d25077d08408d3fd28d8925a5d615e2a8fcfec261bd64a194f39",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/linux.yml",
+      "sha256": "9544479f5e6c29e72e57494928145ceba6b4c65082b6df8bef515c7f47533937",
+      "characters": 19,
+      "matchPrefixSha256": "48b2481960ef80831603f4fd13e75d7e7ec273733d78ce08563e901a8d8bf1d1",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/ngtcp2-linux.yml",
+      "sha256": "3da4f9b1698abfc96b178563dcbeafd1025ad4345f761fe645ab324ee4201df6",
+      "characters": 20,
+      "matchPrefixSha256": "c9e8a1ff96f93ed873c8cbca8ed16b125f79717ff9e2b2afe7316a6997c28496",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/ngtcp2-linux.yml",
+      "sha256": "3da4f9b1698abfc96b178563dcbeafd1025ad4345f761fe645ab324ee4201df6",
+      "characters": 19,
+      "matchPrefixSha256": "50ea32f44c9cfc39be3a33e47539ad79c81145141dfe6ffe59f8dff45e2cc693",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/ngtcp2-linux.yml",
+      "sha256": "3da4f9b1698abfc96b178563dcbeafd1025ad4345f761fe645ab324ee4201df6",
+      "characters": 20,
+      "matchPrefixSha256": "207f59c627a755a238ccf6d9fb3ed7c3f42b33de89b926eb682303c957cae77a",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/ngtcp2-linux.yml",
+      "sha256": "3da4f9b1698abfc96b178563dcbeafd1025ad4345f761fe645ab324ee4201df6",
+      "characters": 20,
+      "matchPrefixSha256": "c427716a858d20724d955d92982c2381d5c4fa8061e0fae814df912dbc0fd2ca",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/ngtcp2-linux.yml",
+      "sha256": "3da4f9b1698abfc96b178563dcbeafd1025ad4345f761fe645ab324ee4201df6",
+      "characters": 19,
+      "matchPrefixSha256": "48b2481960ef80831603f4fd13e75d7e7ec273733d78ce08563e901a8d8bf1d1",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/osslq-linux.yml",
+      "sha256": "6c3039f83bf8abc7e9e6c18ae69cdd93db05a9f22619218ea56d9f3fa9303000",
+      "characters": 21,
+      "matchPrefixSha256": "f235bb9ffd9114ef40a5462a4e3fe544f40eba123f14660133ae357695179d74",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/osslq-linux.yml",
+      "sha256": "6c3039f83bf8abc7e9e6c18ae69cdd93db05a9f22619218ea56d9f3fa9303000",
+      "characters": 20,
+      "matchPrefixSha256": "c9e8a1ff96f93ed873c8cbca8ed16b125f79717ff9e2b2afe7316a6997c28496",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/osslq-linux.yml",
+      "sha256": "6c3039f83bf8abc7e9e6c18ae69cdd93db05a9f22619218ea56d9f3fa9303000",
+      "characters": 20,
+      "matchPrefixSha256": "c427716a858d20724d955d92982c2381d5c4fa8061e0fae814df912dbc0fd2ca",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/osslq-linux.yml",
+      "sha256": "6c3039f83bf8abc7e9e6c18ae69cdd93db05a9f22619218ea56d9f3fa9303000",
+      "characters": 19,
+      "matchPrefixSha256": "48b2481960ef80831603f4fd13e75d7e7ec273733d78ce08563e901a8d8bf1d1",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/quiche-linux.yml",
+      "sha256": "ae312337b60ab24b42051afc21408977c77e441f15a66655cfb15f219225a147",
+      "characters": 34,
+      "matchPrefixSha256": "8597fbb13e66283654b4f5009479686b084bbb872d013ba34072d1cd335e8b32",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/quiche-linux.yml",
+      "sha256": "ae312337b60ab24b42051afc21408977c77e441f15a66655cfb15f219225a147",
+      "characters": 45,
+      "matchPrefixSha256": "7d8e0dcd93d7e4d89e6d721e1d0632a35c9827a1675ea4a7e4129dcf9754023c",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/quiche-linux.yml",
+      "sha256": "ae312337b60ab24b42051afc21408977c77e441f15a66655cfb15f219225a147",
+      "characters": 20,
+      "matchPrefixSha256": "ee07816ea811173f0f93f6608e00928e1c7e669f05e5651dc04fac233a76bc60",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/quiche-linux.yml",
+      "sha256": "ae312337b60ab24b42051afc21408977c77e441f15a66655cfb15f219225a147",
+      "characters": 19,
+      "matchPrefixSha256": "039702b17525991ed0f6b216a3e467152d7f09f00c7bf7e93787b768a559409c",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/quiche-linux.yml",
+      "sha256": "ae312337b60ab24b42051afc21408977c77e441f15a66655cfb15f219225a147",
+      "characters": 53,
+      "matchPrefixSha256": "09d23041dd99a72ee298a125234def5cf5bd8e1677637eb9357ef991e0a66862",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/quiche-linux.yml",
+      "sha256": "ae312337b60ab24b42051afc21408977c77e441f15a66655cfb15f219225a147",
+      "characters": 49,
+      "matchPrefixSha256": "10312da2d869e2cd94c30f62adbbdfbf4a83397d8c25d31f90cfe63aae5fa093",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/.github/workflows/quiche-linux.yml",
+      "sha256": "ae312337b60ab24b42051afc21408977c77e441f15a66655cfb15f219225a147",
+      "characters": 19,
+      "matchPrefixSha256": "48b2481960ef80831603f4fd13e75d7e7ec273733d78ce08563e901a8d8bf1d1",
+      "kind": "vendor-ci-path",
+      "reason": "Retained public upstream CI runner/toolchain path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/Makefile.am",
+      "sha256": "330ab920dbf3226d6f59074edb591247b005817dd2bb7e007cc6f36b72b018e5",
+      "characters": 20,
+      "matchPrefixSha256": "640ab5b0e509a6615e52534500673e13658b0b728e03ce7856bf512b5fba4edf",
+      "kind": "upstream-author-path",
+      "reason": "Retained upstream build/API example containing an author-named directory; conservatively report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/Makefile.am",
+      "sha256": "330ab920dbf3226d6f59074edb591247b005817dd2bb7e007cc6f36b72b018e5",
+      "characters": 63,
+      "matchPrefixSha256": "c22f7fb94c724bfa07fb7d3fb9f71b0d1b0243b6f3cb8449116c4beca58d78e7",
+      "kind": "upstream-author-path",
+      "reason": "Retained upstream build/API example containing an author-named directory; conservatively report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/Makefile.am",
+      "sha256": "330ab920dbf3226d6f59074edb591247b005817dd2bb7e007cc6f36b72b018e5",
+      "characters": 67,
+      "matchPrefixSha256": "2976eb1dbc3b88d531b4fbb2d578116f1cb0e3e8d5726f66e5c72aeca5a1d1a8",
+      "kind": "upstream-author-path",
+      "reason": "Retained upstream build/API example containing an author-named directory; conservatively report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/Makefile.am",
+      "sha256": "330ab920dbf3226d6f59074edb591247b005817dd2bb7e007cc6f36b72b018e5",
+      "characters": 43,
+      "matchPrefixSha256": "f3c62b9f7d0f2429ce1f64464ad0b1432cde78b2cdd41873c481f06999e024c2",
+      "kind": "upstream-author-path",
+      "reason": "Retained upstream build/API example containing an author-named directory; conservatively report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/docs/HTTP3.md",
+      "sha256": "a4c6fb88356f0a98eb74f34d10a537d7538ce3394b72498361db354b8f8e7bb9",
+      "characters": 186,
+      "matchPrefixSha256": "6f5d19760e557ec311279f36798286cb2cc74b42e1fa8f856d7da15d0e3249f7",
+      "kind": "upstream-author-path",
+      "reason": "Retained upstream build/API example containing an author-named directory; conservatively report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/docs/HTTP3.md",
+      "sha256": "a4c6fb88356f0a98eb74f34d10a537d7538ce3394b72498361db354b8f8e7bb9",
+      "characters": 126,
+      "matchPrefixSha256": "c25459269bda009c3a26db1d947af951d5a640521140127948217d29ed3495c1",
+      "kind": "upstream-author-path",
+      "reason": "Retained upstream build/API example containing an author-named directory; conservatively report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/docs/examples/Makefile.example",
+      "sha256": "2ddd55981b950018bdaa0bfb6edabf7b4aba0583fde0baa5020e14ef63eb63b4",
+      "characters": 35,
+      "matchPrefixSha256": "27a6a15e9169e2af649b22f5c5178488574655458883a37af4353df1eacf6437",
+      "kind": "upstream-author-path",
+      "reason": "Retained upstream build/API example containing an author-named directory; conservatively report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/docs/examples/fileupload.c",
+      "sha256": "e3b7107a8853c3513dd55d0aae73782ddbb43190e1682e6c919fc00f11dfeb6f",
+      "characters": 29,
+      "matchPrefixSha256": "909c312af996bb12ac27da97058860c8c15c3ea0df61d70b5d1efafc77c5b78f",
+      "kind": "upstream-author-path",
+      "reason": "Retained upstream build/API example containing an author-named directory; conservatively report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/docs/examples/ftpsget.c",
+      "sha256": "6ab11ce65052f95312e53dd6858fcaa8b19ef7040b6061b6c8e9b64c12ca047c",
+      "characters": 19,
+      "matchPrefixSha256": "d55d37ed031e93636a8b7a6f72096357bd17e984a7b233113eb2651a81346c35",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/docs/examples/netrc.c",
+      "sha256": "1153648a7745d332a95eeeb43465cfdb69307cbc2beb2ed0ae193fcf38d4499b",
+      "characters": 24,
+      "matchPrefixSha256": "894dc6baec1f88010966f022a5f6098ee48be4c95caf17f226c5999798766687",
+      "kind": "upstream-author-path",
+      "reason": "Retained upstream build/API example containing an author-named directory; conservatively report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/docs/examples/sftpget.c",
+      "sha256": "72afc0b29d33df68d676e2709b64855f91d2df5e3179b39e6fb14481132a45d3",
+      "characters": 19,
+      "matchPrefixSha256": "d55d37ed031e93636a8b7a6f72096357bd17e984a7b233113eb2651a81346c35",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/docs/libcurl/opts/CURLOPT_HSTS.md",
+      "sha256": "f09968295249a54be06af96747ae9fc09fd3f0efd07af18b35698dd39d8697f7",
+      "characters": 22,
+      "matchPrefixSha256": "7e4b8e2ec8e267f3c1705e6bf273b09597a31187f928c43cb9b889f2f45d0006",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/docs/libcurl/opts/CURLOPT_SSH_KEYDATA.md",
+      "sha256": "f3230afb22d48c089b7dedebd8edac166ad45f5caa26a1a9eaee84984bbfda30",
+      "characters": 22,
+      "matchPrefixSha256": "cb0857cdb34c3e3e10dfd846fdbbdbf68de61ac2ef997701d6fb2b00182e4606",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/docs/libcurl/opts/CURLOPT_SSH_KEYFUNCTION.md",
+      "sha256": "c24142631ba412d80625cc57569783f2ecc84ed403b366502c9d3169999686e8",
+      "characters": 22,
+      "matchPrefixSha256": "cb0857cdb34c3e3e10dfd846fdbbdbf68de61ac2ef997701d6fb2b00182e4606",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/docs/libcurl/opts/CURLOPT_SSH_KNOWNHOSTS.md",
+      "sha256": "ab60f75a3cc118da57d62e70e31574aa9088b56e17686bf556c39d5612affddc",
+      "characters": 32,
+      "matchPrefixSha256": "9efd85ddea59efe7a917ea1aff336271f170fc198503649db8ef689b4d60a761",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/docs/libcurl/opts/CURLOPT_SSH_PRIVATE_KEYFILE.md",
+      "sha256": "ad6af98e4767fbf8817d6f2f3ca434e93c9c7511cb173f38674c533f4bf24139",
+      "characters": 27,
+      "matchPrefixSha256": "f407acbd18ff7caadf9591be88ad734e5d4d91cc5b3e6bba7acae892c351656c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/docs/libcurl/opts/CURLOPT_SSH_PUBLIC_KEYFILE.md",
+      "sha256": "748fd98912fe769bfcdd77ffc428961f47b5c48c65e05506e4f69969c546947a",
+      "characters": 31,
+      "matchPrefixSha256": "6553e2a51185bb88b13a6c40a38a1eaa84353addfa4e14dcee11885191346b55",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/curl/lib/urlapi.c",
+      "sha256": "37ee92fd25dfed5cdb34fcaf4180652b72767b46ceb5ba9d7b8a6795473ed241",
+      "characters": 12,
+      "matchPrefixSha256": "b8b17e7a7e666150c2c2204658cfec0396e923e52448a02db57af06f736da91b",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/openal-soft/alsoftrc.sample",
+      "sha256": "0c57b933091dd0438b18ba77013aa5009035a3f896a90179fe3c315c815d0a93",
+      "characters": 19,
+      "matchPrefixSha256": "991ea0e1d88c0101516fa2a5c82722358ab4a7434d5e9f988219ed2dd180725c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/zlib/doc/crc-doc.1.0.pdf",
+      "sha256": "064f9252d6e2e15ea56c2bd18e160e5c9c84bcd137c11a7af497aaa511ace998",
+      "characters": 50,
+      "matchPrefixSha256": "dc053143575b6c3873677a70b89acbdc908d0487ad97ef8965b5afa0f6a1aa18",
+      "kind": "upstream-author-path",
+      "reason": "Retained unchanged upstream author/editor path in public dependency source; not a fixture or project build path. Report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/zlib/doc/crc-doc.1.0.pdf",
+      "sha256": "064f9252d6e2e15ea56c2bd18e160e5c9c84bcd137c11a7af497aaa511ace998",
+      "characters": 42,
+      "matchPrefixSha256": "85f93bd125b150d920998e0100e22ae38064505ac40f3f3897eef4a0b49d4273",
+      "kind": "upstream-author-path",
+      "reason": "Retained unchanged upstream author/editor path in public dependency source; not a fixture or project build path. Report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/zlib/doc/crc-doc.1.0.pdf",
+      "sha256": "064f9252d6e2e15ea56c2bd18e160e5c9c84bcd137c11a7af497aaa511ace998",
+      "characters": 43,
+      "matchPrefixSha256": "ee60753cd5447e9d6e71dbf135df5cc9a789420fb5474dfafa2e74607fd9c281",
+      "kind": "upstream-author-path",
+      "reason": "Retained unchanged upstream author/editor path in public dependency source; not a fixture or project build path. Report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/dependencies/src/zlib/doc/crc-doc.1.0.pdf",
+      "sha256": "064f9252d6e2e15ea56c2bd18e160e5c9c84bcd137c11a7af497aaa511ace998",
+      "characters": 43,
+      "matchPrefixSha256": "2b8369b047acb6039d4ea38b173748340cdfddf81c7f06ac6c578d0ca0f578da",
+      "kind": "upstream-author-path",
+      "reason": "Retained unchanged upstream author/editor path in public dependency source; not a fixture or project build path. Report personalDataIncluded=true."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-008/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-008/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-008/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-009/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-009/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-009/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-010/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-010/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-010/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-011/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-011/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-011/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-012/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-012/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-012/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-013/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-013/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-013/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-014/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-014/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-014/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-015/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-015/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-015/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-016/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-016/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-016/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-017/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-017/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-017/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-018/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-018/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-018/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-019/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-019/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-019/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-020/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-020/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-020/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-021/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-021/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-021/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-022/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-022/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-022/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-023/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-023/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-023/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-024/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-024/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-024/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-025/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-025/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-025/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-026/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-026/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-026/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-027/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-027/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-027/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-028/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-028/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-028/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-029/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-029/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-029/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-030/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-030/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-030/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-031/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-031/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-031/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-032/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-032/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-032/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-033/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-033/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-033/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-034/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-034/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-034/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-035/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-035/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-035/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-046/generated/legacy/extern/SDL2/include/SDL2/SDL_atomic.h",
+      "sha256": "c561ce8f94de18ccb4f708bda45880ba6d3c9f052e166beb5dadc5544f35221e",
+      "characters": 26,
+      "matchPrefixSha256": "9a7863cbdcafceb0210661e24111688de52950a45bb4db8187674e837b609a1a",
+      "kind": "nonfilesystem-token",
+      "reason": "Retained OpenXR input token or public documentation URL path, not a local filesystem path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-046/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 64,
+      "matchPrefixSha256": "10b3b0c60d46cdc40cabba5fc18d5e71d7e6af3540d109d1e43993d1d5ff4703",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    },
+    {
+      "path": "Q2RTX-VR-source/source/baseline/b2-consolidated215/inputs/origin-046/generated/legacy/extern/SDL2/include/SDL2/SDL_filesystem.h",
+      "sha256": "dcfaa010c73150e7b0d56f50f5adb3fc2e35621091a55bc5436b2fb85fe71675",
+      "characters": 40,
+      "matchPrefixSha256": "abb5d4e26d0dde263a8aec3a15f038838161601f773d594819388f6441d7a29c",
+      "kind": "vendor-example",
+      "reason": "Reviewed retained public upstream documentation example, fictional user name or remote URL path."
+    }
+  ]
+}

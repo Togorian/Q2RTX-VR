@@ -1,0 +1,15 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright (C) 2026 Togorian; implementation with Codex assistance.
+// Retained exact pre-correction B2XR_RequestStop from commit
+// 4e829ea926d3f72dee481ac5dbf02e7d5e1053f8, selected engine_087 source.
+// A negative control only: no Git history is required to run the regression.
+void B2XR_RequestStop(void)
+{
+    B2H_Reset();
+    if ((!xr.loader && !xr.instance) || xr.exit_requested)
+        return;
+    xr.exit_requested = true;
+    B2XR_InvalidateHistory("operator-stop");
+    if (xr.running && xr.xrRequestExitSession)
+        b2_xr_result(xr.xrRequestExitSession(xr.session), "request-exit-session");
+}

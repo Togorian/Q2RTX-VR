@@ -1,0 +1,50 @@
+/*
+Source: Hershey font "timesr.jhf"
+Converted with Hershey font converter v2.0 by Jari Komppa, http://iki.fi/sol/
+--------------------------------------------------------------------
+
+            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+                    Version 2, December 2004
+
+ Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
+
+ Everyone is permitted to copy and distribute verbatim or modified
+ copies of this license document, and changing it is allowed as long
+ as the name is changed.
+
+            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+
+  0. You just DO WHAT THE FUCK YOU WANT TO.
+
+--------------------------------------------------------------------
+
+USE RESTRICTION:
+This distribution of the Hershey Fonts may be used by anyone for
+any purpose, commercial or otherwise, providing that:
+	1. The following acknowledgements must be distributed with
+		the font data:
+		- The Hershey Fonts were originally created by Dr.
+			A. V. Hershey while working at the U. S.
+			National Bureau of Standards.
+		- The format of the Font data in this distribution
+			was originally created by
+				James Hurt
+				Cognition, Inc.
+				900 Technology Park Drive
+				Billerica, MA 01821
+				(mit-eddie!ci-dandelion!hurt)
+	2. The font data in this distribution may be converted into
+		any other format *EXCEPT* the format distributed by
+		the U.S. NTIS (which organization holds the rights
+		to the distribution and use of the font data in that
+		particular format). Not that anybody would really
+		*want* to use their format... each point is described
+		in eight bytes as "xxx yyy:", where xxx and yyy are
+		the coordinate values as ASCII numbers.
+
+--------------------------------------------------------------------
+
+(And yes, I know the format output here is rather
+ironic looking at the comments above)
+*/

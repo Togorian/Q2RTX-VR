@@ -1,0 +1,57 @@
+{
+  "finding": "A1",
+  "readme": false,
+  "cases": [
+    {
+      "file": "A1-recentre.c",
+      "production": [
+        {
+          "source": "source/current/right-menu409/source/b2_controller_impl409.inc",
+          "function": "b2c_sample_valid"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "b2_recenter_sample488"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "start": "    float previous_reference_origin[3];",
+          "end": "    vec3_t room_view_origin;"
+        }
+      ]
+    },
+    {
+      "file": "A1-completion-extension.c",
+      "production": [
+        {
+          "source": "source/current/right-menu409/source/b2_controller_impl409.inc",
+          "function": "b2c_sample_valid"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "b2_recenter_sample488"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "start": "    float previous_reference_origin[3];",
+          "end": "    vec3_t room_view_origin;"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "start": "    b2c_snapshot_t recenter_sample488={0};",
+          "end": "    if (!B2XR_BeginFrame(&frame)) {"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "start": "    if ((recenter || handoff) && accepted_pair",
+          "end": "    if (accepted_pair && ended && renderer_committed) {\n        b2_log_movement_sample"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "start": "    if (b2_client.walking) {\n        if (accepted_pair",
+          "end": "    if (b2_client.headset_waiting) {\n        b2_client.ui_resume_request=false;"
+        }
+      ]
+    }
+  ]
+}

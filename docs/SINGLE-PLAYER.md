@@ -1,0 +1,11 @@
+# Local single-player boundaries
+
+Q2RTX VR supports an engine-local single-player game using installed, user-owned game data. New Game, save loading, level changes and internal reconnect use the existing in-process loopback packet queues. They do not require an OS socket. The userinfo version keeps the lowercase `q2rtx` prefix expected by the local server; the window is titled Q2RTX VR, while fatal-error boxes retain the title Quake II RTX Fatal Error.
+
+The selected release uses compile-time restrictions at actual callbacks, so configuration scripts, bindings and mutable console variables cannot enable remote features. Manual connect/follow/passive/rcon/server-browser requests are refused before disconnecting local play. Remote packet/stufftext dispatch is refused before private changing/precache/reconnect callbacks; local server text remains available. Demo playback and recording are disabled; demo stufftext does not dispatch commands.
+
+UDP/TCP socket creation, listen/connect/accept/stream operations, DNS/probing and non-loopback packet sends are disabled. Network restart retains actual handle closure and the local queue. Server initialisation refuses dedicated, MVD, coop and deathmatch modes. Downloads are refused before file writes: HTTP compatibility variables can be registered, but curl initialisation, multi handles and worker creation are not reached. UDP download entry points and MVD/GTV command tables/direct callbacks are also disabled. These restrictions do not claim to remove the bundled libraries' capabilities.
+
+The generic `openurl` and shell-based `reload_shader` callbacks refuse execution. The existing two fixed HTTPS project links retain their confirmation and quit-time queue; they are separate from generic URL execution. Normal shader loading uses the packaged, pinned shaders.
+
+Historical checks (12 November 2026): these fixtures are not retained in this repository. CPU checks include the complete selected network unit with trapped OS effects, actual client auto-connect/reconnect/stufftext functions, and the server's local-mode initialisation prefix with controlled effects. They verify local positive paths as well as refusals. Syntax checks use actual release flags/includes. These checks do not launch a server, access user saves, establish real network behaviour or establish headset compatibility.

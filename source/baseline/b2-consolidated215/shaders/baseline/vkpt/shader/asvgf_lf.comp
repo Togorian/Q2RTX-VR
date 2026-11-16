@@ -1,0 +1,293 @@
+/* Modified 11 November 2026: added provenance notice for the Q2RTX VR
+ * source selection. Earlier adaptations retain their original notices;
+ * see docs/MODIFICATIONS.md and docs/PROVENANCE.md. */
+/*
+Copyright (C) 2018 Christoph Schied
+Copyright (C) 2019, NVIDIA CORPORATION. All rights reserved.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+/* Modified by Togorian with AI assistance, 12 November 2026, for Q2RTX VR
+ * (OpenXR VR support and source preparation). See PROVENANCE.md. */
+
+
+// ========================================================================== //
+// This is the a-trous wavelet filter for the LF (indirect diffuse) channel.
+// It's simpler than the similar filter for the HF channel because it does not 
+// use variance guidance or moments. Essentially, a simple bilateral blur that 
+// works with per-pixel spherical harmonics.
+//
+// See `asvgf.glsl` for general information about denoisers in Q2RTX.
+// ========================================================================== //
+
+#version 460
+#extension GL_GOOGLE_include_directive    : enable
+#extension GL_EXT_nonuniform_qualifier    : enable
+
+layout(local_size_x = 16, local_size_y = 16, local_size_z = 1) in;
+
+layout(push_constant, std140) uniform IterationInfo {
+	uint iteration;
+} push;
+
+#define GLOBAL_UBO_DESC_SET_IDX 0
+#include "global_ubo.h"
+
+#define GLOBAL_TEXTURES_DESC_SET_IDX 1
+#include "global_textures.h"
+
+#include "utils.glsl"
+#include "asvgf.glsl"
+#include "brdf.glsl"
+
+bool asvgf_in_bounds(ivec2 p, ivec2 extent)
+{
+	return all(greaterThanEqual(p, ivec2(0))) && all(lessThan(p, extent));
+}
+
+ivec2 asvgf_gradient_extent(ivec2 full_extent)
+{
+	return (full_extent + ivec2(GRAD_DWN - 1)) / GRAD_DWN;
+}
+
+bool asvgf_complete_gradient_cell(ivec2 p, ivec2 full_extent)
+{
+	ivec2 grad_extent = asvgf_gradient_extent(full_extent);
+	if(!asvgf_in_bounds(p, grad_extent))
+		return false;
+
+	ivec2 cell_end = (p + ivec2(1)) * GRAD_DWN;
+	return all(lessThanEqual(cell_end, full_extent));
+}
+
+// Filter kernel.
+// The filter operates on a 1/3 resolution signal, where each 3x3 pixel part of the screen
+// is represented by a single low-res pixel, whose depth and normal correspond to the 
+// high-res pixel in the center of that square (i.e. the anchor pixel).
+void
+filter_image(
+	sampler2D img_lf_shY, 
+	sampler2D img_lf_CoCg, 
+	out SH filtered_lf)
+{
+	ivec2 ipos_lowres = ivec2(gl_GlobalInvocationID);
+	ivec2 full_extent = ivec2(global_ubo.current_gpu_slice_width, global_ubo.height);
+	ivec2 grad_extent = asvgf_gradient_extent(full_extent);
+	ivec2 ipos_hires = ipos_lowres * GRAD_DWN + ivec2(1);
+
+	// Load the color of the target low-res pixel
+	SH color_center_lf = load_SH(img_lf_shY, img_lf_CoCg, ipos_lowres);
+
+	if(global_ubo.flt_atrous_lf <= push.iteration)
+	{
+		filtered_lf = color_center_lf;
+		return;
+	}
+
+	// Load the parameters of the anchor pixel
+	vec3 geo_normal_center = decode_normal(texelFetch(TEX_PT_GEO_NORMAL_A, ipos_hires, 0).x);
+	float depth_center = texelFetch(TEX_PT_VIEW_DEPTH_A, ipos_hires, 0).x;
+	float fwidth_depth = texelFetch(TEX_PT_MOTION, ipos_hires, 0).w;
+
+	const int step_size = int(1u << (push.iteration - 1));
+
+	SH sum_color_lf = color_center_lf;
+
+	float sum_w_lf = 1.0;
+
+	// Boundaries for the checkerboard field, either left or right half of the screen
+	int field_left = 0;
+	int field_right = global_ubo.width / 2;
+	if(ipos_hires.x >= field_right)
+	{
+		field_left = field_right;
+		field_right = global_ubo.width;
+	}
+
+	// Compute the weighted average of color and moments from a sparse 3x3 pattern around the target pixel
+	const int r = 1;
+	for(int yy = -r; yy <= r; yy++) {
+		for(int xx = -r; xx <= r; xx++) {
+			ivec2 p_lowres = ipos_lowres + ivec2(xx, yy) * step_size;
+
+			if(xx == 0 && yy == 0)
+				continue;
+
+			if(!asvgf_in_bounds(p_lowres, grad_extent) ||
+					!asvgf_complete_gradient_cell(p_lowres, full_extent))
+				continue;
+
+			ivec2 p_hires = p_lowres * GRAD_DWN + ivec2(1);
+			if(!asvgf_in_bounds(p_hires, full_extent) ||
+					p_hires.x < field_left || p_hires.x >= field_right)
+				continue;
+
+			float w = 1.0;
+
+			// Use geometric normals here so that we can blur over larger areas.
+			// The lighting detail will be partially preserved by spherical harmonics.
+			vec3 geo_normal = decode_normal(texelFetch(TEX_PT_GEO_NORMAL_A, p_hires, 0).x);
+
+			float depth = texelFetch(TEX_PT_VIEW_DEPTH_A, p_hires, 0).x;
+
+			float dist_z = abs(depth_center - depth) * fwidth_depth * global_ubo.flt_atrous_depth;
+			w *= exp(-dist_z / float(step_size * GRAD_DWN));
+			w *= wavelet_kernel[abs(xx)][abs(yy)];
+
+
+			float w_lf = w;
+
+			if(global_ubo.flt_atrous_normal_lf > 0)
+			{
+				float GNdotGN = max(0.0, dot(geo_normal_center, geo_normal));
+				w_lf *= pow(GNdotGN, global_ubo.flt_atrous_normal_lf);
+			}
+			
+			SH c_lf = load_SH(img_lf_shY, img_lf_CoCg, p_lowres);
+
+			// The 4th iteration has filter footprint big enough to step over obstacles and produce noticeable light leaking.
+			// Prevent that by throwing away samples that are too bright. This also helps make some shadows a bit sharper.
+			if(push.iteration == 3)
+				w_lf *= clamp(1.5 - c_lf.shY.w / color_center_lf.shY.w * 0.25, 0, 1);
+
+			accumulate_SH(sum_color_lf, c_lf, w_lf);
+			sum_w_lf += w_lf;
+		}
+	}
+
+	filtered_lf.shY = sum_color_lf.shY / sum_w_lf;
+	filtered_lf.CoCg = sum_color_lf.CoCg / sum_w_lf;
+}
+
+
+// Stage-zero limiter policy, using the original current-view LF history age.
+// Proposed policy: history maturity gates that cap; age is not proven confidence.
+float b2_lf_limiter_maturity(ivec2 cell, ivec2 full_extent)
+{
+	float alpha_floor = global_ubo.flt_min_alpha_color_lf;
+	if(isnan(alpha_floor) || isinf(alpha_floor) || alpha_floor <= 0.0 || alpha_floor >= 1.0)
+		return 1.0;
+	float youngest = 256.0;
+	for(int cy = -1; cy <= 1; cy++) for(int cx = -1; cx <= 1; cx++) {
+		ivec2 neighbour = cell + ivec2(cx, cy);
+		if(!asvgf_complete_gradient_cell(neighbour, full_extent)) continue;
+		ivec2 anchor = neighbour * GRAD_DWN + ivec2(1);
+		// Conservatively include the entire producer footprint, even zero-weight taps.
+		for(int yy = -1; yy <= 1; yy++) for(int xx = -1; xx <= 1; xx++) {
+			float age = texelFetch(TEX_ASVGF_HIST_MOMENTS_HF_A, anchor + ivec2(xx, yy), 0).a;
+			if(isnan(age) || isinf(age) || age < 1.0 || age > 256.0) return 1.0;
+			youngest = min(youngest, age);
+		}
+	}
+	float mature_age = min(256.0, 1.0 / alpha_floor);
+	return smoothstep(1.0, mature_age, youngest);
+}
+
+void deflicker_image(
+	sampler2D img_lf_shY, 
+	sampler2D img_lf_CoCg, 
+	out SH filtered_lf)
+{
+	ivec2 ipos_lowres = ivec2(gl_GlobalInvocationID);
+	ivec2 full_extent = ivec2(global_ubo.current_gpu_slice_width, global_ubo.height);
+	ivec2 grad_extent = asvgf_gradient_extent(full_extent);
+	SH color_center_lf = load_SH(img_lf_shY, img_lf_CoCg, ipos_lowres);
+	if(global_ubo.flt_atrous_deflicker_lf == -1.0) {
+		filtered_lf = color_center_lf;
+		return;
+	}
+	
+	SH sum_color_lf = init_SH();
+
+	const int r = 1;
+	int num_pixels = 0;
+	
+	for(int yy = -r; yy <= r; yy++) {
+		for(int xx = -r; xx <= r; xx++) {
+			ivec2 p_lowres = ipos_lowres + ivec2(xx, yy);
+
+			if(xx == 0 && yy == 0)
+				continue;
+
+			if(!asvgf_in_bounds(p_lowres, grad_extent) ||
+					!asvgf_complete_gradient_cell(p_lowres, full_extent))
+				continue;
+
+			SH c_lf = load_SH(img_lf_shY, img_lf_CoCg, p_lowres);
+			accumulate_SH(sum_color_lf, c_lf, 1.0);
+			num_pixels++;
+		}
+	}
+
+	if(num_pixels > 0)
+	{
+		bool targeted_limiter = global_ubo.flt_atrous_deflicker_lf == -2.0;
+		float limiter_strength = targeted_limiter ? 2.0 : global_ubo.flt_atrous_deflicker_lf;
+		float max_lum = sum_color_lf.shY.w * limiter_strength /
+			float(num_pixels);
+		if(color_center_lf.shY.w > max_lum)
+		{
+			float ratio = max_lum / color_center_lf.shY.w;
+			// Keep the original cap exactly for mature or unsupported inputs.
+			if(targeted_limiter && color_center_lf.shY.w > 0.0 && max_lum >= 0.0 &&
+				!isinf(color_center_lf.shY.w) && !isinf(max_lum)) {
+				float maturity = b2_lf_limiter_maturity(ipos_lowres, full_extent);
+				if(maturity < 1.0) ratio = 1.0 - maturity * (1.0 - ratio);
+			}
+			color_center_lf.shY *= ratio;
+			color_center_lf.CoCg *= ratio;
+		}
+	}
+
+	filtered_lf = color_center_lf;
+}
+
+void
+main()
+{
+	ivec2 ipos = ivec2(gl_GlobalInvocationID);
+	ivec2 full_extent = ivec2(global_ubo.current_gpu_slice_width, global_ubo.height);
+	ivec2 grad_extent = asvgf_gradient_extent(full_extent);
+	if(!asvgf_in_bounds(ipos, grad_extent))
+		return;
+
+	SH filtered_lf = init_SH();
+
+	if(!asvgf_complete_gradient_cell(ipos, full_extent))
+	{
+		switch(push.iteration) {
+		case 0: STORE_SH(IMG_ASVGF_ATROUS_PONG_LF_SH, IMG_ASVGF_ATROUS_PONG_LF_COCG, ipos, filtered_lf); break;
+		case 1: STORE_SH(IMG_ASVGF_ATROUS_PING_LF_SH, IMG_ASVGF_ATROUS_PING_LF_COCG, ipos, filtered_lf); break;
+		case 2: STORE_SH(IMG_ASVGF_ATROUS_PONG_LF_SH, IMG_ASVGF_ATROUS_PONG_LF_COCG, ipos, filtered_lf); break;
+		case 3: STORE_SH(IMG_ASVGF_ATROUS_PING_LF_SH, IMG_ASVGF_ATROUS_PING_LF_COCG, ipos, filtered_lf); break;
+		}
+		return;
+	}
+
+	switch(push.iteration) {
+	case 0: deflicker_image(TEX_ASVGF_ATROUS_PING_LF_SH, TEX_ASVGF_ATROUS_PING_LF_COCG, filtered_lf); break;
+	case 1: filter_image(TEX_ASVGF_ATROUS_PONG_LF_SH, TEX_ASVGF_ATROUS_PONG_LF_COCG, filtered_lf); break;
+	case 2: filter_image(TEX_ASVGF_ATROUS_PING_LF_SH, TEX_ASVGF_ATROUS_PING_LF_COCG, filtered_lf); break;
+	case 3: filter_image(TEX_ASVGF_ATROUS_PONG_LF_SH, TEX_ASVGF_ATROUS_PONG_LF_COCG, filtered_lf); break;
+	}
+
+	switch(push.iteration) {
+	case 0: STORE_SH(IMG_ASVGF_ATROUS_PONG_LF_SH, IMG_ASVGF_ATROUS_PONG_LF_COCG, ipos, filtered_lf); break;
+	case 1: STORE_SH(IMG_ASVGF_ATROUS_PING_LF_SH, IMG_ASVGF_ATROUS_PING_LF_COCG, ipos, filtered_lf); break;
+	case 2: STORE_SH(IMG_ASVGF_ATROUS_PONG_LF_SH, IMG_ASVGF_ATROUS_PONG_LF_COCG, ipos, filtered_lf); break;
+	case 3: STORE_SH(IMG_ASVGF_ATROUS_PING_LF_SH, IMG_ASVGF_ATROUS_PING_LF_COCG, ipos, filtered_lf); break;
+	}
+}
+

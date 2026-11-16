@@ -1,0 +1,114 @@
+/* Modified 11 November 2026: added provenance notice for the Q2RTX VR
+ * source selection. Earlier adaptations retain their original notices;
+ * see docs/MODIFICATIONS.md and docs/PROVENANCE.md. */
+// SPDX-License-Identifier: GPL-2.0-or-later
+#version 460
+#extension GL_GOOGLE_include_directive : enable
+#extension GL_EXT_nonuniform_qualifier : enable
+layout(local_size_x=16,local_size_y=16,local_size_z=1) in;
+#define GLOBAL_UBO_DESC_SET_IDX 0
+#include "global_ubo.h"
+#define GLOBAL_TEXTURES_DESC_SET_IDX 1
+#include "global_textures.h"
+layout(set=3,binding=0,std430) buffer LeftSource { uvec2 left_source[]; };
+layout(set=3,binding=1,std430) buffer RightSource { uvec2 right_source[]; };
+layout(set=3,binding=2,std430) buffer ExtendedInput { uvec2 input_data[]; };
+layout(set=3,binding=3,std430) buffer Horizontal { uvec2 horizontal_data[]; };
+layout(push_constant) uniform Push {
+    vec4 hx,hy,hw;
+    ivec4 extent; // actual full width/height, padding x/y
+    ivec4 source; // retained width/height, eye, operation
+    vec4 kernel; // original horizontal argument/normalisation, vertical pair
+    ivec4 shape; // original sample counts x/y, extended width/height
+} pc;
+vec4 unpack_colour(uvec2 p) { return vec4(unpackHalf2x16(p.x),unpackHalf2x16(p.y)); }
+uvec2 pack_colour(vec4 p) { return uvec2(packHalf2x16(p.xy),packHalf2x16(p.zw)); }
+bool finite_colour(vec4 p) { return !any(isnan(p))&&!any(isinf(p)); }
+void invalidate_source() { if(pc.source.z==0) atomicOr(left_source[0].x,1u); else atomicOr(right_source[0].x,1u); }
+uint source_invalid() { return pc.source.z==0?left_source[0].x:right_source[0].x; }
+vec4 retained(ivec2 p) {
+    p=clamp(p,ivec2(0),pc.source.xy-1);
+    int i=1+p.y*pc.source.x+p.x;
+    return unpack_colour(pc.source.z==0?left_source[i]:right_source[i]);
+}
+vec4 peripheral(vec2 pixel) {
+    vec3 ndc=vec3(pixel/vec2(pc.extent.xy)*2.-1.,1.);
+    float z=dot(pc.hw.xyz,ndc);
+    vec2 uv=vec2(dot(pc.hx.xyz,ndc),dot(pc.hy.xyz,ndc))/z*.5+.5;
+    /* No scene is invented beyond the outer peripheral rectangle. Replicate
+     * its nearest valid edge, separately from the focus boundary treatment. */
+    vec2 q=clamp(uv*vec2(pc.source.xy)-.5,vec2(0),vec2(pc.source.xy-1));
+    ivec2 p=ivec2(floor(q));vec2 t=fract(q);
+    return mix(mix(retained(p),retained(p+ivec2(1,0)),t.x),
+        mix(retained(p+ivec2(0,1)),retained(p+ivec2(1)),t.x),t.y);
+}
+vec4 scratch(ivec2 p,bool horizontal) {
+    p=clamp(p,ivec2(0),pc.shape.zw-1);int i=p.y*pc.shape.z+p.x;
+    return unpack_colour(horizontal?horizontal_data[i]:input_data[i]);
+}
+vec4 linear_scratch(vec2 q,bool horizontal) {
+    ivec2 p=ivec2(floor(q));
+    /* Each separable tap has an integer coordinate on its other axis. Read
+     * exactly its two contributing samples, including at the last column. */
+    return mix(scratch(p,horizontal),scratch(p+(horizontal?ivec2(0,1):ivec2(1,0)),horizontal),
+        horizontal?fract(q.y):fract(q.x));
+}
+void main() {
+    ivec2 p=ivec2(gl_GlobalInvocationID.xy);
+    if(pc.source.w==0) {
+        if(any(greaterThanEqual(p,pc.source.xy))) return;
+        vec4 c=texelFetch(TEX_TAA_OUTPUT,p,0);
+        if(!finite_colour(c)) { invalidate_source();c=vec4(0); }
+        int i=1+p.y*pc.source.x+p.x;
+        if(pc.source.z==0) left_source[i]=pack_colour(c); else right_source[i]=pack_colour(c);
+        return;
+    }
+    if(pc.source.w==1) {
+        if(any(greaterThanEqual(p,pc.shape.zw))) return;
+        ivec2 cell=p-pc.extent.zw;
+        vec4 sum=vec4(0);
+        for(int y=0;y<4;y++) for(int x=0;x<4;x++) {
+            ivec2 pixel=cell*4+ivec2(x,y);
+            bool inside=all(greaterThanEqual(pixel,ivec2(0)))&&all(lessThan(pixel,pc.extent.xy));
+            vec4 c=inside?texelFetch(TEX_TAA_OUTPUT,pixel,0):peripheral(vec2(pixel)+.5);
+            if(!finite_colour(c)) { invalidate_source();c=vec4(0); }
+            sum+=c;
+        }
+        input_data[p.y*pc.shape.z+p.x]=pack_colour(sum/16.);
+        return;
+    }
+    if(pc.source.w==4) {
+        if(any(greaterThanEqual(p,pc.extent.xy/4))) return;
+        if(source_invalid()==0u)
+            imageStore(IMG_BLOOM_VBLUR,p,unpack_colour(input_data[p.y*(pc.extent.x/4)+p.x]));
+        return;
+    }
+    bool vertical=pc.source.w==3;
+    if(any(greaterThanEqual(p,vertical?pc.extent.xy/4:ivec2(pc.extent.x/4,pc.shape.w)))) return;
+    /* Vertical reads only central columns; horizontal must cover every
+     * extended row, including both corner support regions. */
+    ivec2 q=vertical?p+pc.extent.zw:p+ivec2(pc.extent.z,0);
+    vec4 centre=scratch(q,vertical);
+    vec3 result=centre.rgb;
+    int count=vertical?pc.shape.y:pc.shape.x;
+    float argument=vertical?pc.kernel.z:pc.kernel.x;
+    float normalisation=vertical?pc.kernel.w:pc.kernel.y;
+    vec2 step=vertical?vec2(0,1):vec2(1,0);
+    /* Preserve the accepted Gaussian weights and paired bilinear taps. */
+    for(float x=1.;x<count;x+=2.) {
+        float w1=exp(pow(x,2.)*argument),w2=exp(pow(x+1.,2.)*argument);
+        float w12=w1+w2;vec2 offset=step*(x+w2/w12);
+        result+=linear_scratch(vec2(q)+offset,vertical).rgb*w12;
+        result+=linear_scratch(vec2(q)-offset,vertical).rgb*w12;
+    }
+    vec4 out_colour=vec4(result*normalisation,centre.a);
+    if(!finite_colour(out_colour)||any(greaterThan(abs(out_colour),vec4(65504.)))) {
+        invalidate_source();out_colour=vec4(0);
+    }
+    if(vertical) {
+        /* Stage the whole result before committing. Any invalid input or
+         * arithmetic result makes the following dispatch retain the complete
+         * original blur, never a mixture of original and candidate pixels. */
+        input_data[p.y*(pc.extent.x/4)+p.x]=pack_colour(out_colour);
+    } else horizontal_data[q.y*pc.shape.z+q.x]=pack_colour(out_colour);
+}

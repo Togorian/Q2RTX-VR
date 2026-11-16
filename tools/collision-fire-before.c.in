@@ -1,0 +1,26 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright (C) 2026 Togorian, to the extent of rights held in project additions.
+// Negative-control function from commit 4e829ea926d3f72dee481ac5dbf02e7d5e1053f8,
+// source/baseline/b2-consolidated215/inputs/origin-044/include/refresh/b2_weapon_fire.inc.
+// Retained test input only; it is never part of the engine or game DLL.
+static void b2w_fire_cancel(edict_t *ent)
+{
+    b2wn_previous.display_emission=false;
+    b2w_fire.packet_valid=b2w_fire.emission=false; b2w_fire.rearm=true;
+    if (!b2w_fire.owned || ent!=b2w_fire.player || ent->client!=b2w_fire.client ||
+        ent->client->pers.weapon!=b2w_fire.weapon) { b2w_fire.owned=false; return; }
+    ent->client->buttons&=~BUTTON_ATTACK; ent->client->latched_buttons&=~BUTTON_ATTACK;
+    // Already emitted grenade/BFG entities and their stock cooldown are untouched.
+    if (b2w_fire_delayed() && b2w_fire.emitted) return;
+    if (b2w_fire.slot==5) b2w_fire.grenade.state=B2WG_INTERRUPTED;
+    if (G_CombatObserver(ent)) G_ObserverTrace("weapon.tracked.cancel.before",ent);
+    static const int idle[12]={9,19,18,6,32,16,17,13,21,19,33,14};
+    if (ent->client->weaponstate==WEAPON_FIRING) {
+        ent->client->weaponstate=WEAPON_READY;
+        ent->client->ps.gunframe=idle[b2w_fire.slot];
+    }
+    if (b2w_fire.slot==5) { ent->client->grenade_framenum=0; ent->client->grenade_blew_up=false; }
+    ent->client->weapon_sound=0; ent->client->machinegun_shots=0;
+    b2w_fire.owned=false;
+    if (G_CombatObserver(ent)) G_ObserverTrace("weapon.tracked.cancel.after",ent);
+}

@@ -1,0 +1,70 @@
+{
+  "finding": "A5",
+  "readme": false,
+  "cases": [
+    {
+      "file": "A5-keyboard-startup-v2.c",
+      "includes": [
+        "source"
+      ],
+      "production": [
+        {
+          "source": "source/current/right-menu409/source/b2_controller_impl409.inc",
+          "function": "b2c_sample_valid"
+        },
+        {
+          "source": "source/current/right-menu409/source/b2_controller_impl409.inc",
+          "function": "b2c_neutral"
+        },
+        {
+          "source": "source/current/right-menu409/source/b2_controller_impl409.inc",
+          "function": "b2c_clear"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "b2_headset_start_valid"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "b2_headset_start_sample594"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "b2_headset_reference"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "b2_headset_start_tick"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "b2_headset_wait_unavailable"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "start": "    if (key == K_PAUSE && b2_client.headset_waiting) {",
+          "end": "    if (key == K_PAUSE && b2_client.ui_interrupted) {"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "start": "    if (b2_client.headset_waiting && start_requested",
+          "end": "    float previous_reference_origin[3];"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "start": "    if (start_commit && accepted_pair",
+          "end": "    if ((recenter || handoff) && accepted_pair"
+        },
+        {
+          "source": "source/current/upper-palace500/source/engine_087/reference_b_b2_xr.c",
+          "function": "B2XR_ActionGeneration594"
+        },
+        {
+          "source": "source/current/upper-palace500/source/engine_087/reference_b_b2_xr.c",
+          "start": "        case XR_TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED:",
+          "end": "        case XR_TYPE_EVENT_DATA_INSTANCE_LOSS_PENDING:"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+// Copyright (C) 2026 Togorian, to the extent of rights held in project additions.
+/* Modified 14 November 2026: added provenance notice for the Q2RTX VR
+ * source selection. Earlier adaptations retain their original notices;
+ * see docs/MODIFICATIONS.md and docs/PROVENANCE.md. */
+// SPDX-License-Identifier: GPL-2.0-or-later
+/*
+Copyright (C) 2026 Togorian, to the extent of rights held in project additions.
+Project contributions under Togorian direction with Codex assistance;
+whatever rights Togorian holds are offered under the stated GPL-2.0-or-later terms.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+#version 460
+/*
+ * B1 activation-only descriptor-route witness.  Set zero is one of the four
+ * production texture descriptor sets.  Set one is a transient result buffer.
+ * Every owned storage and sampled binding has an explicit read below; this
+ * shader never writes an image.
+ */
+#define B1_UINT_ROUTE(_name, _format, _storage_binding, _sampled_binding) \
+	layout(set = 0, binding = _storage_binding, _format) readonly uniform uimage2D IMG_##_name; \
+	layout(set = 0, binding = _sampled_binding) uniform usampler2D TEX_##_name;
+#define B1_FLOAT_ROUTE(_name, _format, _storage_binding, _sampled_binding) \
+	layout(set = 0, binding = _storage_binding, _format) readonly uniform image2D IMG_##_name; \
+	layout(set = 0, binding = _sampled_binding) uniform sampler2D TEX_##_name;
+
+B1_UINT_ROUTE(PT_VISBUF_PRIM_A,           rg32ui,  39, 107)
+B1_UINT_ROUTE(PT_VISBUF_PRIM_B,           rg32ui,  40, 108)
+B1_FLOAT_ROUTE(PT_VISBUF_BARY_A,          rg16f,   41, 109)
+B1_FLOAT_ROUTE(PT_VISBUF_BARY_B,          rg16f,   42, 110)
+B1_UINT_ROUTE(PT_CLUSTER_A,               r16ui,   43, 111)
+B1_UINT_ROUTE(PT_CLUSTER_B,               r16ui,   44, 112)
+B1_FLOAT_ROUTE(PT_BASE_COLOR_A,           rgba16f, 45, 113)
+B1_FLOAT_ROUTE(PT_BASE_COLOR_B,           rgba16f, 46, 114)
+B1_FLOAT_ROUTE(PT_METALLIC_A,             rg8,     47, 115)
+B1_FLOAT_ROUTE(PT_METALLIC_B,             rg8,     48, 116)
+B1_FLOAT_ROUTE(PT_VIEW_DEPTH_A,           r16f,    49, 117)
+B1_FLOAT_ROUTE(PT_VIEW_DEPTH_B,           r16f,    50, 118)
+B1_UINT_ROUTE(PT_NORMAL_A,                r32ui,   51, 119)
+B1_UINT_ROUTE(PT_NORMAL_B,                r32ui,   52, 120)
+B1_UINT_ROUTE(PT_GEO_NORMAL_A,            r32ui,   53, 121)
+B1_UINT_ROUTE(PT_GEO_NORMAL_B,            r32ui,   54, 122)
+B1_FLOAT_ROUTE(ASVGF_FILTERED_SPEC_A,     rgba16f, 55, 123)
+B1_FLOAT_ROUTE(ASVGF_FILTERED_SPEC_B,     rgba16f, 56, 124)
+B1_FLOAT_ROUTE(ASVGF_HIST_MOMENTS_HF_A,   rgba16f, 57, 125)
+B1_FLOAT_ROUTE(ASVGF_HIST_MOMENTS_HF_B,   rgba16f, 58, 126)
+B1_FLOAT_ROUTE(ASVGF_TAA_A,               rgba16f, 59, 127)
+B1_FLOAT_ROUTE(ASVGF_TAA_B,               rgba16f, 60, 128)
+B1_UINT_ROUTE(ASVGF_RNG_SEED_A,           r32ui,   61, 129)
+B1_UINT_ROUTE(ASVGF_RNG_SEED_B,           r32ui,   62, 130)
+B1_FLOAT_ROUTE(ASVGF_HIST_COLOR_LF_SH_A,  rgba16f, 63, 131)
+B1_FLOAT_ROUTE(ASVGF_HIST_COLOR_LF_SH_B,  rgba16f, 64, 132)
+B1_FLOAT_ROUTE(ASVGF_HIST_COLOR_LF_COCG_A,rg16f,   65, 133)
+B1_FLOAT_ROUTE(ASVGF_HIST_COLOR_LF_COCG_B,rg16f,   66, 134)
+B1_UINT_ROUTE(ASVGF_GRAD_SMPL_POS_A,      r32ui,   67, 135)
+B1_UINT_ROUTE(ASVGF_GRAD_SMPL_POS_B,      r32ui,   68, 136)
+B1_UINT_ROUTE(ASVGF_HIST_COLOR_HF,        r32ui,    3,  71)
+B1_UINT_ROUTE(PT_COLOR_HF,                r32ui,   33, 101)
+B1_UINT_ROUTE(PT_COLOR_SPEC,              r32ui,   34, 102)
+
+#undef B1_UINT_ROUTE
+#undef B1_FLOAT_ROUTE
+
+layout(local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
+
+layout(set = 1, binding = 0, std430) writeonly buffer B1RouteResults
+{
+	uvec4 records[];
+} b1_results;
+
+layout(push_constant) uniform B1RoutePush
+{
+	uint role;
+	uint parity;
+	uint descriptor_class;
+	uint record_base;
+} b1_push;
+
+const uint B1_ROUTE_COUNT = 33u;
+const uint B1_CLASS_STORAGE = 0u;
+const uint B1_RECORD_CANARY = 0xB117E5A5u;
+
+uint b1_float_tag(vec4 value)
+{
+	return uint(round(value.x));
+}
+
+uint b1_unorm8_tag(vec4 value)
+{
+	return uint(round(clamp(value.x, 0.0, 1.0) * 255.0));
+}
+
+uint b1_route_read(uint route)
+{
+	bool storage = b1_push.descriptor_class == B1_CLASS_STORAGE;
+	switch (route) {
+	case 0u: return storage ? imageLoad(IMG_PT_VISBUF_PRIM_A, ivec2(0)).x : texelFetch(TEX_PT_VISBUF_PRIM_A, ivec2(0), 0).x;
+	case 1u: return storage ? imageLoad(IMG_PT_VISBUF_PRIM_B, ivec2(0)).x : texelFetch(TEX_PT_VISBUF_PRIM_B, ivec2(0), 0).x;
+	case 2u: return storage ? b1_float_tag(imageLoad(IMG_PT_VISBUF_BARY_A, ivec2(0))) : b1_float_tag(texelFetch(TEX_PT_VISBUF_BARY_A, ivec2(0), 0));
+	case 3u: return storage ? b1_float_tag(imageLoad(IMG_PT_VISBUF_BARY_B, ivec2(0))) : b1_float_tag(texelFetch(TEX_PT_VISBUF_BARY_B, ivec2(0), 0));
+	case 4u: return storage ? imageLoad(IMG_PT_CLUSTER_A, ivec2(0)).x : texelFetch(TEX_PT_CLUSTER_A, ivec2(0), 0).x;
+	case 5u: return storage ? imageLoad(IMG_PT_CLUSTER_B, ivec2(0)).x : texelFetch(TEX_PT_CLUSTER_B, ivec2(0), 0).x;
+	case 6u: return storage ? b1_float_tag(imageLoad(IMG_PT_BASE_COLOR_A, ivec2(0))) : b1_float_tag(texelFetch(TEX_PT_BASE_COLOR_A, ivec2(0), 0));
+	case 7u: return storage ? b1_float_tag(imageLoad(IMG_PT_BASE_COLOR_B, ivec2(0))) : b1_float_tag(texelFetch(TEX_PT_BASE_COLOR_B, ivec2(0), 0));
+	case 8u: return storage ? b1_unorm8_tag(imageLoad(IMG_PT_METALLIC_A, ivec2(0))) : b1_unorm8_tag(texelFetch(TEX_PT_METALLIC_A, ivec2(0), 0));
+	case 9u: return storage ? b1_unorm8_tag(imageLoad(IMG_PT_METALLIC_B, ivec2(0))) : b1_unorm8_tag(texelFetch(TEX_PT_METALLIC_B, ivec2(0), 0));
+	case 10u: return storage ? b1_float_tag(imageLoad(IMG_PT_VIEW_DEPTH_A, ivec2(0))) : b1_float_tag(texelFetch(TEX_PT_VIEW_DEPTH_A, ivec2(0), 0));
+	case 11u: return storage ? b1_float_tag(imageLoad(IMG_PT_VIEW_DEPTH_B, ivec2(0))) : b1_float_tag(texelFetch(TEX_PT_VIEW_DEPTH_B, ivec2(0), 0));
+	case 12u: return storage ? imageLoad(IMG_PT_NORMAL_A, ivec2(0)).x : texelFetch(TEX_PT_NORMAL_A, ivec2(0), 0).x;
+	case 13u: return storage ? imageLoad(IMG_PT_NORMAL_B, ivec2(0)).x : texelFetch(TEX_PT_NORMAL_B, ivec2(0), 0).x;
+	case 14u: return storage ? imageLoad(IMG_PT_GEO_NORMAL_A, ivec2(0)).x : texelFetch(TEX_PT_GEO_NORMAL_A, ivec2(0), 0).x;
+	case 15u: return storage ? imageLoad(IMG_PT_GEO_NORMAL_B, ivec2(0)).x : texelFetch(TEX_PT_GEO_NORMAL_B, ivec2(0), 0).x;
+	case 16u: return storage ? b1_float_tag(imageLoad(IMG_ASVGF_FILTERED_SPEC_A, ivec2(0))) : b1_float_tag(texelFetch(TEX_ASVGF_FILTERED_SPEC_A, ivec2(0), 0));
+	case 17u: return storage ? b1_float_tag(imageLoad(IMG_ASVGF_FILTERED_SPEC_B, ivec2(0))) : b1_float_tag(texelFetch(TEX_ASVGF_FILTERED_SPEC_B, ivec2(0), 0));
+	case 18u: return storage ? b1_float_tag(imageLoad(IMG_ASVGF_HIST_MOMENTS_HF_A, ivec2(0))) : b1_float_tag(texelFetch(TEX_ASVGF_HIST_MOMENTS_HF_A, ivec2(0), 0));
+	case 19u: return storage ? b1_float_tag(imageLoad(IMG_ASVGF_HIST_MOMENTS_HF_B, ivec2(0))) : b1_float_tag(texelFetch(TEX_ASVGF_HIST_MOMENTS_HF_B, ivec2(0), 0));
+	case 20u: return storage ? b1_float_tag(imageLoad(IMG_ASVGF_TAA_A, ivec2(0))) : b1_float_tag(texelFetch(TEX_ASVGF_TAA_A, ivec2(0), 0));
+	case 21u: return storage ? b1_float_tag(imageLoad(IMG_ASVGF_TAA_B, ivec2(0))) : b1_float_tag(texelFetch(TEX_ASVGF_TAA_B, ivec2(0), 0));
+	case 22u: return storage ? imageLoad(IMG_ASVGF_RNG_SEED_A, ivec2(0)).x : texelFetch(TEX_ASVGF_RNG_SEED_A, ivec2(0), 0).x;
+	case 23u: return storage ? imageLoad(IMG_ASVGF_RNG_SEED_B, ivec2(0)).x : texelFetch(TEX_ASVGF_RNG_SEED_B, ivec2(0), 0).x;
+	case 24u: return storage ? b1_float_tag(imageLoad(IMG_ASVGF_HIST_COLOR_LF_SH_A, ivec2(0))) : b1_float_tag(texelFetch(TEX_ASVGF_HIST_COLOR_LF_SH_A, ivec2(0), 0));
+	case 25u: return storage ? b1_float_tag(imageLoad(IMG_ASVGF_HIST_COLOR_LF_SH_B, ivec2(0))) : b1_float_tag(texelFetch(TEX_ASVGF_HIST_COLOR_LF_SH_B, ivec2(0), 0));
+	case 26u: return storage ? b1_float_tag(imageLoad(IMG_ASVGF_HIST_COLOR_LF_COCG_A, ivec2(0))) : b1_float_tag(texelFetch(TEX_ASVGF_HIST_COLOR_LF_COCG_A, ivec2(0), 0));
+	case 27u: return storage ? b1_float_tag(imageLoad(IMG_ASVGF_HIST_COLOR_LF_COCG_B, ivec2(0))) : b1_float_tag(texelFetch(TEX_ASVGF_HIST_COLOR_LF_COCG_B, ivec2(0), 0));
+	case 28u: return storage ? imageLoad(IMG_ASVGF_GRAD_SMPL_POS_A, ivec2(0)).x : texelFetch(TEX_ASVGF_GRAD_SMPL_POS_A, ivec2(0), 0).x;
+	case 29u: return storage ? imageLoad(IMG_ASVGF_GRAD_SMPL_POS_B, ivec2(0)).x : texelFetch(TEX_ASVGF_GRAD_SMPL_POS_B, ivec2(0), 0).x;
+	case 30u: return storage ? imageLoad(IMG_ASVGF_HIST_COLOR_HF, ivec2(0)).x : texelFetch(TEX_ASVGF_HIST_COLOR_HF, ivec2(0), 0).x;
+	case 31u: return storage ? imageLoad(IMG_PT_COLOR_HF, ivec2(0)).x : texelFetch(TEX_PT_COLOR_HF, ivec2(0), 0).x;
+	case 32u: return storage ? imageLoad(IMG_PT_COLOR_SPEC, ivec2(0)).x : texelFetch(TEX_PT_COLOR_SPEC, ivec2(0), 0).x;
+	default: return 0xffffffffu;
+	}
+}
+
+void main()
+{
+	uint route = gl_GlobalInvocationID.x;
+	if (route >= B1_ROUTE_COUNT)
+		return;
+
+	uint observed = b1_route_read(route);
+	uint context = b1_push.role |
+		(b1_push.parity << 1u) |
+		(b1_push.descriptor_class << 2u);
+	uint record_index = b1_push.record_base + route;
+	b1_results.records[record_index] = uvec4(
+		observed,
+		route,
+		context,
+		B1_RECORD_CANARY ^ observed ^ route ^ context ^ record_index);
+}

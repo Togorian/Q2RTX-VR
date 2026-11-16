@@ -1,0 +1,533 @@
+{
+  "recordInterpretation": {"historicalFields": ["historicalRc2Products", "historicalRc2PackageNames", "preparedDocumentation"], "scope": "These fields preserve RC2/RC5 observations and naming proposals. Their original values are not current product or package acceptance. Active files/runtimeTemplates selections remain authoritative recipes; actual current bytes are identified by RELEASE-MANIFEST.json and BUILD-RECORD.json."},
+  "status": "ACTIVE_RECIPE_WITH_HISTORICAL_OBSERVATIONS",
+  "newEntryPoint": "Q2RTX VR.exe; actual identity required from release-build.json",
+  "files": [
+    {
+      "path": "q2rtx.exe",
+      "ship": true,
+      "kind": "build-product",
+      "identity": "Actual release-build.json output; not built at source preparation."
+    },
+    {
+      "path": "baseq2/gamex86_64.dll",
+      "ship": true,
+      "kind": "build-product",
+      "identity": "Actual release-build.json output; not built at source preparation."
+    },
+    {
+      "path": "openxr_loader.dll",
+      "bytes": 2669568,
+      "sha256": "c03b44a09072dc276aabe5b390f642054fac83b38c1c575fcfce56f0efc37ea4",
+      "basis": "Previously accepted loader reused exactly; no loader rebuild"
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/animate_materials.comp.spv",
+      "bytes": 24344,
+      "sha256": "fa91414411d5e6b5ce5d83657e4d538d672b6a777ee039f773acce3d075d0567",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/asvgf_atrous.comp.spv",
+      "bytes": 73320,
+      "sha256": "d5357187f257e70c0762d8aa4dba4543597801380461393039b1ae4b5045fc4b",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/asvgf_gradient_atrous.comp.spv",
+      "bytes": 36244,
+      "sha256": "6da8d62451b9ccc19088fe82f72c5fcff3506f414fe7ebc1c76c66f3d487fb8d",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/asvgf_gradient_img.comp.spv",
+      "bytes": 37876,
+      "sha256": "2960d32ed5c452b3bc0a8365e140b2ff13b96065424bcb510d72329b03e9468b",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/asvgf_gradient_reproject.comp.spv",
+      "bytes": 88544,
+      "sha256": "67e460763ac43c709eae91f6cbf59905b6d411142de02581829e2bab1ce50c31",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/asvgf_lf.comp.spv",
+      "bytes": 49500,
+      "sha256": "3d2c369f100648a77ae4b0abc0f5ce193f48a7b6c21ca5bc740fd0766b12edd7",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/asvgf_taau.comp.spv",
+      "bytes": 55384,
+      "sha256": "2645a6166f57acd44007de22481068b082b681811b5f2d74171d26ec48d3580a",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/asvgf_temporal.comp.spv",
+      "bytes": 68480,
+      "sha256": "4c3fec9410241f8c601e371f07e43b544a8c03abf72e8ca164a8a867f54678da",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/bloom_blur.comp.spv",
+      "bytes": 33576,
+      "sha256": "b967f460f719b976b5143256596c3a5f4c2ccc860b1976634e9317021225652d",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/bloom_composite.comp.spv",
+      "bytes": 29224,
+      "sha256": "09c5ad7807d889d19691a830add90d17883bf43014a61f642f329fd3d9c25c5f",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/bloom_downscale.comp.spv",
+      "bytes": 28904,
+      "sha256": "5e3f3a9b555c4728e70f2a4ac3d3974f2acc8ff27a7991e6823fca32796aa98c",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/bloom_margin.comp.spv",
+      "bytes": 44340,
+      "sha256": "67330e40951c9cc74fc9e77b5d0131621c92fc2363e662b70c24a03f8be1ef8c",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/checkerboard_interleave.comp.spv",
+      "bytes": 33348,
+      "sha256": "490281a8aa8ade537868a123bda49984153e29da65e6bfa249d1b3b87b2a7770",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/compositing.comp.spv",
+      "bytes": 33872,
+      "sha256": "46d21855d5302e3d23f55cee8cba0f7baea5f6657b00caabc73f5eb1291bbd80",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/debug_line.frag.spv",
+      "bytes": 28604,
+      "sha256": "c37f751aae8a007f1e263f952e824f99e0a42570ddcb648c2833897cb9d40ff2",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/debug_line.vert.spv",
+      "bytes": 26604,
+      "sha256": "bd37bf3df35fbf18c58eff9adc9e4c36e07f02b8d9c16d22752e17fcde5ed595",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/direct_lighting.rgen.pipeline.spv",
+      "bytes": 138856,
+      "sha256": "7a08ebdaa328304b90a63ad53cd782fde4154e7f3e1a98368e8d612549f43604",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/direct_lighting.rgen.query.spv",
+      "bytes": 146244,
+      "sha256": "a771a31f2dc339c0078bcbfe66444a6756796fda2493665610fe2e35d5514fa2",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/final_blit.frag.spv",
+      "bytes": 28512,
+      "sha256": "446972bd2369ab7573db6c136f793da1ca68762d3c1e80d2ce237bb15c1fd84e",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/final_blit.vert.spv",
+      "bytes": 1236,
+      "sha256": "4461a1d8c87948db955b501fbe6053aba7d48888436d23bf75658a75776c5963",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/fsr_easu_fp16.comp.spv",
+      "bytes": 65280,
+      "sha256": "60dbe3ed33dd7553fcefac1629c32fcc627586c70fa38432f3abbb9c83ff87b9",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/fsr_easu_fp32.comp.spv",
+      "bytes": 66468,
+      "sha256": "d6dcacd98e3772674b544c5d9a99bc7ce26031ad40b14d90da7f5c81d03d3c35",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/fsr_rcas_fp16.comp.spv",
+      "bytes": 50328,
+      "sha256": "b647bc78e494918f2730a22267e6e6e5a43b75e333d351e507525a62a6872b7f",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/fsr_rcas_fp32.comp.spv",
+      "bytes": 49860,
+      "sha256": "5c8f812b4966efd50b89041750178d7f57ec8b1e72f5b9f3d0bf810c430550f8",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/god_rays.comp.spv",
+      "bytes": 47664,
+      "sha256": "54f2926d5d54768476a6f98fac4984904b8fcfc918f4c2edaf3fe87839dd06cb",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/god_rays_filter.comp.spv",
+      "bytes": 32108,
+      "sha256": "ea8bb96ba95b18adb9d7aba547c9fbe9f9692d713495060bed442adbb8e16ab6",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/indirect_lighting.rgen.pipeline.spv",
+      "bytes": 176128,
+      "sha256": "25e2b2635d2519f428caf92b40410cde300d830789067a0bd6a676900b876299",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/indirect_lighting.rgen.query.spv",
+      "bytes": 212380,
+      "sha256": "c7561e241f6af86b40036b67c954dc2dc404079d4ad0b0c3d31da214097d9e2a",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/instance_geometry.comp.spv",
+      "bytes": 49704,
+      "sha256": "b8ed2800b6b72ff4a1ddb0fe5f46e85f039f0ef56879864be627892e8ed7829b",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/normalize_normal_map.comp.spv",
+      "bytes": 2508,
+      "sha256": "8e97a43fc291df9e37a3ae159c9ede939b01739910fc8ccdd4fb72bce3c335ea",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/path_tracer.rchit.pipeline.spv",
+      "bytes": 36004,
+      "sha256": "e09eb43f2edf217df79dd7a54e94246adeacd2f57147bbbfbd0ec90eff1c6255",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/path_tracer.rmiss.pipeline.spv",
+      "bytes": 192,
+      "sha256": "c0ba96b9a802cb5e6d1980fd5d601df1a44cd767dd214b917593dc1c2c96dc4a",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/path_tracer_beam.rahit.pipeline.spv",
+      "bytes": 44988,
+      "sha256": "40fd90665462e81bb71c2388e1afbf9ef7905b88af88521def5ec56f7188314e",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/path_tracer_beam.rint.pipeline.spv",
+      "bytes": 45472,
+      "sha256": "073e327878076ded729d877fbe3c7df6867ec40517f0dede907c6a59feeeaff3",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/path_tracer_explosion.rahit.pipeline.spv",
+      "bytes": 54076,
+      "sha256": "2cb2d61a77d4fbd67feddbeffe737b69c019119fc8e34c740c48f1827f58fbea",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/path_tracer_masked.rahit.pipeline.spv",
+      "bytes": 55268,
+      "sha256": "f67f4235fae8e7b2482e10d57092c40f3d96afd4c633791b08a56c2dca80f219",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/path_tracer_particle.rahit.pipeline.spv",
+      "bytes": 42692,
+      "sha256": "932d005c565d3944c80463abd5df607e0c70c3cc96de4cb75c3decdefb9f7ad1",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/path_tracer_sprite.rahit.pipeline.spv",
+      "bytes": 44184,
+      "sha256": "befb66dd79bc9a2f0f2557e419d0ec604a0c1bdecbef10a4293100768da40b02",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/physical_sky.comp.spv",
+      "bytes": 97316,
+      "sha256": "755ea09348ab3209c6ea765c7c559b808d86263241c70da11513d3cb8b547046",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/physical_sky_space.comp.spv",
+      "bytes": 63676,
+      "sha256": "880f9aef3a3de49b8294a140450410c23d17feedf088ef2b1c5789c9f8c2de79",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/primary_rays.rgen.pipeline.spv",
+      "bytes": 150944,
+      "sha256": "69b8a4f3b1486b8a194e8604707a89484033f0730e694beac85e3c8d11bddd17",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/primary_rays.rgen.query.spv",
+      "bytes": 185396,
+      "sha256": "685018a6b28bdf5c3345df2b109cfbcd92ede198aecc99dd32514e530d7c964d",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/reflect_refract.rgen.pipeline.spv",
+      "bytes": 147280,
+      "sha256": "1b959d64f21e9d67856f2516bef0c48c34dadcc9ad7f884d01f14262a1abaa86",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/reflect_refract.rgen.query.spv",
+      "bytes": 181732,
+      "sha256": "f4390f8341d4dcdf1a9fa68d04208bef2eb7d35522bd5064ec828073f5573fa4",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/shadow_map.vert.spv",
+      "bytes": 1084,
+      "sha256": "eba92ba9f6b0e37546ebb46b7b5c5abeffa2abaa2feed04801b2728e2b25779c",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/sky_buffer_resolve.comp.spv",
+      "bytes": 20592,
+      "sha256": "431a9264c16d1b0d9b2d32efc035f3f90f124b4e347657483ea8d7aeea1aec4d",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/stretch_pic.frag.spv",
+      "bytes": 17004,
+      "sha256": "9653a258eb9267f3557b6375b4256e513d843ad114791c14189c16bd542e499d",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/stretch_pic.vert.spv",
+      "bytes": 3868,
+      "sha256": "424ebfb5d07de7d128257cb0fb39972877115805d2232ef0cd5c1f7a5c9bad23",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/tone_mapping_apply.comp.spv",
+      "bytes": 112820,
+      "sha256": "cf434bfceaaed19e41795aa3c40eddf88494d243a697af5ebaca11def9273db4",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/tone_mapping_curve.comp.spv",
+      "bytes": 45352,
+      "sha256": "fc6564986c82f73ae4970856c69d039111589377ae8e58d8c77d890296820930",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/shader_vkpt/tone_mapping_histogram.comp.spv",
+      "bytes": 36444,
+      "sha256": "0f82a6a3a9a0a3f10445ba77527e65a8a5fdaf7c025575cb778f67c8218e567b",
+      "basis": "Source557 selected diagnostic-free CPU output; packager enforces these exact bytes. Product/GPU acceptance pending."
+    },
+    {
+      "path": "home/baseq2/pics/b2/arrow-stone-metal-depressed-original.png",
+      "bytes": 620852,
+      "sha256": "4ba056516ce3740c756c87135a6abfe6491853e67245da694af98286f1d7eeaf",
+      "basis": "Existing reviewed shipping asset"
+    },
+    {
+      "path": "home/baseq2/pics/b2/arrow-stone-metal-raised-original.png",
+      "bytes": 673787,
+      "sha256": "8b395afdb5a0a0f8b948427872c91206ef7b1733fa00b7cc427d11da487e9f74",
+      "basis": "Existing reviewed shipping asset"
+    },
+    {
+      "path": "home/baseq2/autoexec.cfg",
+      "bytes": 203,
+      "sha256": "3f0c138267e97d2ad02bee3b6926bde9348f594fc36fb515e47fd2a9bd841696",
+      "basis": "Clean first-launch seed, not personal config"
+    },
+    {
+      "path": "home/baseq2/postexec.cfg",
+      "bytes": 203,
+      "sha256": "3f0c138267e97d2ad02bee3b6926bde9348f594fc36fb515e47fd2a9bd841696",
+      "basis": "Clean first-launch seed, not personal config"
+    },
+    {
+      "path": "home/baseq2/postinit.cfg",
+      "bytes": 222,
+      "sha256": "2ca31579cea9e8ac3bf2ed78adb43f63cf83e1d8ea2ebf0f656cd40eb29658bb",
+      "basis": "Clean first-launch seed, not personal config"
+    },
+    {
+      "path": "home/baseq2/default-vr.cfg",
+      "bytes": 1963,
+      "sha256": "718e44e9826eca141794768b64b2355ef4a15cf55856f34284083a41597ecab4",
+      "basis": "Immutable VR defaults; player q2config.cfg is created by the game and never packaged"
+    },
+    {
+      "path": "home/baseq2/q2rtx.cfg",
+      "bytes": 951,
+      "sha256": "33df5038881af0dd4310bba6993727d052bcc1a216e42f73678a4ae7574108a5",
+      "basis": "Clean first-launch seed, not personal config"
+    },
+    {
+      "path": "home/baseq2/RESET-KEYS476.cfg",
+      "bytes": 696,
+      "sha256": "46b89c522706996a685e9fa23d184d6c892f6783b1036e53fcbcb6c558937d45",
+      "basis": "Clean first-launch seed, not personal config"
+    },
+    {
+      "path": "START-Q2RTX-VR.cmd",
+      "bytes": 9039,
+      "sha256": "ef08e5fc657b1fe0cf5a05c9cdf8788f4a270011641ed99b5298a795e5b6e1c2",
+      "basis": "Preserved reference only; omit from the final user-facing release payload",
+      "ship": false
+    },
+    {
+      "path": "Q2RTX VR.exe",
+      "ship": true,
+      "kind": "build-product",
+      "identity": "Actual release-build.json output; not built at source preparation."
+    }
+  ],
+  "alsoRequired": [
+    "Clean audit package and corresponding source/relinking material",
+    "Final independent package review",
+    "README/install/controller/known-issue/release notes",
+    "LICENSE.txt, NOTICE-UPSTREAM.txt, NOTICE.md and relevant component licences"
+  ],
+  "excluded": [
+    "personal saved games",
+    "personal six-file settings set",
+    "one-time converter",
+    "pre-existing logs",
+    "administrative histories",
+    "owned Quake II game assets"
+  ],
+  "releaseLog": "home/baseq2/logs/console{VERSION}.log",
+  "logging": "logfile=2 appends within version; no pre-existing log is packaged",
+  "publicEntryPoint": "Q2RTX VR.exe only; preserved CMD remains a source reference",
+  "sourceArchiveLayout": {
+    "source": "Q2RTX-VR-source/",
+    "referenceLibraries": "relinking-libraries/: five rebuilt static libraries; Vulkan SDK import remains an external prerequisite"
+  },
+  "sourceGitExclusions": [
+    "build outputs",
+    "caches",
+    "logs",
+    "homes",
+    ".git",
+    "dependencies/lib/*.lib",
+    "packaging/START-Q2RTX-VR.cmd"
+  ],
+  "runtimeTemplates": {
+    "README.md": "packaging/README.runtime.md",
+    "NOTICE.md": "packaging/NOTICE.runtime.md",
+    "licences/": "licences/",
+    "LICENSE.txt": "LICENSE.txt",
+    "NOTICE-UPSTREAM.txt": "NOTICE-UPSTREAM.txt",
+    "tools/weapon_table/README.md": "tools/weapon_table/README.md",
+    "PROVENANCE.md": "PROVENANCE.md",
+    "THIRD-PARTY-NOTICES.md": "THIRD-PARTY-NOTICES.md",
+    "assets/pics/b2/README.md": "assets/pics/b2/README.md",
+    "VERSION": "VERSION",
+    "docs/BUILDING.md": "docs/BUILDING.md",
+    "docs/CONTROLLERS.md": "docs/CONTROLLERS.md",
+    "docs/DEPENDENCIES.md": "docs/DEPENDENCIES.md",
+    "docs/INSTALLING.md": "docs/INSTALLING.md",
+    "docs/KNOWN-ISSUES.md": "docs/KNOWN-ISSUES.md",
+    "docs/LAUNCHER.md": "docs/LAUNCHER.md",
+    "docs/MODIFICATIONS.md": "docs/MODIFICATIONS.md",
+    "docs/PACKAGING.md": "docs/PACKAGING.md",
+    "docs/PROVENANCE.md": "docs/PROVENANCE.md",
+    "docs/RELEASE-NOTES.md": "docs/RELEASE-NOTES.md",
+    "docs/REQUIREMENTS.md": "docs/REQUIREMENTS.md",
+    "docs/SHADERS.md": "docs/SHADERS.md",
+    "docs/SINGLE-PLAYER.md": "docs/SINGLE-PLAYER.md",
+    "docs/TROUBLESHOOTING.md": "docs/TROUBLESHOOTING.md",
+    "docs/UPSTREAM-COMPARISON.md": "docs/UPSTREAM-COMPARISON.md"
+  },
+  "binaryAcceptanceScope": "Current products unbuilt; RC2 historical receipt remains recipes/product-build-validation.json. No headset acceptance.",
+  "productReceipt": "build/release-build.json from explicit build directory",
+  "packageVerificationPending": true,
+  "headsetAndUserRuntimeAcceptancePending": true,
+  "preparedDocumentation": {
+    "date": "2026-11-12",
+    "historicalStatus": "PRIVATE_RC2_PRODUCTS_BUILT_CPU_CHECKED_PACKAGE_RUNTIME_PENDING",
+    "scope": "Selected self-contained RC5 guides; prior product receipts historical; current source has no native/runtime acceptance.",
+    "successorStatus": "recipes/prepared-source-status.json"
+  },
+  "artworkLicence": {
+    "identifier": "CC0-1.0",
+    "title": "CC0 1.0 Universal",
+    "scope": "Only copyright and related rights Togorian holds in the two listed PNGs; waiver to the extent legally possible, with CC0 fallback licence. No exclusive copyright/human-authorship claim or third-party/code/game-data relicence.",
+    "decisionDate": "2026-11-11",
+    "canonicalTerms": "https://creativecommons.org/publicdomain/zero/1.0/legalcode.en",
+    "completeText": "licences/CC0-1.0.txt",
+    "origin": "ChatGPT/OpenAI image generation from Togorian prompts on 8 October 2026; depressed generated as an edit of raised; delivered PNGs and embedded metadata unchanged.",
+    "assets": [
+      {
+        "path": "assets/pics/b2/arrow-stone-metal-raised-original.png",
+        "bytes": 673787,
+        "sha256": "8b395afdb5a0a0f8b948427872c91206ef7b1733fa00b7cc427d11da487e9f74"
+      },
+      {
+        "path": "assets/pics/b2/arrow-stone-metal-depressed-original.png",
+        "bytes": 620852,
+        "sha256": "4ba056516ce3740c756c87135a6abfe6491853e67245da694af98286f1d7eeaf"
+      }
+    ],
+    "runtimeDirectory": "home/baseq2/pics/b2/",
+    "documentation": "assets/pics/b2/README.md"
+  },
+  "historicalRc2Products": [
+    {
+      "path": "q2rtx.exe",
+      "basis": "Actual rc.2 output: successful build and independent static review; isolated launcher CPU checks passed. No production/runtime execution.",
+      "ship": true,
+      "pendingBuild": false,
+      "pendingProductReview": false,
+      "bytes": 8904192,
+      "sha256": "cda25d96469129115a22688c73a8e60aa038f4521383173f4a63724979dd0cfc"
+    },
+    {
+      "path": "baseq2/gamex86_64.dll",
+      "basis": "Actual rc.2 output: successful build and independent static review; isolated launcher CPU checks passed. No production/runtime execution.",
+      "ship": true,
+      "pendingBuild": false,
+      "pendingProductReview": false,
+      "bytes": 840704,
+      "sha256": "dde809ad262c1fb53049d00fe68581c85fdba670fd9f87c5bdcb46660fbfe4c6"
+    },
+    {
+      "path": "Q2RTX VR.exe",
+      "basis": "Actual rc.2 output: successful build and independent static review; isolated launcher CPU checks passed. No production/runtime execution.",
+      "ship": true,
+      "pendingBuild": false,
+      "pendingProductReview": false,
+      "bytes": 155648,
+      "sha256": "b9c91f5c43cfdcd54f0a6fb9d05486dd74d58aad30275956ab1fbc537e5199b3"
+    }
+  ],
+  "historicalRc2PackageNames": {
+    "tagProposal": "v0.8.4-rc.2",
+    "finalVersionProposal": "v0.8.4",
+    "acceptedBinaryVersion": "0.8.4-rc.2",
+    "correspondingSourceArchive": "corresponding-source-v0.8.4-rc.2.zip",
+    "auditArchive": "Q2RTX-VR-v0.8.4-rc.2-audit.zip"
+  },
+  "versionSource": "VERSION",
+  "historicalRecord": {
+    "classification": "Active recipe with retained historical observations",
+    "recordedStatus": "RC5_SOURCE558_PREPARED_UNBUILT_UNPACKAGED",
+    "recordedDate": null,
+    "activeRecipeFields": [
+      "files",
+      "runtimeTemplates",
+      "artworkLicence",
+      "sourceGitExclusions",
+      "sourceArchiveLayout"
+    ],
+    "scope": "Retained preparation, toolchain, validation, acceptance, hashes and output observations describe their original recorded inputs, not a current build. Active recipe arrays/payload selection remain usable. VERSION defines the current version. Actual source/library/product identities require a fresh release-build.json or packaged BUILD-RECORD.json; this record is not a substitute.",
+    "originalValuesRetained": true
+  }
+}

@@ -1,0 +1,145 @@
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright (C) 2026 Togorian, to the extent of rights held in project additions.
+# Design/direction by Togorian; implementation with Codex assistance.
+# Those contributions are offered under GPL-2.0-or-later; upstream notices remain.
+# Modified 11 November 2026: provenance/notice clarification only. See PROVENANCE.md.
+# Preserve existing ordered includes, then resolve the explicit source-root names.
+# Source557: explicit shared input/renderer headers for every selected engine unit.
+foreach(q2rtx_engine_unit IN ITEMS
+  engine_018
+  engine_087
+  engine_037
+  engine_112
+  engine_042
+  engine_122
+  engine_104
+  engine_022
+  engine_107
+  engine_076
+  engine_027
+  engine_007
+  engine_070
+  engine_000
+  engine_001
+  engine_002
+  engine_003
+  engine_004
+  engine_005
+  engine_006
+  engine_008
+  engine_009
+  engine_010
+  engine_011
+  engine_012
+  engine_013
+  engine_014
+  engine_015
+  engine_016
+  engine_017
+  engine_019
+  engine_021
+  engine_024
+  engine_025
+  engine_026
+  engine_028
+  engine_029
+  engine_030
+  engine_031
+  engine_032
+  engine_033
+  engine_034
+  engine_039
+  engine_040
+  engine_041
+  engine_043
+  engine_044
+  engine_045
+  engine_046
+  engine_047
+  engine_048
+  engine_049
+  engine_050
+  engine_051
+  engine_052
+  engine_053
+  engine_054
+  engine_055
+  engine_056
+  engine_057
+  engine_058
+  engine_059
+  engine_060
+  engine_061
+  engine_062
+  engine_063
+  engine_064
+  engine_065
+  engine_066
+  engine_067
+  engine_068
+  engine_069
+  engine_071
+  engine_072
+  engine_073
+  engine_074
+  engine_075
+  engine_077
+  engine_078
+  engine_079
+  engine_080
+  engine_081
+  engine_082
+  engine_083
+  engine_084
+  engine_085
+  engine_086
+  engine_088
+  engine_089
+  engine_090
+  engine_091
+  engine_092
+  engine_093
+  engine_094
+  engine_095
+  engine_096
+  engine_097
+  engine_098
+  engine_099
+  engine_100
+  engine_101
+  engine_102
+  engine_103
+  engine_105
+  engine_106
+  engine_108
+  engine_109
+  engine_110
+  engine_111
+  engine_113
+  engine_114
+  engine_115
+  engine_116
+  engine_117
+  engine_118
+  engine_119
+  engine_120
+  engine_121
+  engine_123
+  engine_124
+  engine_125
+  engine_126
+  engine_127
+  engine_128
+  engine_129
+  engine_130
+  engine_131
+  engine_038
+  engine_020
+  engine_023
+)
+  target_include_directories(${q2rtx_engine_unit} AFTER PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/source")
+endforeach()
+
+# Shared hand-input headers are also consumed by combat and view producers.
+target_include_directories(game_003 AFTER PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/source")
+target_include_directories(game_046 AFTER PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/source")

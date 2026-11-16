@@ -1,0 +1,243 @@
+{
+  "recordInterpretation": {"scope": "This entire validation record describes the 11 November 2026 RC2 products and CPU checks. All original values remain historical, including hashes and pending states. It is not current product acceptance. Use the actual current BUILD-RECORD.json."},
+  "date": "2026-11-11",
+  "status": "PRODUCTS_BUILT_STATIC_REVIEW_AND_ISOLATED_LAUNCHER_CPU_CHECKS_PASSED",
+  "version": "0.8.4-rc.2",
+  "products": [
+    {
+      "path": "q2rtx.exe",
+      "bytes": 8904192,
+      "sha256": "cda25d96469129115a22688c73a8e60aa038f4521383173f4a63724979dd0cfc",
+      "machine": "AMD64",
+      "format": "PE32+",
+      "imports": [
+        "ADVAPI32.dll",
+        "AVRT.dll",
+        "GDI32.dll",
+        "IMM32.dll",
+        "KERNEL32.dll",
+        "OLEAUT32.dll",
+        "SETUPAPI.dll",
+        "SHELL32.dll",
+        "USER32.dll",
+        "VERSION.dll",
+        "WINMM.dll",
+        "WS2_32.dll",
+        "bcrypt.dll",
+        "ole32.dll",
+        "vulkan-1.dll"
+      ],
+      "exports": [],
+      "exportFunctionSlots": 0,
+      "delayImports": [],
+      "isDll": false,
+      "subsystem": 2,
+      "metadata": {
+        "FileDescription": "Q2RTX VR client 0.8.4-rc.2",
+        "FileVersion": "0.8.4-rc.2",
+        "ProductName": "Q2RTX VR",
+        "ProductVersion": "0.8.4-rc.2",
+        "CompanyName": "",
+        "LegalCopyright": "Copyright (C) 2019-2025, NVIDIA CORPORATION. All rights reserved.",
+        "OriginalFilename": "q2rtx.exe",
+        "InternalName": "q2rtx",
+        "numericFileVersion": [
+          0,
+          8,
+          4,
+          0
+        ],
+        "debug": false,
+        "prerelease": true
+      },
+      "privatePathMatches": 0,
+      "historicalBranchStrings": [
+        "1.8.1-codex/b2-minimal-openxr-040dc8c7",
+        "by q2rtx 1.8.1-codex/b2-minimal-openxr-040dc8c7, built Nov 11 2026, 01:42:13"
+      ]
+    },
+    {
+      "path": "baseq2/gamex86_64.dll",
+      "bytes": 840704,
+      "sha256": "dde809ad262c1fb53049d00fe68581c85fdba670fd9f87c5bdcb46660fbfe4c6",
+      "machine": "AMD64",
+      "format": "PE32+",
+      "imports": [
+        "KERNEL32.dll"
+      ],
+      "exports": [
+        "B2CombatLevelExit",
+        "B2CombatWarming",
+        "GetB2CombatState",
+        "GetB2ItemState",
+        "GetB2Pickup304",
+        "GetB2WeaponAPI",
+        "GetGameAPI"
+      ],
+      "exportFunctionSlots": 7,
+      "delayImports": [],
+      "isDll": true,
+      "subsystem": 2,
+      "metadata": {
+        "FileDescription": "Q2RTX VR game module 0.8.4-rc.2",
+        "FileVersion": "0.8.4-rc.2",
+        "ProductName": "Q2RTX VR",
+        "ProductVersion": "0.8.4-rc.2",
+        "CompanyName": "",
+        "LegalCopyright": "Copyright (C) 2019-2023, NVIDIA CORPORATION. All rights reserved.",
+        "OriginalFilename": "gamex86.dll",
+        "InternalName": "game",
+        "numericFileVersion": [
+          0,
+          8,
+          4,
+          0
+        ],
+        "debug": false,
+        "prerelease": true
+      },
+      "privatePathMatches": 0,
+      "historicalBranchStrings": []
+    },
+    {
+      "path": "Q2RTX VR.exe",
+      "bytes": 155648,
+      "sha256": "b9c91f5c43cfdcd54f0a6fb9d05486dd74d58aad30275956ab1fbc537e5199b3",
+      "machine": "AMD64",
+      "format": "PE32+",
+      "imports": [
+        "KERNEL32.dll",
+        "USER32.dll"
+      ],
+      "exports": [],
+      "exportFunctionSlots": 0,
+      "delayImports": [],
+      "isDll": false,
+      "subsystem": 2,
+      "metadata": {
+        "FileDescription": "Q2RTX VR launcher",
+        "FileVersion": "0.8.4-rc.2",
+        "ProductName": "Q2RTX VR",
+        "ProductVersion": "0.8.4-rc.2",
+        "CompanyName": "",
+        "LegalCopyright": "",
+        "OriginalFilename": "Q2RTX VR.exe",
+        "InternalName": "",
+        "numericFileVersion": [
+          0,
+          8,
+          4,
+          0
+        ],
+        "debug": false,
+        "prerelease": true
+      },
+      "privatePathMatches": 0,
+      "historicalBranchStrings": []
+    }
+  ],
+  "actualProductCounts": {
+    "C": 183,
+    "RC": 3,
+    "links": 3
+  },
+  "successfulCommands": [
+    {
+      "phase": "products-configure01",
+      "exitCode": 0,
+      "actualParentExited": true,
+      "timedOut": false,
+      "elapsedSeconds": 3.778599739074707,
+      "commandSha256": "8f38c8b07f66165d765174bab2cd357850802f8494192219aca294ee99d63d9f",
+      "logSha256": "7dc3179e7391aa457e5ad04bbebe15bbafcd9868d9f8e579f98a5fc07a7a966b"
+    },
+    {
+      "phase": "products-build01",
+      "exitCode": 0,
+      "actualParentExited": true,
+      "timedOut": false,
+      "elapsedSeconds": 29.281794548034668,
+      "commandSha256": "d30d875750e583f963861fe3e59ee85f657bacb5ec5b4453f58bce0f6d130c1c",
+      "logSha256": "1a9c1a1350aebd8ebe928f32061d961df030968fee5366c95e8e575421955f95"
+    },
+    {
+      "phase": "launcher-checks-configure01",
+      "exitCode": 0,
+      "actualParentExited": true,
+      "timedOut": false,
+      "elapsedSeconds": 2.0148799419403076,
+      "commandSha256": "27ef4fa053e7f6a1b59d61a3ff12ae2cbbf4a0a7495f7a0e0ec22e1d67eece9e",
+      "logSha256": "19237a7c5baea3daf0abe2490fade35fb82a6d007d5848d0dc84e141b9ff8e07"
+    },
+    {
+      "phase": "launcher-checks-build01",
+      "exitCode": 0,
+      "actualParentExited": true,
+      "timedOut": false,
+      "elapsedSeconds": 1.7024612426757812,
+      "commandSha256": "74c148c6f1f2636f9c0e6ee4eb379c48433f7224d47e06000bc543bee069b841",
+      "logSha256": "3a9fbeaaffe27c942e18febec0549decab6d9ebdccfe08bf747bbffc80abd985"
+    },
+    {
+      "phase": "launcher-checks-run01",
+      "exitCode": 0,
+      "actualParentExited": true,
+      "timedOut": false,
+      "elapsedSeconds": 1.283693790435791,
+      "commandSha256": "6dc16af3a129b64f635fadc21980110535923d6b397473a8acd00ca63e1b8b58",
+      "logSha256": "529247fc2ed2334f93b8ee67de43473b351788702152ea81973c64f36280a5d4"
+    }
+  ],
+  "launcherChecks": {
+    "passed": true,
+    "tests": 1,
+    "method": "Existing checks include production launcher with explicit Windows process/file/environment/UI stand-ins. Saved result reviewed; checks not rerun.",
+    "runtime": "Release /MT from actual PM check cache; source already sets Release try-compile before project().",
+    "buildDirectory": "launcher-checks"
+  },
+  "historicalIdentifiers": {
+    "definition": "LONG_VERSION_STRING derives from unchanged VERSION_MAJOR/MINOR/POINT, VERSION_BRANCH and VERSION_SHA flags.",
+    "plainLiteral": "1.8.1-codex/b2-minimal-openxr-040dc8c7",
+    "uses": [
+      {
+        "source": "source/current/key-render-crash492/source/engine_112/main.c",
+        "lines": [
+          5290,
+          7833,
+          8061
+        ],
+        "purpose": "Internal runtime/proof build identity hashing"
+      },
+      {
+        "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/client/reference_b_b1.c",
+        "lines": [
+          6917,
+          7414
+        ],
+        "purpose": "Legacy proof-report build identity"
+      },
+      {
+        "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/windows/debug.c",
+        "lines": [
+          350
+        ],
+        "purpose": "Historical by-q2rtx crash-report build line, not public version branding"
+      }
+    ]
+  },
+  "legacyResourceNote": "game module OriginalFilename remains gamex86.dll, matching the selected resource; actual packaged filename is gamex86_64.dll. InternalName fields remain preserved.",
+  "privacyScope": "Zero matches for the scoped personal-path/name pattern set in the three actual products; not a claim that all absolute paths or internal identifiers are absent. Three neutral SDL __FILE__ source paths remain in the engine, for render/opengl/SDL_render_gl.c, render/opengles2/SDL_render_gles2.c and render/software/SDL_render_sw.c.",
+  "dependencyReceipt": "recipes/dependency-build-validation.json",
+  "productionExecuted": false,
+  "packageVerificationPending": true,
+  "headsetAndUserRuntimeAcceptancePending": true,
+  "reviewMethod": "Independent product-byte hashes, PE imports/exports and version-resource reads; ordinary completed build and isolated-check records reviewed. No products were loaded or executed for this review.",
+  "historicalRecord": {
+    "classification": "Historical evidence only",
+    "recordedStatus": "PRODUCTS_BUILT_STATIC_REVIEW_AND_ISOLATED_LAUNCHER_CPU_CHECKS_PASSED",
+    "recordedDate": "2026-11-11",
+    "activeRecipeFields": [],
+    "scope": "Retained preparation, toolchain, validation, acceptance, hashes and output observations describe their original recorded inputs, not a current build. Active recipe arrays/payload selection remain usable. VERSION defines the current version. Actual source/library/product identities require a fresh release-build.json or packaged BUILD-RECORD.json; this record is not a substitute.",
+    "originalValuesRetained": true
+  }
+}

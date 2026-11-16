@@ -1,0 +1,5 @@
+{
+  "version": "0.8.4",
+  "status": "RELEASE_IDENTITY_RECORDED_PER_BUILD",
+  "scope": "VERSION defines the product version. The delivered RELEASE-MANIFEST.json and corresponding-source BUILD-RECORD.json identify the actual package bytes, source inputs and completed build evidence."
+}

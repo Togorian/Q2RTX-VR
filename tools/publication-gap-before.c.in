@@ -1,0 +1,27 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright (C) 2026 Togorian; implementation with Codex assistance.
+// Exact B2_ObserveScene walking block before the publication-gap correction;
+// selected engine_037 at 4e829ea926d3f72dee481ac5dbf02e7d5e1053f8.
+    if (b2_client.walking) {
+        const pmove_state_t *p = &cl.frame.ps.pmove, *old = &b2_client.walk_previous;
+        float dt = (cl.servertime - b2_client.walk_previous_time) * .001f;
+        float dx = (p->origin[0] - old->origin[0]) * .125f;
+        float dy = (p->origin[1] - old->origin[1]) * .125f;
+        float dz = (p->origin[2] - old->origin[2]) * .125f;
+        // Server snapshot time is not accumulated user-command integration
+        // time. Check displacement/velocity at the game's real Pmove boundary
+        // with each command's msec; retain snapshot identity/state/time guards.
+        if (b2_walk_fault->string[0] || dt < 0 || dt > 1.f ||
+            p->gravity != b2_client.anchor_player.gravity ||
+            p->pm_flags & ((b2_client.combat ? 0 : PMF_TIME_TELEPORT | PMF_TIME_WATERJUMP) |
+                (b2_client.vertical ? 0 : PMF_DUCKED | PMF_JUMP_HELD)) ||
+            !b2_input_angles_match488() ||
+            !isfinite(fd->vieworg[0]) || !isfinite(fd->vieworg[1]) || !isfinite(fd->vieworg[2])) {
+            b2_log_player_anchor("walk-guard-stop");
+            Com_Printf("B2WALK: movement discontinuity/unsupported state fault=%s dt=%.3f delta=%.3f,%.3f,%.3f; terminal stop.\n",
+                b2_walk_fault->string, dt, dx, dy, dz);
+            b2_stop_at(__func__, __LINE__); return false;
+        }
+        b2_client.walk_previous = *p;
+        b2_client.walk_previous_time = cl.servertime;
+    }

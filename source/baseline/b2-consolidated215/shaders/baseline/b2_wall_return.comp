@@ -1,0 +1,35 @@
+// Copyright (C) 2026 Togorian, to the extent of rights held in project additions.
+/* Modified 11 November 2026: added provenance notice for the Q2RTX VR
+ * source selection. Earlier adaptations retain their original notices;
+ * see docs/MODIFICATIONS.md and docs/PROVENANCE.md. */
+// SPDX-License-Identifier: GPL-2.0-or-later
+#version 450
+#extension GL_GOOGLE_include_directive : require
+#define B2RC_GLSL
+#include "../include/refresh/b2_wall_return.h"
+layout(local_size_x=8,local_size_y=8,local_size_z=1) in;
+layout(set=0,binding=0,rgba16f) uniform image2D output_image;
+layout(push_constant,std430) uniform CyanConstants {
+    float projection[4];
+    float rotation[12];
+    float direction[3];
+    float depthQU;
+    uint width;
+    uint height;
+} cue;
+void main()
+{
+    uvec2 pixel=gl_GlobalInvocationID.xy;
+    if(pixel.x>=cue.width||pixel.y>=cue.height)return;
+    ivec2 extent=imageSize(output_image);
+    if(extent.x!=int(cue.width)||extent.y!=int(cue.height))return;
+    float alpha=B2RC_PixelAlpha(float(pixel.x),float(pixel.y),float(cue.width),float(cue.height),
+        cue.projection,cue.rotation,cue.direction,cue.depthQU);
+    // The clear cone performs no image store, preserving the source exactly.
+    if(alpha<=0.0)return;
+    ivec2 p=ivec2(pixel);
+    vec4 source=imageLoad(output_image,p);
+    vec3 colour=vec3(B2RC_Channel(source.r,0.0,alpha),
+        B2RC_Channel(source.g,1.0,alpha),B2RC_Channel(source.b,1.0,alpha));
+    imageStore(output_image,p,vec4(colour,source.a));
+}

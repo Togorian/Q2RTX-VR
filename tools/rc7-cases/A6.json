@@ -1,0 +1,23 @@
+{
+  "finding": "A6",
+  "readme": false,
+  "cases": [
+    {
+      "file": "A6-dispatch-lock.c",
+      "production": [
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cvar.c",
+          "function": "Cvar_B2CommandLocked580"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cmd.c",
+          "function": "Cmd_ExecuteCommand"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "vkpt_reload_textures"
+        }
+      ]
+    }
+  ]
+}

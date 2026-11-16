@@ -1,0 +1,37 @@
+// Modified 14 November 2026: product branding and VERSION-derived prerelease status.
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright (C) 2026 Togorian, to the extent of rights held in project additions.
+// Design/direction by Togorian; implementation with Codex assistance.
+// Those contributions are offered under GPL-2.0-or-later; upstream notices remain.
+// Modified 14 November 2026: provenance/notice clarification only. See PROVENANCE.md.
+// Modified 14 November 2026: Q2RTX VR release metadata.
+#include <windows.h>
+#include "q2rtx-product-version.h"
+1 VERSIONINFO
+FILEVERSION Q2RTX_PRODUCT_VERSION_RESOURCE
+PRODUCTVERSION Q2RTX_PRODUCT_VERSION_RESOURCE
+FILEFLAGSMASK 0x3fL
+FILEFLAGS Q2RTX_PRODUCT_PRERELEASE
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_APP
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904b0"
+    BEGIN
+      VALUE "FileDescription", "Q2RTX VR launcher\0"
+      VALUE "FileVersion", Q2RTX_PRODUCT_VERSION "\0"
+      VALUE "CompanyName", "Togorian"
+            VALUE "ProductName", "Q2RTX VR\0"
+      VALUE "ProductVersion", Q2RTX_PRODUCT_VERSION "\0"
+      VALUE "LegalCopyright", "Copyright (C) 2026 Togorian"
+      VALUE "OriginalFilename", "Q2RTX VR.exe\0"
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x0409, 1200
+  END
+END
+
+100 ICON "q2rtx.ico"

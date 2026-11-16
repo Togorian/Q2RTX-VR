@@ -1,0 +1,78 @@
+{
+  "status": "PRIVATE_RC3_REPRODUCIBILITY_SOURCE_PREPARED_UNBUILT_UNPACKAGED",
+  "preparedDate": "2026-11-11",
+  "baselineCommit": "f8864aaf5df7aff2e525cc5cfac9ec3736f10c39",
+  "baselineSelectionSha256": "b85792f9c81f9b67eacbe1b5d8e6e4c0bb78b2425e2a8ca4a179d7aa8d48818d",
+  "historicalRecords": [
+    {
+      "path": "recipes/build-validation.json",
+      "bytes": 1181,
+      "sha256": "44c87c826415dc20342da5f469a23a612d9ff317adca790c92df236639f6f878",
+      "scope": "Unchanged historical RC2 input/result record; no new execution."
+    },
+    {
+      "path": "recipes/dependency-build-validation.json",
+      "bytes": 5180,
+      "sha256": "7edd64b59928d51172a5603339ce87801545bdf6f3688982c4f01f4771ef21be",
+      "scope": "Unchanged historical RC2 input/result record; no new execution."
+    },
+    {
+      "path": "recipes/product-build-validation.json",
+      "bytes": 7877,
+      "sha256": "9cabbaf45e186d511251ca90834f883e77e5c624f4ecb45dac094fe32eef0550",
+      "scope": "Unchanged historical RC2 input/result record; no new execution."
+    }
+  ],
+  "changes": "Public packaging/privacy, product version consolidation, isolated shader recipe and source checks; no production build/package/compile.",
+  "preserved": [
+    "upstream/component/CC0 notices",
+    "PNG bytes/metadata",
+    "accepted defaults",
+    "shader bodies and binary references",
+    "diagnostic origin/hash inputs",
+    "protocol/save constants",
+    "historical actual execution receipts"
+  ],
+  "performed": {
+    "compile": false,
+    "link": false,
+    "shaderRegeneration": false,
+    "packaging": false,
+    "productionLaunch": false,
+    "headsetRun": false,
+    "gitMutation": false,
+    "upload": false
+  },
+  "documentation": [
+    "README.md",
+    "PROVENANCE.md",
+    "THIRD-PARTY-NOTICES.md",
+    "docs/MODIFICATION-NOTICES.md"
+  ],
+  "artworkLicence": {
+    "identifier": "CC0-1.0",
+    "title": "CC0 1.0 Universal",
+    "scope": "Only copyright and related rights Togorian holds in the two listed PNGs; waiver to the extent legally possible, with CC0 fallback licence. No exclusive copyright/human-authorship claim or third-party/code/game-data relicence.",
+    "decisionDate": "2026-11-11",
+    "canonicalTerms": "https://creativecommons.org/publicdomain/zero/1.0/legalcode.en",
+    "completeText": "licences/CC0-1.0.txt",
+    "origin": "ChatGPT/OpenAI image generation from Togorian prompts on 8 October 2026; depressed generated as an edit of raised; delivered PNGs and embedded metadata unchanged.",
+    "assets": [
+      {
+        "path": "assets/pics/b2/arrow-stone-metal-raised-original.png",
+        "bytes": 673787,
+        "sha256": "8b395afdb5a0a0f8b948427872c91206ef7b1733fa00b7cc427d11da487e9f74"
+      },
+      {
+        "path": "assets/pics/b2/arrow-stone-metal-depressed-original.png",
+        "bytes": 620852,
+        "sha256": "4ba056516ce3740c756c87135a6abfe6491853e67245da694af98286f1d7eeaf"
+      }
+    ]
+  },
+  "amendment542": "Documentation-only CC0 decision for the two arrows. Source remains private, unbuilt and unpackaged. Prior541 checks reused; no new product or runtime execution.",
+  "versionSource": "VERSION",
+  "sourceReviewBoundary543": "Source preparation and inert fixtures; independent review before later authorised offline phases.",
+  "recordKind": "Historical preparation observation, dated by preparedDate; not a live product-status record.",
+  "interpretation": "status, performed and earlier amendment fields describe the recorded preparation only. Later shader correspondence is documented in shader-input-provenance545.json. For an actual native product outcome use its release-build.json or packaged BUILD-RECORD.json; no future execution success is asserted here."
+}

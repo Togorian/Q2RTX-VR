@@ -1,0 +1,475 @@
+{
+  "finding": "R6",
+  "cases": [
+    {
+      "file": "R6-desktop.c",
+      "production": [
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "recreate_swapchain",
+          "end": "\t// Retire a partial acquisition"
+        }
+      ],
+      "includes": [],
+      "originalFixture": "desktop"
+    },
+    {
+      "file": "R6-recovery.c",
+      "production": [
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "start": "static struct {\n    const char *name;\n    float value;",
+          "end": "static void b2_accept_callback_settings580"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "b2_accept_callback_settings580"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "b2_callback_settings_compatible580"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "b2_settings_notice580"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "pt_nearest_changed"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "temporal_cvar_changed"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "b2_frame_settings_valid580"
+        }
+      ],
+      "includes": [],
+      "originalFixture": "recovery"
+    },
+    {
+      "file": "R6-retirement.c",
+      "production": [
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "b2_discard_settings_frame580"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "b2_frame_settings_valid580"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "start": "\t\tif (b2_primary)\n\t\t{",
+          "length": 796
+        }
+      ],
+      "includes": [],
+      "originalFixture": "retirement"
+    },
+    {
+      "file": "R6-B2final-lock.c",
+      "production": [
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cvar.c",
+          "function": "Cvar_B2GraphicsActive534"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cvar.c",
+          "function": "Cvar_B2GraphicsLocked534"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cvar.c",
+          "function": "Cvar_B2CommandLocked580"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cvar.c",
+          "function": "b2_graphics_refuse534"
+        },
+        {
+          "source": "source/current/rc-refine466/source/vr_menu466.inc",
+          "function": "B2VR_StockLocked534"
+        },
+        {
+          "source": "source/current/rc-refine466/source/vr_menu466.inc",
+          "function": "B2VR_StockDependencies534"
+        }
+      ],
+      "includes": [],
+      "originalFixture": "B2final-lock"
+    },
+    {
+      "file": "R6-S2-lock.c",
+      "production": [
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cvar.c",
+          "function": "Cvar_B2GraphicsActive534"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cvar.c",
+          "function": "Cvar_B2GraphicsLocked534"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cvar.c",
+          "function": "Cvar_B2CommandLocked580"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cvar.c",
+          "function": "b2_graphics_refuse534"
+        },
+        {
+          "source": "source/current/rc-refine466/source/vr_menu466.inc",
+          "function": "B2VR_StockLocked534"
+        },
+        {
+          "source": "source/current/rc-refine466/source/vr_menu466.inc",
+          "function": "B2VR_StockDependencies534"
+        }
+      ],
+      "includes": [],
+      "originalFixture": "S2-lock"
+    },
+    {
+      "file": "R6-startup.c",
+      "production": [
+        {
+          "source": "source/current/view-startup360/source/engine_042/common.c",
+          "function": "Com_AddEarlyCommands"
+        }
+      ],
+      "includes": [
+        "launcher"
+      ],
+      "originalFixture": "startup",
+      "productVersion": true
+    },
+    {
+      "file": "R6-S4-real-renderer-boundaries.c",
+      "production": [
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "create_swapchain"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "destroy_swapchain"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "b2_disable_desktop582"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "b2_discard_settings_frame580"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "b2_retire_xr_failure555"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "R_EndFrame_RTX"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "recreate_swapchain",
+          "end": "\n\t// Retire a partial acquisition"
+        }
+      ],
+      "includes": [
+        "dependencies/src/Vulkan-Headers/include"
+      ],
+      "originalFixture": "S4-real-renderer-boundaries"
+    },
+    {
+      "file": "R6-S4-real-XR-release-acquire.c",
+      "production": [
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "create_swapchain"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "destroy_swapchain"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "b2_disable_desktop582"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "b2_discard_settings_frame580"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "b2_retire_xr_failure555"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "R_EndFrame_RTX"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "recreate_swapchain",
+          "end": "\n\t// Retire a partial acquisition"
+        },
+        {
+          "source": "source/current/upper-palace500/source/engine_087/reference_b_b2_xr.c",
+          "function": "B2XR_CopyEye"
+        },
+        {
+          "source": "source/current/upper-palace500/source/engine_087/reference_b_b2_xr.c",
+          "function": "B2XR_EndFrame"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "start": "\tb2_mirror.wait_acquire = !b2_mirror_reuse();",
+          "end": "\n\tif (qvk.wait_for_idle_frames)"
+        }
+      ],
+      "includes": [
+        "dependencies/src/Vulkan-Headers/include",
+        "source/baseline/b2-consolidated215/inputs/origin-008/vendor/openxr/include"
+      ],
+      "originalFixture": "S4-real-XR-release-acquire"
+    },
+    {
+      "file": "R6-S5-interruption-caller.c",
+      "production": [
+        {
+          "source": "source/current/right-menu409/source/b2_controller_impl409.inc",
+          "function": "b2c_sample_valid"
+        },
+        {
+          "source": "source/current/right-menu409/source/b2_controller_impl409.inc",
+          "function": "b2c_neutral"
+        },
+        {
+          "source": "source/current/upper-palace500/source/engine_087/reference_b_b2_xr.c",
+          "function": "B2XR_Focused582"
+        },
+        {
+          "source": "source/current/upper-palace500/source/engine_087/reference_b_b2_xr.c",
+          "function": "B2XR_InteractionReady"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "B2_ControllerFocusMode556"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "B2_InputFocused556"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "b2_resume_neutral256"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "b2_interrupt_kind582"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "b2_interrupt"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "b2_manual_interruption582"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "B2_ProcessInterruptions"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "b2_auto_resume582"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "b2_finish_interruption256"
+        }
+      ],
+      "includes": [
+        "source"
+      ],
+      "originalFixture": "S5-interruption-caller"
+    },
+    {
+      "file": "R6-S9-config-chain-r2.c",
+      "production": [
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/files.c",
+          "function": "open_file_read"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cmd.c",
+          "function": "Cbuf_InsertText"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cmd.c",
+          "function": "Cmd_ExecuteFile"
+        },
+        {
+          "source": "source/current/view-startup360/source/engine_042/common.c",
+          "function": "Com_AddConfigFile"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/files.c",
+          "function": "FS_AddConfigFiles"
+        },
+        {
+          "source": "source/current/input-height-defaults484/source/engine_010/keys.c",
+          "function": "Key_WriteBindings"
+        }
+      ],
+      "includes": [],
+      "originalFixture": "S9-config-chain-r2"
+    },
+    {
+      "file": "R6-S9-old-seed-and-generated.c",
+      "production": [
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/files.c",
+          "function": "open_file_read"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cmd.c",
+          "function": "Cbuf_InsertText"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cmd.c",
+          "function": "Cmd_ExecuteFile"
+        },
+        {
+          "source": "source/current/view-startup360/source/engine_042/common.c",
+          "function": "Com_AddConfigFile"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/files.c",
+          "function": "FS_AddConfigFiles"
+        },
+        {
+          "source": "source/current/input-height-defaults484/source/engine_010/keys.c",
+          "function": "Key_WriteBindings"
+        }
+      ],
+      "includes": [],
+      "originalFixture": "S9-old-seed-and-generated"
+    },
+    {
+      "file": "R6-N5-stray-files.c",
+      "production": [
+        {
+          "source": "source/current/palace-fresh514/source/b2_save_paths534.inc"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/b2_save_transaction534.inc"
+        }
+      ],
+      "includes": [],
+      "originalFixture": "N5-stray-files"
+    },
+    {
+      "file": "R6-HAPTIC-transitions.c",
+      "production": [
+        {
+          "source": "source/current/reference-realignment397/source/b2_controller_native397.inc",
+          "start": "#define B2C_XR_FUNCTIONS",
+          "end": "#include \"../../../baseline/b2-menu-defaults320"
+        },
+        {
+          "source": "source/baseline/b2-menu-defaults320/source/refresh/b2_haptics_xr.inc",
+          "function": "b2ha_result582"
+        },
+        {
+          "source": "source/baseline/b2-menu-defaults320/source/refresh/b2_haptics_xr.inc",
+          "function": "b2ha_stop"
+        },
+        {
+          "source": "source/baseline/b2-menu-defaults320/source/refresh/b2_haptics_xr.inc",
+          "function": "b2ha_create"
+        },
+        {
+          "source": "source/baseline/b2-menu-defaults320/source/refresh/b2_haptics_xr.inc",
+          "function": "b2ha_prepare"
+        },
+        {
+          "source": "source/baseline/b2-menu-defaults320/source/refresh/b2_haptics_xr.inc",
+          "function": "b2ha_deliver"
+        }
+      ],
+      "includes": [
+        "source/baseline/b2-consolidated215/inputs/origin-008/vendor/openxr/include"
+      ],
+      "originalFixture": "HAPTIC-transitions"
+    },
+    {
+      "file": "R6-HAPTIC-comfort-stop-chain-r2.c",
+      "production": [
+        {
+          "source": "source/current/reference-realignment397/source/b2_controller_native397.inc",
+          "start": "#define B2C_XR_FUNCTIONS",
+          "end": "#include \"../../../baseline/b2-menu-defaults320"
+        },
+        {
+          "source": "source/baseline/b2-menu-defaults320/source/refresh/b2_haptics_xr.inc",
+          "function": "b2ha_result582"
+        },
+        {
+          "source": "source/baseline/b2-menu-defaults320/source/refresh/b2_haptics_xr.inc",
+          "function": "b2ha_stop"
+        },
+        {
+          "source": "source/baseline/b2-menu-defaults320/source/refresh/b2_haptics_xr.inc",
+          "function": "b2ha_create"
+        },
+        {
+          "source": "source/baseline/b2-menu-defaults320/source/refresh/b2_haptics_xr.inc",
+          "function": "b2ha_prepare"
+        },
+        {
+          "source": "source/baseline/b2-menu-defaults320/source/refresh/b2_haptics_xr.inc",
+          "function": "b2ha_deliver"
+        },
+        {
+          "source": "source/current/inventory342/source/b2_feedback304.inc",
+          "function": "b2_feedback_reset304"
+        },
+        {
+          "source": "source/current/upper-palace500/source/engine_087/reference_b_b2_xr.c",
+          "function": "B2XR_HapticStop"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "B2H_Discard582"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "B2H_Reset"
+        },
+        {
+          "source": "source/current/upper-palace500/source/engine_087/reference_b_b2_xr.c",
+          "function": "B2XR_RequestStop"
+        },
+        {
+          "source": "source/current/upper-palace500/source/engine_087/reference_b_b2_xr.c",
+          "function": "b2_xr_haptic_update"
+        },
+        {
+          "source": "source/baseline/b2-feedback-vignette308/source/b2_comfort_release308.h",
+          "start": "#ifndef B2_COMFORT_RELEASE308_H"
+        },
+        {
+          "source": "source/current/megahealth426/source/engine_037/b2_haptic_state.h",
+          "start": "#ifndef B2_HAPTIC_STATE_H"
+        }
+      ],
+      "includes": [
+        "source/baseline/b2-consolidated215/inputs/origin-008/vendor/openxr/include"
+      ],
+      "originalFixture": "HAPTIC-comfort-stop-chain-r2"
+    }
+  ]
+}

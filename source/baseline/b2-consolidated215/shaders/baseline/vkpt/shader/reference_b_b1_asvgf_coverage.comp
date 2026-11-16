@@ -1,0 +1,386 @@
+// Copyright (C) 2026 Togorian, to the extent of rights held in project additions.
+/* Modified 14 November 2026: added provenance notice for the Q2RTX VR
+ * source selection. Earlier adaptations retain their original notices;
+ * see docs/MODIFICATIONS.md and docs/PROVENANCE.md. */
+// SPDX-License-Identifier: GPL-2.0-or-later
+/*
+Copyright (C) 2026 Togorian, to the extent of rights held in project additions.
+Project contributions under Togorian direction with Codex assistance;
+whatever rights Togorian holds are offered under the stated GPL-2.0-or-later terms.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+#version 460
+
+/*
+ * Private B1 A-SVGF write-coverage predicate. Set zero is one of the
+ * production role/parity texture descriptor sets. Set one contains only the
+ * private status buffer. The shader reads renderer images and writes canonical
+ * status words; it never writes an image or any of the immutable header words.
+ */
+
+layout(set = 0, binding = 31, rgba16f) readonly uniform image2D IMG_PT_COLOR_LF_SH;
+layout(set = 0, binding = 32, rg16f) readonly uniform image2D IMG_PT_COLOR_LF_COCG;
+layout(set = 0, binding = 33, r32ui) readonly uniform uimage2D IMG_PT_COLOR_HF;
+layout(set = 0, binding = 34, r32ui) readonly uniform uimage2D IMG_PT_COLOR_SPEC;
+
+layout(set = 0, binding = 67, r32ui) readonly uniform uimage2D IMG_ASVGF_GRAD_SMPL_POS_A;
+layout(set = 0, binding = 15, rg16f) readonly uniform image2D IMG_ASVGF_GRAD_LF_PING;
+layout(set = 0, binding = 16, rg16f) readonly uniform image2D IMG_ASVGF_GRAD_LF_PONG;
+layout(set = 0, binding = 17, rg16f) readonly uniform image2D IMG_ASVGF_GRAD_HF_SPEC_PING;
+layout(set = 0, binding = 18, rg16f) readonly uniform image2D IMG_ASVGF_GRAD_HF_SPEC_PONG;
+layout(set = 0, binding = 4, rgba16f) readonly uniform image2D IMG_ASVGF_ATROUS_PING_LF_SH;
+layout(set = 0, binding = 5, rgba16f) readonly uniform image2D IMG_ASVGF_ATROUS_PONG_LF_SH;
+layout(set = 0, binding = 6, rg16f) readonly uniform image2D IMG_ASVGF_ATROUS_PING_LF_COCG;
+layout(set = 0, binding = 7, rg16f) readonly uniform image2D IMG_ASVGF_ATROUS_PONG_LF_COCG;
+
+layout(set = 0, binding = 63, rgba16f) readonly uniform image2D IMG_ASVGF_HIST_COLOR_LF_SH_A;
+layout(set = 0, binding = 65, rg16f) readonly uniform image2D IMG_ASVGF_HIST_COLOR_LF_COCG_A;
+layout(set = 0, binding = 55, rgba16f) readonly uniform image2D IMG_ASVGF_FILTERED_SPEC_A;
+layout(set = 0, binding = 57, rgba16f) readonly uniform image2D IMG_ASVGF_HIST_MOMENTS_HF_A;
+layout(set = 0, binding = 8, r32ui) readonly uniform uimage2D IMG_ASVGF_ATROUS_PING_HF;
+layout(set = 0, binding = 9, r32ui) readonly uniform uimage2D IMG_ASVGF_ATROUS_PONG_HF;
+layout(set = 0, binding = 10, r32ui) readonly uniform uimage2D IMG_ASVGF_ATROUS_PING_SPEC;
+layout(set = 0, binding = 11, r32ui) readonly uniform uimage2D IMG_ASVGF_ATROUS_PONG_SPEC;
+layout(set = 0, binding = 12, rg16f) readonly uniform image2D IMG_ASVGF_ATROUS_PING_MOMENTS;
+layout(set = 0, binding = 13, rg16f) readonly uniform image2D IMG_ASVGF_ATROUS_PONG_MOMENTS;
+layout(set = 0, binding = 3, r32ui) readonly uniform uimage2D IMG_ASVGF_HIST_COLOR_HF;
+
+layout(set = 1, binding = 0, std430) writeonly buffer B1CoverageStatus
+{
+	uint words[];
+} b1_status;
+
+layout(push_constant) uniform B1CoveragePush
+{
+	uint domain;
+} b1_push;
+
+layout(local_size_x = 256, local_size_y = 1, local_size_z = 1) in;
+
+const uint B1_DOMAIN_LOW = 0u;
+const uint B1_DOMAIN_FULL = 1u;
+
+const uint B1_HEADER_WORDS = 32u;
+const uint B1_HEADER_BYTES = 128u;
+const uint B1_LOW_WIDTH = 650u;
+const uint B1_LOW_HEIGHT = 521u;
+const uint B1_LOW_RECORD_COUNT = 338650u;
+const uint B1_FULL_WIDTH = 1948u;
+const uint B1_FULL_HEIGHT = 1563u;
+const uint B1_FULL_RECORD_COUNT = 3044724u;
+const uint B1_TOTAL_RECORD_COUNT = 3383374u;
+const uint B1_TOTAL_LOGICAL_BYTES = 13533624u;
+
+const uint B1_CLASS_SURVIVING_POISON = 0x01000000u;
+const uint B1_CLASS_NONFINITE = 0x02000000u;
+const uint B1_CLASS_INVALID_ENCODING = 0x04000000u;
+const uint B1_CLASS_INCOMPLETE_ZERO = 0x08000000u;
+const uint B1_CLASS_IMAGE_IDENTITY = 0x10000000u;
+const uint B1_CLASS_ARITHMETIC_RANGE = 0x20000000u;
+const uint B1_VISITED = 0x40000000u;
+
+const uint B1_RGBE_POISON = 0x08000000u;
+const uint B1_SAMPLE_POISON = 0xffffffffu;
+
+uint b1_float2_flags(vec2 value, bool require_positive_zero)
+{
+	bool has_nan = any(isnan(value));
+	bool has_infinity = any(isinf(value));
+	uint flags = 0u;
+
+	if (has_nan)
+		flags |= B1_CLASS_SURVIVING_POISON | B1_CLASS_NONFINITE;
+	if (has_infinity)
+		flags |= B1_CLASS_NONFINITE;
+	if (require_positive_zero &&
+		any(notEqual(floatBitsToUint(value), uvec2(0u))))
+		flags |= B1_CLASS_INCOMPLETE_ZERO;
+	return flags;
+}
+
+uint b1_float4_flags(vec4 value, bool require_positive_zero)
+{
+	bool has_nan = any(isnan(value));
+	bool has_infinity = any(isinf(value));
+	uint flags = 0u;
+
+	if (has_nan)
+		flags |= B1_CLASS_SURVIVING_POISON | B1_CLASS_NONFINITE;
+	if (has_infinity)
+		flags |= B1_CLASS_NONFINITE;
+	if (require_positive_zero &&
+		any(notEqual(floatBitsToUint(value), uvec4(0u))))
+		flags |= B1_CLASS_INCOMPLETE_ZERO;
+	return flags;
+}
+
+uint b1_rgbe_flags(uint value)
+{
+	uint flags = 0u;
+	uvec3 mantissas = uvec3(value & 0x1ffu,
+		(value >> 9u) & 0x1ffu, (value >> 18u) & 0x1ffu);
+	if (value == B1_RGBE_POISON)
+		flags |= B1_CLASS_SURVIVING_POISON;
+	/* A finite packRGBE result is zero, or has a normalised mantissa. */
+	if (value != 0u && max(mantissas.x, max(mantissas.y, mantissas.z)) < 256u)
+		flags |= B1_CLASS_INVALID_ENCODING;
+	return flags;
+}
+
+bool b1_sample_encoding_valid(uint value)
+{
+	if (value == 0u)
+		return true;
+	return (value & 0x80000000u) != 0u &&
+		(value & 0x7fffffc0u) == 0u &&
+		(value & 0x00000007u) < 3u &&
+		((value >> 3u) & 0x00000007u) < 3u;
+}
+
+uint b1_sample_flags(uint value, bool require_zero)
+{
+	uint flags = 0u;
+	if (value == B1_SAMPLE_POISON)
+		flags |= B1_CLASS_SURVIVING_POISON;
+	if (!b1_sample_encoding_valid(value))
+		flags |= B1_CLASS_INVALID_ENCODING;
+	if (require_zero && value != 0u)
+		flags |= B1_CLASS_INCOMPLETE_ZERO;
+	return flags;
+}
+
+uint b1_target_failure(uint target_bit, uint flags)
+{
+	return flags == 0u ? 0u : target_bit | flags;
+}
+
+uint b1_dimension_failure(uint target_bit)
+{
+	return target_bit | B1_CLASS_IMAGE_IDENTITY;
+}
+
+bool b1_low_extent(ivec2 extent)
+{
+	return all(equal(extent, ivec2(int(B1_LOW_WIDTH), int(B1_LOW_HEIGHT))));
+}
+
+bool b1_full_extent(ivec2 extent)
+{
+	return all(equal(extent, ivec2(int(B1_FULL_WIDTH), int(B1_FULL_HEIGHT))));
+}
+
+uint b1_low_word(ivec2 position)
+{
+	uint word = B1_VISITED;
+	bool complete_cell =
+		(position.x + 1) * 3 <= int(B1_FULL_WIDTH) &&
+		(position.y + 1) * 3 <= int(B1_FULL_HEIGHT);
+
+	if (!b1_low_extent(imageSize(IMG_ASVGF_GRAD_SMPL_POS_A)))
+		word |= b1_dimension_failure(1u << 4u);
+	else
+		word |= b1_target_failure(1u << 4u,
+			b1_sample_flags(imageLoad(IMG_ASVGF_GRAD_SMPL_POS_A, position).x,
+				!complete_cell));
+
+	if (!b1_low_extent(imageSize(IMG_ASVGF_GRAD_LF_PING)))
+		word |= b1_dimension_failure(1u << 5u);
+	else
+		word |= b1_target_failure(1u << 5u,
+			b1_float2_flags(imageLoad(IMG_ASVGF_GRAD_LF_PING, position).xy,
+				!complete_cell));
+
+	if (!b1_low_extent(imageSize(IMG_ASVGF_GRAD_LF_PONG)))
+		word |= b1_dimension_failure(1u << 6u);
+	else
+		word |= b1_target_failure(1u << 6u,
+			b1_float2_flags(imageLoad(IMG_ASVGF_GRAD_LF_PONG, position).xy,
+				!complete_cell));
+
+	if (!b1_low_extent(imageSize(IMG_ASVGF_GRAD_HF_SPEC_PING)))
+		word |= b1_dimension_failure(1u << 7u);
+	else
+		word |= b1_target_failure(1u << 7u,
+			b1_float2_flags(imageLoad(IMG_ASVGF_GRAD_HF_SPEC_PING, position).xy,
+				!complete_cell));
+
+	if (!b1_low_extent(imageSize(IMG_ASVGF_GRAD_HF_SPEC_PONG)))
+		word |= b1_dimension_failure(1u << 8u);
+	else
+		word |= b1_target_failure(1u << 8u,
+			b1_float2_flags(imageLoad(IMG_ASVGF_GRAD_HF_SPEC_PONG, position).xy,
+				!complete_cell));
+
+	if (!b1_low_extent(imageSize(IMG_ASVGF_ATROUS_PING_LF_SH)))
+		word |= b1_dimension_failure(1u << 9u);
+	else
+		word |= b1_target_failure(1u << 9u,
+			b1_float4_flags(imageLoad(IMG_ASVGF_ATROUS_PING_LF_SH, position),
+				!complete_cell));
+
+	if (!b1_low_extent(imageSize(IMG_ASVGF_ATROUS_PONG_LF_SH)))
+		word |= b1_dimension_failure(1u << 10u);
+	else
+		word |= b1_target_failure(1u << 10u,
+			b1_float4_flags(imageLoad(IMG_ASVGF_ATROUS_PONG_LF_SH, position),
+				!complete_cell));
+
+	if (!b1_low_extent(imageSize(IMG_ASVGF_ATROUS_PING_LF_COCG)))
+		word |= b1_dimension_failure(1u << 11u);
+	else
+		word |= b1_target_failure(1u << 11u,
+			b1_float2_flags(imageLoad(IMG_ASVGF_ATROUS_PING_LF_COCG, position).xy,
+				!complete_cell));
+
+	if (!b1_low_extent(imageSize(IMG_ASVGF_ATROUS_PONG_LF_COCG)))
+		word |= b1_dimension_failure(1u << 12u);
+	else
+		word |= b1_target_failure(1u << 12u,
+			b1_float2_flags(imageLoad(IMG_ASVGF_ATROUS_PONG_LF_COCG, position).xy,
+				!complete_cell));
+
+	return word;
+}
+
+uint b1_full_word(ivec2 position)
+{
+	uint word = B1_VISITED;
+
+	if (!b1_full_extent(imageSize(IMG_PT_COLOR_LF_SH)))
+		word |= b1_dimension_failure(1u << 0u);
+	else
+		word |= b1_target_failure(1u << 0u,
+			b1_float4_flags(imageLoad(IMG_PT_COLOR_LF_SH, position), false));
+
+	if (!b1_full_extent(imageSize(IMG_PT_COLOR_LF_COCG)))
+		word |= b1_dimension_failure(1u << 1u);
+	else
+		word |= b1_target_failure(1u << 1u,
+			b1_float2_flags(imageLoad(IMG_PT_COLOR_LF_COCG, position).xy, false));
+
+	if (!b1_full_extent(imageSize(IMG_PT_COLOR_HF)))
+		word |= b1_dimension_failure(1u << 2u);
+	else
+		word |= b1_target_failure(1u << 2u,
+			b1_rgbe_flags(imageLoad(IMG_PT_COLOR_HF, position).x));
+
+	if (!b1_full_extent(imageSize(IMG_PT_COLOR_SPEC)))
+		word |= b1_dimension_failure(1u << 3u);
+	else
+		word |= b1_target_failure(1u << 3u,
+			b1_rgbe_flags(imageLoad(IMG_PT_COLOR_SPEC, position).x));
+
+	if (!b1_full_extent(imageSize(IMG_ASVGF_HIST_COLOR_LF_SH_A)))
+		word |= b1_dimension_failure(1u << 13u);
+	else
+		word |= b1_target_failure(1u << 13u,
+			b1_float4_flags(imageLoad(IMG_ASVGF_HIST_COLOR_LF_SH_A, position), false));
+
+	if (!b1_full_extent(imageSize(IMG_ASVGF_HIST_COLOR_LF_COCG_A)))
+		word |= b1_dimension_failure(1u << 14u);
+	else
+		word |= b1_target_failure(1u << 14u,
+			b1_float2_flags(imageLoad(IMG_ASVGF_HIST_COLOR_LF_COCG_A, position).xy,
+				false));
+
+	if (!b1_full_extent(imageSize(IMG_ASVGF_FILTERED_SPEC_A)))
+		word |= b1_dimension_failure(1u << 15u);
+	else
+		word |= b1_target_failure(1u << 15u,
+			b1_float4_flags(imageLoad(IMG_ASVGF_FILTERED_SPEC_A, position), false));
+
+	if (!b1_full_extent(imageSize(IMG_ASVGF_HIST_MOMENTS_HF_A)))
+		word |= b1_dimension_failure(1u << 16u);
+	else
+		word |= b1_target_failure(1u << 16u,
+			b1_float4_flags(imageLoad(IMG_ASVGF_HIST_MOMENTS_HF_A, position), false));
+
+	if (!b1_full_extent(imageSize(IMG_ASVGF_ATROUS_PING_HF)))
+		word |= b1_dimension_failure(1u << 17u);
+	else
+		word |= b1_target_failure(1u << 17u,
+			b1_rgbe_flags(imageLoad(IMG_ASVGF_ATROUS_PING_HF, position).x));
+
+	if (!b1_full_extent(imageSize(IMG_ASVGF_ATROUS_PONG_HF)))
+		word |= b1_dimension_failure(1u << 18u);
+	else
+		word |= b1_target_failure(1u << 18u,
+			b1_rgbe_flags(imageLoad(IMG_ASVGF_ATROUS_PONG_HF, position).x));
+
+	if (!b1_full_extent(imageSize(IMG_ASVGF_ATROUS_PING_SPEC)))
+		word |= b1_dimension_failure(1u << 19u);
+	else
+		word |= b1_target_failure(1u << 19u,
+			b1_rgbe_flags(imageLoad(IMG_ASVGF_ATROUS_PING_SPEC, position).x));
+
+	if (!b1_full_extent(imageSize(IMG_ASVGF_ATROUS_PONG_SPEC)))
+		word |= b1_dimension_failure(1u << 20u);
+	else
+		word |= b1_target_failure(1u << 20u,
+			b1_rgbe_flags(imageLoad(IMG_ASVGF_ATROUS_PONG_SPEC, position).x));
+
+	if (!b1_full_extent(imageSize(IMG_ASVGF_ATROUS_PING_MOMENTS)))
+		word |= b1_dimension_failure(1u << 21u);
+	else
+		word |= b1_target_failure(1u << 21u,
+			b1_float2_flags(imageLoad(IMG_ASVGF_ATROUS_PING_MOMENTS, position).xy,
+				false));
+
+	if (!b1_full_extent(imageSize(IMG_ASVGF_ATROUS_PONG_MOMENTS)))
+		word |= b1_dimension_failure(1u << 22u);
+	else
+		word |= b1_target_failure(1u << 22u,
+			b1_float2_flags(imageLoad(IMG_ASVGF_ATROUS_PONG_MOMENTS, position).xy,
+				false));
+
+	if (!b1_full_extent(imageSize(IMG_ASVGF_HIST_COLOR_HF)))
+		word |= b1_dimension_failure(1u << 23u);
+	else
+		word |= b1_target_failure(1u << 23u,
+			b1_rgbe_flags(imageLoad(IMG_ASVGF_HIST_COLOR_HF, position).x));
+
+	return word;
+}
+
+void main()
+{
+	uint invocation = gl_GlobalInvocationID.x;
+
+	if (b1_push.domain == B1_DOMAIN_LOW)
+	{
+		if (invocation >= B1_LOW_RECORD_COUNT)
+			return;
+
+		ivec2 position = ivec2(
+			int(invocation % B1_LOW_WIDTH),
+			int(invocation / B1_LOW_WIDTH));
+		b1_status.words[B1_HEADER_WORDS + invocation] = b1_low_word(position);
+		return;
+	}
+
+	if (b1_push.domain == B1_DOMAIN_FULL)
+	{
+		if (invocation >= B1_FULL_RECORD_COUNT)
+			return;
+
+		ivec2 position = ivec2(
+			int(invocation % B1_FULL_WIDTH),
+			int(invocation / B1_FULL_WIDTH));
+		uint record_index = B1_LOW_RECORD_COUNT + invocation;
+		b1_status.words[B1_HEADER_WORDS + record_index] = b1_full_word(position);
+	}
+}

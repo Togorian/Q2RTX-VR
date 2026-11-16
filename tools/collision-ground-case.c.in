@@ -1,0 +1,137 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright (C) 2026 Togorian, to the extent of rights held in project additions.
+// The generator inserts exact selected Pmove and guard source. Deterministic
+// world callbacks exercise the failure route without a game or a headset.
+#include "shared/shared.h"
+#include "common/pmove.h"
+#include <assert.h>
+
+typedef struct { int unused; } gitem_t;
+typedef struct edict_s {
+    int deadflag, waterlevel, watertype;
+    struct { int modelindex; } s;
+} edict_t;
+#define OBS_CONTACT_LIMIT 4
+/* OBSERVER_STATE */
+static struct { bool enabled; unsigned relocations; } combat;
+static struct { int framenum; } level;
+static bool b2tp_moved;
+static unsigned refusal_mask;
+static const char *refusal_phase;
+static cvar_t quiet;
+static int contents_calls, initial_attempt, accept_initial;
+static bool final_clear;
+
+static void diagnostic(const char *format, ...)
+{
+    if (!strncmp(format, "B2_WALK_PM_REASON ", 18)) {
+        va_list args;
+        va_start(args, format);
+        (void)va_arg(args, int);
+        refusal_mask = va_arg(args, unsigned);
+        va_end(args);
+    }
+}
+static cvar_t *test_cvar(const char *name, const char *value, int flags) { return &quiet; }
+static int world_contents(const vec3_t point) { contents_calls++; return 0; }
+static struct {
+    void (*dprintf)(const char *, ...);
+    cvar_t *(*cvar)(const char *, const char *, int);
+    int (*pointcontents)(const vec3_t);
+} gi = { diagnostic, test_cvar, world_contents };
+static bool G_ObserverTracing(edict_t *ent) { return true; }
+static void G_ObserverTrace(const char *phase, edict_t *ent) { }
+static bool observer_sample(const char *phase, edict_t *ent, bool force) { return false; }
+static void observer_print_pm(const char *which, const pmove_state_t *state) { }
+static int observer_number(edict_t *ent) { return ent ? 1 : -1; }
+static const char *observer_class(edict_t *ent) { return "fixture"; }
+static void observer_walk_fault(const char *phase, edict_t *ent)
+{
+    obs_trace.walk_faulted = true;
+    refusal_phase = phase;
+}
+
+/* PMOVE */
+/* SNAP_HELPER */
+/* VALIDATOR */
+/* CALLBACKS */
+
+static edict_t obstacle, player;
+static pmove_t movement;
+static unsigned ground_traces;
+static int ground_case;
+static trace_t q_gameabi world_trace(const vec3_t start, const vec3_t mins,
+                                    const vec3_t maxs, const vec3_t end)
+{
+    trace_t trace = {0};
+    trace.fraction = 1.f;
+    VectorCopy(end, trace.endpos);
+    if (start[0] == end[0] && start[1] == end[1] &&
+        fabsf(start[2] - end[2] - .25f) < .0001f) {
+        bool first = ground_traces++ == 0;
+        if ((first && ground_case != 2) || (!first && ground_case == 2)) {
+            trace.startsolid = ground_case != 0;
+            trace.plane.normal[2] = ground_case == 0 ? 1.f : 0.f;
+            trace.ent = ground_case == 3 ? NULL : (void *)&obstacle;
+            trace.fraction = 0;
+            VectorCopy(start, trace.endpos);
+        }
+    }
+    G_ObserverCollision(start, end, &trace);
+    return trace;
+}
+static void capture(int mode)
+{
+    pmoveParams_t parameters;
+    memset(&obs_trace, 0, sizeof obs_trace);
+    memset(&player, 0, sizeof player);
+    memset(&movement, 0, sizeof movement);
+    combat.enabled = true;
+    obs_trace.walk_guard = obs_trace.vertical = obs_trace.command_active = true;
+    refusal_mask = 0; refusal_phase = NULL;
+    contents_calls = ground_traces = 0; ground_case = mode;
+    movement.s.pm_type = PM_NORMAL;
+    movement.s.pm_flags = PMF_ON_GROUND;
+    movement.s.gravity = 800;
+    movement.cmd.msec = 37; movement.cmd.upmove = 200;
+    movement.trace = world_trace; movement.pointcontents = G_ObserverPointContents;
+    obs_trace.command = movement.cmd;
+    PmoveInit(&parameters);
+    G_ObserverPmove(&player, &movement, true);
+    Pmove(&movement, &parameters);
+}
+static void validate(unsigned mask)
+{
+    obs_trace.walk_faulted = false; refusal_mask = 0;
+    G_ObserverPmove(&player, &movement, false);
+    assert(obs_trace.walk_faulted == (mask != 0));
+    assert(refusal_mask == mask);
+}
+int main(void)
+{
+    capture(0); assert(movement.s.pm_flags & PMF_JUMP_HELD); validate(0);
+    capture(1); assert(movement.s.pm_flags & PMF_JUMP_HELD);
+#ifdef EXPECT_PREVIOUS_REFUSAL
+    validate(BIT(1) | BIT(12));
+    puts("PRE-CORRECTION: actual stock overlap-ground jump refused by ground ownership and speed guards");
+#else
+    validate(0);
+    puts("PASS: stock first ground categorisation authorises overlap-ground jump without a floor normal");
+    for (int mode = 2; mode <= 3; ++mode) {
+        capture(mode); assert(!(movement.s.pm_flags & PMF_JUMP_HELD));
+        assert(!obs_trace.ground_contact); validate(0);
+        movement.s.pm_flags |= PMF_JUMP_HELD;
+        movement.s.velocity[2] = 2160;
+        validate(BIT(1) | BIT(12));
+    }
+    // Stationary overlap and later downward traces cannot overwrite initial ownership.
+    capture(2);
+    trace_t overlap = {0}; overlap.startsolid = true; overlap.ent = (void *)&obstacle;
+    vec3_t start = {0,0,0}, end = {0,0,0};
+    G_ObserverCollision(start, end, &overlap); assert(!obs_trace.ground_contact);
+    end[2] = -.25f;
+    G_ObserverCollision(start, end, &overlap); assert(!obs_trace.ground_contact);
+    puts("PASS: absent entity, stationary overlap and later landing cannot authorise an earlier jump");
+#endif
+    return 0;
+}

@@ -1,0 +1,21 @@
+{
+  "finding": "A4",
+  "readme": false,
+  "cases": [
+    {
+      "file": "A4-action-filter.c",
+      "production": [
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "B2_UIKey",
+          "start": "    // Stock F-key actions and user non-button rebindings use ordinary dispatch."
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_037/reference_b_b2_polish93-r2.c",
+          "function": "B2_UIKey",
+          "end": "    const char *binding=Key_GetBindingForKey(key);"
+        }
+      ]
+    }
+  ]
+}

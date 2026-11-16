@@ -1,0 +1,29 @@
+# RC5 runtime recovery and startup reasons
+
+Source stage555 implements S1/S2/S3. At source preparation on 12 November 2026, RC5 had not been built or packaged. For a delivered candidate, the corresponding-source archive's `BUILD-RECORD.json` and the runtime folder's `RELEASE-MANIFEST.json` identify the actual build and package bytes. These records do not establish human headset acceptance or public-release approval. These checks do not recover unsaved progress after device/session loss. RC4 remains the protected human-tested candidate.
+
+## Image and frame ownership
+
+A swapchain wait timeout keeps the acquired image and its index. The current frame ends once with zero layers. Earlier views that were successfully waited but unused are released; the timed-out view is not released or acquired again. A later frame waits on that same image. Per-frame view/copy bookkeeping does not erase an outstanding acquire. Repeated timeouts and first/later views use the same rule. Existing interruption/menu pumping continues; an interrupted game retains its deliberate-resume policy. This is not a change to tracking, headset-removal, reference-realignment or input safety policy.
+
+Successful loss-pending results record their returned acquire/wait/release/begin obligation before terminal closure. A failed release retains ownership for teardown rather than assuming a release succeeded. An end-frame failure is not retried as a second submission. Unknown copied graphics work is never released as unused. Graphics completion/submission, memory, descriptor and ordering corruption still refuse recovery.
+
+These rules follow Khronos: [wait and retry](https://registry.khronos.org/OpenXR/specs/1.1/man/html/xrWaitSwapchainImage.html), [release after wait](https://registry.khronos.org/OpenXR/specs/1.1/man/html/xrReleaseSwapchainImage.html), [begin obligations](https://registry.khronos.org/OpenXR/specs/1.1/man/html/xrBeginFrame.html) and [frame completion](https://registry.khronos.org/OpenXR/specs/1.1/man/html/xrEndFrame.html). The public manuals observed during this pass identify version1.1.65; the selected application headers remain OpenXR1.1.62. No SDK/runtime replacement was made.
+
+## Lost events and stopped runtime
+
+Events-lost marks queue overflow, not a session-state answer. The owner invalidates history/input and drains queued events. Only an actual following session-state event establishes current state. An inconsistent running/state combination or no confirming transition stops with a useful reason; no focus or state is inferred from the lost count. Focus interruption remains latched even when focus returns within one event batch. [Khronos event contract](https://registry.khronos.org/OpenXR/specs/1.1/man/html/XrEventDataEventsLost.html). Session end remains tied to a received STOPPING event. [Session-end contract](https://registry.khronos.org/OpenXR/specs/1.1/man/html/xrEndSession.html).
+
+An XR release or completed-pair submit failure does not become a renderer ordering assertion. Already-submitted graphics must first reach device idle; an owned desktop image is returned once without an invented semaphore wait, and the incomplete renderer history is discarded. True graphics or ownership corruption remains refused. The client closes the owned XR frame before returning from its stack frame. A stopped session shows one plain desktop message with the existing window-close/relaunch route. Invalid tracking is never used to invent controller Quit input. Session/device recreation and restoration of unsaved progress are not implemented.
+
+## Ordinary game errors
+
+Before ERR_DROP shuts down the server or unwinds the frame, the client checks renderer ownership, closes any eligible XR frame and retires game scene/input. A healthy session returns to the normal VR menu. Deliberate New Game or Load can enter the next existing world registration, including after a failed registration. Retired client and renderer epochs remain aligned; no incomplete world is published. Reconnect remains the local lifecycle route; ordinary terminal disconnect/quit remains distinct. Unsafe partial graphics or unhealthy XR refuses this menu recovery. An error before the first world activates returns to the ordinary initial bootstrap and epoch-one path. It does not fabricate a completed world generation. No saves are read, migrated or automatically overwritten by this correction.
+
+## Startup messages
+
+The first bounded XR reason survives cleanup and reaches the existing renderer-to-Windows error dialog and startup-status.txt. Messages distinguish a missing packaged loader, absent active runtime, unavailable headset, unsupported configuration and runtime/session loss. Genuine Vulkan/device failure keeps its graphics-specific fallback. API identifiers and driver details stay in logs. Runtime/provider installation and settings are not changed.
+
+## Evidence and limits
+
+Historical checks (12 November 2026): these fixtures are not retained in this repository. Isolated CPU checks execute exact production ownership, polling, result, caller, error-dispatch, lifecycle/menu and renderer-retirement/registration spans with labelled OpenXR/GPU/engine effects. They reproduce the original timeout refusal and cover repeated two/four-view retries, partial views, release/end failures, queued state events, loss-pending results, graphics refusal, healthy ERR_DROP to menu to map/load registration and startup reason selection. Five affected production translation units passed MSVC syntax-only checks. A caller-fixture compile initially lacked its error enum stand-in; its retained second attempt and run pass. The source-preparation checks recorded on 12 November 2026 did not execute an engine, server, launcher, headset or GPU, or perform a production build. They do not verify whole BSP rendering, actual driver recovery, new-world gameplay or human comfort; these require separate runtime testing and the human checklist.

@@ -1,0 +1,11 @@
+# Q2RTX VR notices
+
+This notice accompanies Q2RTX VR. The combined engine retains its inherited GPL version 2 distribution basis. Rights Togorian holds in his own contributions are offered under GPL version 2 or later; other parties' notices remain protected.
+
+Preserve [LICENSE.txt](LICENSE.txt), the [complete upstream licence file](licences/Q2RTX-UPSTREAM-LICENSE.txt), [unchanged upstream notices](NOTICE-UPSTREAM.txt), [third-party index](THIRD-PARTY-NOTICES.md) and individual source notices. The demo-data appendix does not license the modified engine or authorise bundling owned game data.
+
+The corresponding-source/relink material must include editable engine/dependency source, OpenAL Soft/fmt and notices, compatible relink instructions, shader recipes and the weapon-table tool. Windows tools/SDK and the Vulkan SDK import library remain external prerequisites. See [dependencies](docs/DEPENDENCIES.md), [building](docs/BUILDING.md) and [package layout](docs/PACKAGING.md).
+
+MIT is elected only where offered by the selected Vulkan headers and eligible OpenXR material. Original texts remain. Applicable id Software notices remain in the VR adaptations; [provenance](PROVENANCE.md) explains the distinct room-scale/crouch origins, contribution grant and loader evidence limits.
+
+Maps, models, textures, films and music are not included or relicensed. [Arrow artwork](assets/pics/b2/README.md) was generated with ChatGPT from Togorian's prompts. He applies CC0 1.0 Universal to any copyright and related rights he holds in these two PNGs, to the extent legally possible, with its fallback licence. No exclusive copyright or human authorship is claimed. The depressed image was generated as an edit of the raised image; both delivered PNGs and all embedded metadata remain unchanged. See the [complete licence text](licences/CC0-1.0.txt) and [Canonical CC0 terms](https://creativecommons.org/publicdomain/zero/1.0/legalcode.en). Q2RTX VR is an unofficial, fan-made modification by Togorian. It is not affiliated with, sponsored by or endorsed by NVIDIA, id Software, Bethesda Softworks or ZeniMax, or by any headset or runtime provider. All third-party names and trademarks remain the property of their respective owners. You need the full Quake II game data installed with Quake II RTX to play. The free three-level demo alone is not supported.

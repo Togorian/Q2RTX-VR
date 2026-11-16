@@ -1,0 +1,149 @@
+{
+  "generator": "tools/weapon_table/generate.py",
+  "parser": "tools/weapon_table/model_geometry.py",
+  "calibration": "tools/weapon_table/calibration.json",
+  "origins": "tools/weapon_table/origins.json",
+  "optional": true,
+  "ordinaryBuildUsesCheckedInTable": true,
+  "selectedCompilerInput": {
+    "path": "source/baseline/b2-consolidated215/inputs/origin-003/include/refresh/b2_weapon_model_data.inc",
+    "bytes": 25191,
+    "sha256": "3554c861ba89173bf03607b692139584634d5ba7a113af6815ab8c16c9d0e1f7",
+    "origin": "baseline/b2-consolidated215/inputs/origin-003/include/refresh/b2_weapon_model_data.inc",
+    "originalBytes": 329372,
+    "originalSha256": "135c93b214a945a35ba420b33e4c093f6e35acdbfb37b7193e08ffc61fe2c17f",
+    "materialised": true
+  },
+  "inputs": [
+    {
+      "slot": 0,
+      "asset": {
+        "entry": "models/weapons/v_blast/tris.md3",
+        "format": "md3",
+        "bytes": 1200412,
+        "sha256": "d8d43471f7adcbcaf472d8798ba2666b940964b04a46ec20fe010313a1a7edce"
+      },
+      "modelReference": "models/weapons/v_blast/tris.md2"
+    },
+    {
+      "slot": 1,
+      "asset": {
+        "entry": "models/weapons/v_shotg/tris.md3",
+        "format": "md3",
+        "bytes": 829716,
+        "sha256": "9aad7ab94401842751b82070d46338375b27d5995fdf30ef8498effe82e6d9af"
+      },
+      "modelReference": "models/weapons/v_shotg/tris.md2"
+    },
+    {
+      "slot": 2,
+      "asset": {
+        "entry": "models/weapons/v_shotg2/tris.md3",
+        "format": "md3",
+        "bytes": 1844692,
+        "sha256": "0e3796ef2f3bb3ae92316c0b22adb851f88d9659b760bd7822fa2e2023635dc3"
+      },
+      "modelReference": "models/weapons/v_shotg2/tris.md2"
+    },
+    {
+      "slot": 3,
+      "asset": {
+        "entry": "models/weapons/v_machn/tris.md3",
+        "format": "md3",
+        "bytes": 878984,
+        "sha256": "1b54e25d8d50a156e0b2f31104c1dff93eaf06416b169fe158580df95d42f5a6"
+      },
+      "modelReference": "models/weapons/v_machn/tris.md2"
+    },
+    {
+      "slot": 4,
+      "asset": {
+        "entry": "models/weapons/v_chain/tris.md3",
+        "format": "md3",
+        "bytes": 678404,
+        "sha256": "d644be8f6abef7af2fed183f9bc33504486e2c4dbb4236e51ca0fd50bc53c688"
+      },
+      "modelReference": "models/weapons/v_chain/tris.md2"
+    },
+    {
+      "slot": 5,
+      "asset": {
+        "entry": "models/weapons/v_handgr/tris.md2",
+        "format": "md2",
+        "bytes": 58224,
+        "sha256": "d8a34e24bf0cccda99f6631411a54205f62c7cb8e98440db2bf821dc109063cd"
+      },
+      "modelReference": "models/weapons/v_handgr/tris.md2"
+    },
+    {
+      "slot": 6,
+      "asset": {
+        "entry": "models/weapons/v_launch/tris.md3",
+        "format": "md3",
+        "bytes": 1038380,
+        "sha256": "2faed791b98214bdc1adfd7574dbbbd6c92d883bf339a99ebc3e67b5ccbb741c"
+      },
+      "modelReference": "models/weapons/v_launch/tris.md2"
+    },
+    {
+      "slot": 7,
+      "asset": {
+        "entry": "models/weapons/v_rocket/tris.md3",
+        "format": "md3",
+        "bytes": 1789252,
+        "sha256": "6e3ab7202c193c4374d04e117aa7e485b5652ba26844279a589ccd3c09596b3c"
+      },
+      "modelReference": "models/weapons/v_rocket/tris.md2"
+    },
+    {
+      "slot": 8,
+      "asset": {
+        "entry": "models/weapons/v_hyperb/tris.md3",
+        "format": "md3",
+        "bytes": 409692,
+        "sha256": "2f1cf7e9d02ae050241c69ea1d67602dc347592435aad3ea9c74d296344d8feb"
+      },
+      "modelReference": "models/weapons/v_hyperb/tris.md2"
+    },
+    {
+      "slot": 9,
+      "asset": {
+        "entry": "models/weapons/v_rail/tris.md3",
+        "format": "md3",
+        "bytes": 1272540,
+        "sha256": "674eacdbfb2e7e7a389dd323899c30e1ed42b3119d66b538f6cf6613a3e39268"
+      },
+      "modelReference": "models/weapons/v_rail/tris.md2"
+    },
+    {
+      "slot": 10,
+      "asset": {
+        "entry": "models/weapons/v_bfg/tris.md3",
+        "format": "md3",
+        "bytes": 1878716,
+        "sha256": "b35a7e027ff762a62c3ddac306f660f441e2d6790f1eec1ae4049db8aa3f901a"
+      },
+      "modelReference": "models/weapons/v_bfg/tris.md2"
+    },
+    {
+      "slot": 11,
+      "asset": {
+        "entry": "models/weapons/v_flareg/tris.md3",
+        "format": "md3",
+        "bytes": 1066916,
+        "sha256": "6ddedc7001a4561afef8403f994700db71876f611b303991a28db2d3c88b11cd"
+      },
+      "modelReference": "models/weapons/v_flareg/tris.md3"
+    }
+  ],
+  "regeneration": {
+    "status": "PASSED_ACTUAL_12_OWNED_INPUTS_IN_MEMORY",
+    "bytes": 25191,
+    "sha256": "3554c861ba89173bf03607b692139584634d5ba7a113af6815ab8c16c9d0e1f7",
+    "identityNegativeCases": 24,
+    "assetsExtractedOrDistributed": false
+  },
+  "changes": "Consumer validates exact raw model identity and checked loaded/raw topology directly; generator emits no triangle arrays. Calibration, winding/seam mapping and grenade partition preserved.",
+  "sourceStatus": "SOURCE535_TABLE_PREPARED: no copied triangle-index arrays; authored calibration/counts preserved.",
+  "rights": "Underlying model data remains user-owned external input. No asset relicense or permission inference."
+}

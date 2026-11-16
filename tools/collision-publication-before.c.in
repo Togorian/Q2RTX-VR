@@ -1,0 +1,64 @@
+// Retained pre-correction publication functions from commit 8ce7b64.
+void G_CombatPublish(edict_t *ent)
+{
+    if (!G_CombatObserver(ent)) return;
+    if (combat.level_exiting) return;
+    if (combat.restore_pending || combat.restore_warming) {
+        combat.restore_pending = combat.restore_warming = false;
+        observer_walk_fault("publication_during_restore_warming",ent); return;
+    }
+    G_ObserverTrace("combat.publication", ent);
+    if(strcmp(level.mapname,combat.mapname)) observer_walk_fault("unannounced_map_change",ent);
+    if (gi.cvar("b2_lifecycle","0",0)->value!=1 && (level.intermission_framenum || strcmp(level.mapname, combat.mapname) ||
+        (strcmp(combat.mapname, "base1") && strcmp(combat.mapname, "command") && strcmp(combat.mapname, "mintro") && strcmp(combat.mapname, "fact2")))) observer_walk_fault("combat_map_boundary", ent);
+    if (obs_trace.walk_faulted) return;
+    if (!combat.anchored) {
+        if (ent->deadflag) return;
+        if (combat.restored_anchor_pending) {
+            bool exact = combat.restored_anchor_valid && ent == g_edicts + 1 &&
+                ent->health == combat.restored_health && ent->client->ps.pmove.pm_type == PM_NORMAL &&
+                !memcmp(ent->s.origin, combat.restored_origin, sizeof(vec3_t)) &&
+                !memcmp(ent->velocity, combat.restored_velocity, sizeof(vec3_t));
+            for (unsigned i = 0; i < 3; i++)
+                exact = exact && isfinite(ent->s.origin[i]) && isfinite(ent->velocity[i]) &&
+                    ent->s.origin[i] >= -4096.f && ent->s.origin[i] <= 4095.875f &&
+                    ent->velocity[i] >= -4096.f && ent->velocity[i] <= 4095.875f &&
+                    ent->client->ps.pmove.origin[i] == (short)(ent->s.origin[i] * 8.f) &&
+                    ent->client->ps.pmove.velocity[i] == (short)(ent->velocity[i] * 8.f);
+            if (!exact) { observer_walk_fault("restored_initial_publication_mismatch", ent); return; }
+            combat.restored_anchor_pending = false;
+            if (gi.cvar("developer","0",0)->value >= 1) gi.dprintf("B2_LIFECYCLE restored_anchor frame=%d saved_velocity=%.6f,%.6f,%.6f authenticated=1 exact_admitted_restore_state=1\n",
+                level.framenum, ent->velocity[0], ent->velocity[1], ent->velocity[2]);
+        } else if (!VectorEmpty(ent->velocity)) return;
+        VectorCopy(ent->s.origin, combat.origin);
+        VectorCopy(ent->client->ps.viewangles, combat.angles);
+        combat.angles[PITCH] = combat.angles[ROLL] = 0;
+        combat.anchored = true;
+    }
+    if (++combat.serial > 32767) { observer_walk_fault("combat_serial_exhausted", ent); return; }
+    ent->client->ps.stats[B2_COMBAT_STAT] = combat.serial;
+    unsigned slot = combat.serial % q_countof(combat.publications);
+    combat.publications[slot].ps = ent->client->ps;
+    combat.publications[slot].state = (b2_combat_state_t){combat.serial, combat.epoch, combat.returns, ent->deadflag != 0, combat.relocations};
+    combat.publications[slot].frame = level.framenum;
+}
+
+q_exported bool GetB2CombatState(unsigned version, const player_state_t *ps, b2_combat_state_t *out)
+{
+    if (version != B2_COMBAT_API || !ps || !out || !G_CombatObserver(b2_observer) ||
+        obs_trace.walk_faulted || !combat.anchored) return false;
+    int id = ps->stats[B2_COMBAT_STAT];
+    if (id <= 0 || id > (int)combat.serial) return false;
+    unsigned slot = id % q_countof(combat.publications);
+    const player_state_t *saved = &combat.publications[slot].ps;
+    if (combat.publications[slot].state.serial != id || level.framenum - combat.publications[slot].frame > 10 ||
+        ps->pmove.pm_type != saved->pmove.pm_type || ps->pmove.pm_flags != saved->pmove.pm_flags ||
+        ps->pmove.pm_time != saved->pmove.pm_time || ps->pmove.gravity != saved->pmove.gravity ||
+        memcmp(ps->pmove.origin, saved->pmove.origin, sizeof(ps->pmove.origin)) ||
+        memcmp(ps->pmove.velocity, saved->pmove.velocity, sizeof(ps->pmove.velocity)) ||
+        memcmp(ps->pmove.delta_angles, saved->pmove.delta_angles, sizeof(ps->pmove.delta_angles)) ||
+        ps->stats[STAT_HEALTH] != saved->stats[STAT_HEALTH] || ps->gunindex != saved->gunindex)
+        return false;
+    *out = combat.publications[slot].state;
+    return true;
+}

@@ -1,0 +1,113 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright (C) 2026 Togorian, to the extent of rights held in project additions.
+// Existing interruption functions below are source-checked before compilation.
+/* HARNESS */
+
+typedef struct { bool should_render,tracking_valid; } presentation_frame_t;
+static unsigned zero_layer_ends,pair_retirements,reference_fallbacks;
+static bool end_ok;
+static void b2_reference_fallback397(void){reference_fallbacks++;}
+static bool B2XR_EndFrame(bool rendered_pair)
+{
+    // Controlled external effect. The selected XR function is separately
+    // checked to map rendered_pair=false to a zero-layer xrEndFrame call.
+    assert(!rendered_pair);zero_layer_ends++;return end_ok;
+}
+static bool R_B2PairFinish(bool submitted_pair)
+{
+    assert(!submitted_pair);pair_retirements++;return true;
+}
+static bool frame_refused(presentation_frame_t frame)
+{
+    bool ended=false;
+/* FRAME-REFUSAL */
+    return false;
+}
+static void reset_case(int input_mode,int active)
+{
+    init();mode=input_mode;cls.active=active;b2_controller.requested=input_mode==1;
+    b2_client.scene=73;cl.refdef=0;b2_client.history.valid=true;b2_client.audio_pending=true;
+    zero_layer_ends=pair_retirements=reference_fallbacks=0;end_ok=true;
+}
+static void rejected(presentation_frame_t frame)
+{
+    assert(frame_refused(frame));
+    assert(zero_layer_ends==1&&pair_retirements==1&&reference_fallbacks==1);
+    assert(cl.refdef==b2_client.scene&&!b2_client.history.valid&&!b2_client.audio_pending);
+}
+int main(void)
+{
+    retained_interruption_cases();
+    presentation_frame_t frame={true,true};
+
+    // Minimising in KBM still establishes the original manual focus hold and
+    // releases gameplay input; it no longer withholds fresh headset imagery.
+    reset_case(0,ACT_MINIMIZED);b2_controller.intent.attack=true;
+    B2_ProcessInterruptions();
+    assert(b2_client.ui_interrupted&&b2_client.ui_manual_resume582);
+    assert(b2_client.walk_release_required&&!b2_controller.intent.attack);
+    assert(!frame_refused(frame) && "minimised KBM must retain headset rendering");
+    assert(!zero_layer_ends&&!pair_retirements&&!reference_fallbacks);
+    for(int i=0;i<5;i++){
+        fresh(20);assert(!frame_refused(frame));finish();
+        assert(b2_client.ui_interrupted&&!b2_client.ui_recovery_ready);
+    }
+    b2_client.ui_resume_request=true;finish();
+    assert(b2_client.ui_interrupted&&!b2_client.ui_resume_request);
+    cls.active=ACT_ACTIVATED;fresh(20);finish();
+    assert(b2_client.ui_interrupted&&b2_client.ui_recovery_ready);
+    key_down=true;b2_client.ui_resume_request=true;finish();
+    assert(b2_client.ui_interrupted&&!b2_client.ui_resume_request);
+    key_down=false;b2_client.ui_resume_request=true;finish();
+    assert(!b2_client.ui_interrupted&&b2_client.walk_release_required);
+
+    // Existing manual pause and menu intent survive the separate focus hold.
+    reset_case(0,ACT_MINIMIZED);b2_client.ui_manual_pause=true;cls.key_dest=KEY_MENU;
+    B2_ProcessInterruptions();assert(!frame_refused(frame));
+    cls.active=ACT_ACTIVATED;fresh(20);finish();
+    assert(b2_client.ui_interrupted&&b2_client.ui_manual_pause&&cls.key_dest==KEY_MENU);
+    b2_client.ui_resume_request=true;finish();
+    assert(!b2_client.ui_interrupted&&b2_client.ui_manual_pause&&cls.key_dest==KEY_MENU);
+
+    // Resume still needs a committed pair/history and a valid owned hold.
+    reset_case(0,ACT_MINIMIZED);B2_ProcessInterruptions();cls.active=ACT_ACTIVATED;
+    b2_client.ui_resume_request=true;b2_finish_interruption256(true,true,false,true);
+    assert(b2_client.ui_interrupted&&!b2_client.ui_resume_request);
+    b2_client.ui_resume_request=true;b2_finish_interruption256(true,true,true,false);
+    assert(b2_client.ui_interrupted&&!b2_client.ui_resume_request);
+    hold_valid=false;b2_client.ui_resume_request=true;finish();
+    assert(b2_client.ui_interrupted&&!b2_client.ui_resume_request);
+    hold_valid=true;b2_client.ui_resume_request=true;finish();assert(!b2_client.ui_interrupted);
+
+    // Controller-mode minimisation remains renderable and keeps runtime focus.
+    reset_case(1,ACT_MINIMIZED);B2_ProcessInterruptions();
+    assert(!b2_client.ui_interrupted&&B2_InputFocused556());assert(!frame_refused(frame));
+    assert(!zero_layer_ends);
+
+    // An inactive but non-minimised KBM window keeps its existing tracked hold.
+    reset_case(0,0);B2_ProcessInterruptions();assert(!frame_refused(frame));
+    assert(b2_client.ui_interrupted&&b2_client.ui_manual_resume582&&!B2_InputFocused556());
+
+    // None of the render, tracking, reference or runtime-availability guards
+    // is relaxed. A rejected begin-successful frame still retires exactly once.
+    reset_case(0,ACT_MINIMIZED);frame.should_render=false;rejected(frame);
+    assert(!b2_client.stopped&&b2_client.ui_manual_resume582);frame.should_render=true;
+    reset_case(0,ACT_MINIMIZED);frame.tracking_valid=false;rejected(frame);
+    assert(!b2_client.stopped&&b2_client.ui_manual_resume582);frame.tracking_valid=true;
+    reset_case(0,ACT_MINIMIZED);epoch=1;rejected(frame);
+    assert(b2_client.ui_manual_resume582&&b2_client.ui_xr_epoch==1);
+    assert(!frame_refused(frame));assert(zero_layer_ends==1);
+    reset_case(0,ACT_ACTIVATED);xr.focused=false;rejected(frame);
+    assert(b2_client.ui_interrupted&&b2_client.ui_manual_resume582);
+    reset_case(0,ACT_ACTIVATED);xr.running=false;rejected(frame);
+    assert(b2_client.ui_interrupted&&b2_client.ui_manual_resume582);
+    reset_case(1,ACT_MINIMIZED);frame.tracking_valid=false;rejected(frame);
+    assert(!b2_client.stopped);frame.tracking_valid=true;
+
+    // Failed frame retirement and an actual runtime loss still stop safely.
+    reset_case(0,ACT_MINIMIZED);frame.should_render=false;end_ok=false;rejected(frame);
+    assert(b2_client.stopped);
+    reset_case(0,ACT_MINIMIZED);xr.loss_pending=true;rejected(frame);assert(b2_client.stopped);
+    puts("PASS: minimised KBM permits fresh headset rendering; focus/manual pause/menu/resume ownership, controller mode, render/tracking/reference/runtime guards and failed retirement remain protected");
+    return 0;
+}

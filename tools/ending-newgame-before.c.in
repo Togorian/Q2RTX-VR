@@ -1,0 +1,28 @@
+// Copyright (C) 2026 Togorian, to the extent of rights held in project additions.
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Retained pre-correction menu gate from the candidate preceding this fix.
+bool B2_MenuCommand(const char *command)
+{
+    if (!B2_MenuSession() || !B2_InputFocused556() ||
+        !B2XR_InteractionReady() || b2_client.history.frame_open ||
+        ((b2_client.ui_interrupted && !b2_client.headset_waiting) && !B2_DropMenu555()) ||
+        (b2_client.world_waiting && !(B2_DropMenu555() && B2_UISurfaceActive())) ||
+        b2_client.world_rebinding) return false;
+    // Called synchronously only by deliberate new-game/load menu actions.
+    // The stock command validates the target before retiring a running world.
+    unsigned before=b2_client.world_epoch;
+    bool server_before=sv_running->integer!=0;
+    b2_menu_transition=true;
+    b2_menu_interruption=B2XR_InterruptionEpoch();
+    b2_clear_walk_input(); CL_B2ReleaseButtons();
+    // Clear the difficulty menu before dispatch, including the missing-cinematic
+    // fallback. A cold client keeps its connection console until stock cinematic
+    // or map activation closes it; an active client can close it immediately.
+    UI_OpenMenu(UIMENU_NONE); Con_Close(true);
+    Cmd_ExecuteString(&cmd_buffer,command);
+    if (b2_client.world_epoch==before && !(!before && !server_before && sv_running->integer) &&
+        cls.state!=ca_loading &&
+        cls.state!=ca_connected && cls.state!=ca_connecting && cls.state!=ca_cinematic)
+        b2_menu_transition=false; // Failed/missing save must not arm a later load.
+    return true;
+}

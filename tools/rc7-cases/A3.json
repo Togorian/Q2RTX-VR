@@ -1,0 +1,116 @@
+{
+  "finding": "A3",
+  "readme": false,
+  "cases": [
+    {
+      "file": "A3-save-preflight.c",
+      "production": [
+        {
+          "source": "source/current/palace-fresh514/source/b2_save_paths534.inc"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/b2_save_transaction534.inc"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_086/save-r2.c",
+          "start": "#ifdef _WIN32\nstatic bool B2_SaveTree534",
+          "end": "#include \"../b2_save_transaction534.inc\""
+        }
+      ],
+      "setup": {
+        "dirs": [
+          "A3-synthetic/target",
+          "A3-synthetic/save/save0",
+          "A3-synthetic/save/unsafe",
+          "A3-synthetic/save/valid"
+        ],
+        "files": {
+          "A3-synthetic/target/server.ssv": "original",
+          "A3-synthetic/target/game.ssv": "original-game",
+          "A3-synthetic/save/save0/server.ssv": "new",
+          "A3-synthetic/save/save0/game.ssv": "new-game",
+          "A3-synthetic/save/unsafe/server.ssv": "keep",
+          "A3-synthetic/save/valid/notes.txt": "unknown"
+        },
+        "junctions": [
+          [
+            "A3-synthetic/save/.current",
+            "A3-synthetic/target"
+          ],
+          [
+            "A3-synthetic/save/unsafe/linked",
+            "A3-synthetic/target"
+          ]
+        ]
+      }
+    },
+    {
+      "file": "A3-load-extension.c",
+      "production": [
+        {
+          "source": "source/current/palace-fresh514/source/b2_save_paths534.inc"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/b2_save_transaction534.inc"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_086/save-r2.c",
+          "start": "#ifdef _WIN32\nstatic bool B2_SaveTree534",
+          "end": "#include \"../b2_save_transaction534.inc\""
+        },
+        {
+          "source": "source/current/palace-fresh514/source/engine_086/save-r2.c",
+          "function": "SV_Loadgame_f"
+        }
+      ],
+      "setup": {
+        "dirs": [
+          "A3-extension/fixture-root/save/unsafe",
+          "A3-extension/fixture-root/save/.current",
+          "A3-extension/target",
+          "A3-extension/missing-home/save/save0",
+          "A3-extension/real-home/save/save0",
+          "A3-extension/real-home/save/.current"
+        ],
+        "files": {
+          "A3-extension/fixture-root/save/.current/server.ssv": "current-original",
+          "A3-extension/target/server.ssv": "target-original",
+          "A3-extension/missing-home/save/save0/server.ssv": "new-server",
+          "A3-extension/missing-home/save/save0/game.ssv": "new-game",
+          "A3-extension/real-home/save/save0/server.ssv": "linked-server",
+          "A3-extension/real-home/save/save0/game.ssv": "linked-game",
+          "A3-extension/real-home/save/.current/notes.txt": "unknown"
+        },
+        "junctions": [
+          [
+            "A3-extension/fixture-root/save/unsafe/link",
+            "A3-extension/target"
+          ],
+          [
+            "A3-extension/linked-home",
+            "A3-extension/real-home"
+          ]
+        ]
+      }
+    },
+    {
+      "file": "A3-S6-transaction.c",
+      "production": [
+        {
+          "source": "source/current/palace-fresh514/source/b2_save_paths534.inc"
+        },
+        {
+          "source": "source/current/palace-fresh514/source/b2_save_transaction534.inc"
+        }
+      ]
+    },
+    {
+      "file": "A3-S6-path-boundary.c",
+      "production": [
+        {
+          "source": "source/current/palace-fresh514/source/b2_save_paths534.inc"
+        }
+      ]
+    }
+  ]
+}

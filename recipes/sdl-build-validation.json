@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "status": "SDL_DEPENDENCY_BUILT_TARGET_HEADERS_VERIFIED",
+  "dependencySourceCommit": "ad03415add7e97d7e5b96e32689a3ac0614622a6",
+  "dependencySourceCommitQualification": "The final selected SDL option file was an explicitly hash-bound working-tree delta during this one dependency build. Actual library/configuration pins are recorded in the subsequent S2-1 commit; final product commit is recorded by delivered BUILD-RECORD.json.",
+  "options": {
+    "path": "dependencies/options/SDL2.cmake",
+    "beforeBytes": 1040,
+    "beforeSha256": "1c98215606c254dfa204089b98dd607fe44e67eba1c1e62748c4675225d633ee",
+    "bytes": 1283,
+    "sha256": "bcabe46719bb34330d5b82044835131a82a19df9db5c5c12339c5a80ea080e82",
+    "SDL_OPENGLES": "OFF",
+    "SDL_OPENGL": "ON",
+    "SDL_VULKAN": "ON"
+  },
+  "sourceInputManifestSha256": "38fdd1ad122f61a5f14027b108be792ddb3d5f36d8abd1cf330e5428130e812d",
+  "toolchain": {
+    "platform": "Windows x64",
+    "MSVC": "14.44.35207",
+    "WindowsSDK": "10.0.28000.0",
+    "buildType": "Release",
+    "runtime": "MultiThreaded (/MT)"
+  },
+  "libraries": [
+    {
+      "name": "SDL2-static.lib",
+      "bytes": 10782104,
+      "sha256": "51e4a1abad852cf2dc6c251e9f9930da7fc02aeacc4c0c1ea1764b044d5abfc9",
+      "previousBytes": 11055066,
+      "previousSha256": "bbe45455e6bf4f8e95dc93b46004e09b4aa10192fa74888987999463f4f2ee4c",
+      "changed": true
+    },
+    {
+      "name": "SDL2main.lib",
+      "bytes": 4238,
+      "sha256": "e9a1226218411e70cb6e730a84bc518e92ff33b6a6662474206cbc0bda91961c",
+      "previousBytes": 4242,
+      "previousSha256": "bb79e3585d279a6d368aa72753a6df387b6198ac8e65cacf47ec977544bbf49a",
+      "changed": true
+    }
+  ],
+  "generatedConfiguration": {
+    "bytes": 17332,
+    "sha256": "4be77e91ebc6b7daa16a2e9733bd872f4dde06b10af783797ef527446cb2d489",
+    "selectedCopies": [
+      "source/baseline/b2-consolidated215/inputs/origin-008/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-009/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-010/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-011/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-012/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-013/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-014/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-015/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-016/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-017/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-018/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-019/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-020/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-021/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-022/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-023/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-024/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-025/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-026/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-027/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-028/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-029/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-030/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-031/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-032/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-033/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-034/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-035/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h",
+      "source/baseline/b2-consolidated215/inputs/origin-046/generated/legacy/extern/SDL2/include-config-release/SDL2/SDL_config.h"
+    ],
+    "changedMacrosAgainstPreviousGenerated": [
+      "SDL_VIDEO_RENDER_OGL_ES2",
+      "SDL_VIDEO_OPENGL_ES2",
+      "SDL_VIDEO_OPENGL_EGL"
+    ],
+    "additionalRawDifferenceAgainstSelected": "HAVE_SYS_TYPES_H changes to undefined inside the inactive HAVE_LIBC block; HAVE_LIBC remains undefined. This known raw difference is not a new OpenGL ES effect.",
+    "manuallyEdited": false
+  },
+  "retainedVendorHeaders": [
+    {
+      "path": "dependencies/src/SDL2/include/SDL_egl.h",
+      "bytes": 108847,
+      "sha256": "72c119f4f7ec30f13b03d3e33d2266cb012ee103f0ad1973786d84d538a0b53d"
+    },
+    {
+      "path": "dependencies/src/SDL2/include/SDL_opengles2_gl2platform.h",
+      "bytes": 646,
+      "sha256": "4779be999acd1904458238f09c86983b7960ac40e612e05db2db97db615f1e0f"
+    },
+    {
+      "path": "dependencies/src/SDL2/src/video/khronos/EGL/egl.h",
+      "bytes": 19286,
+      "sha256": "f5f41711f5d7517eb50d63726d786d471a3e84a52b94fd9aca9b6262b629347c"
+    },
+    {
+      "path": "dependencies/src/SDL2/src/video/khronos/EGL/eglext.h",
+      "bytes": 72948,
+      "sha256": "efc117e5cbbf21fa4f2e9dbfb3899eedb3235c0152a2f6d9ca4510b7505e400f"
+    },
+    {
+      "path": "dependencies/src/SDL2/src/video/khronos/EGL/eglplatform.h",
+      "bytes": 5239,
+      "sha256": "25b5391655effcf363a38fa00c3154f356a3eab3d35dc067847875513cf1e441"
+    },
+    {
+      "path": "dependencies/src/SDL2/src/video/khronos/GLES2/gl2platform.h",
+      "bytes": 642,
+      "sha256": "f5da0747540a50be5f44aad264aae45bdf157a192c40f17487dd9a2f99c71b6c"
+    }
+  ],
+  "targetIncludeEvidence": {
+    "compiledObjects": 197,
+    "uniqueIncludes": 213,
+    "sixHeaderMatches": [],
+    "dependencyLogBytes": 371356,
+    "dependencyLogSha256": "f4981f863cde7662b8dfbd24530074e76245cd4d8c9590aa491d54b4f645fd2a",
+    "method": "All target compiled-object VALID Ninja dependency blocks counted against actual C/C++ target compile actions; every dependency resolved and compared by target basename and exact target content hash, covering path aliases and identical renamed copies. SDL_egl.h wrapper is itself a target. No lexical source mention is treated as compiled inclusion.",
+    "configureProbeScope": "Separate retained configure/compiler-probe evidence is identified in CONFIGURED.json; this target dependency proof does not assert configure-probe header absence."
+  },
+  "configureWarning": "Retained upstream CMake<3.10 compatibility deprecation warning; PM accepted as nonfatal. No target compiler warnings observed.",
+  "targetCompilerWarnings": [],
+  "libraryPrivacy": {
+    "userOrWorkspaceFindings": 0,
+    "neutralObjectBuildPathsPresent": true,
+    "scope": "The static libraries retain neutral candidate object paths. No path stripping or reproducibility claim is made."
+  },
+  "productVerification": "The subsequent clean product build and engine dependency evidence are recorded in the delivered BUILD-RECORD.json; this source dependency record is not product or headset acceptance."
+}

@@ -1,0 +1,234 @@
+// Copyright (C) 2026 Togorian, to the extent of rights held in project additions.
+// SPDX-License-Identifier: GPL-2.0-or-later
+// The generated cinematic span retains id Software's licence and attribution.
+/*
+Copyright (C) 1997-2001 Id Software, Inc.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+*/
+#include <assert.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+#include <limits.h>
+#define REFERENCE_B_B2 1
+#define FROM_CODE 0
+#define REF_TYPE_VKPT 1
+#define NA_LOOPBACK 1
+#define UIMENU_NONE 0
+enum { ca_disconnected, ca_connecting, ca_connected, ca_loading, ca_cinematic, ca_active };
+typedef struct { int integer; bool modified; const char *string; } cvar_t;
+static cvar_t lifecycle, same_map, headset_start, running, combat, advance, locomotion;
+static cvar_t turning, firing, vertical, target, units, target_fault, walk_fault, paused;
+static cvar_t *b2_lifecycle=&lifecycle, *b2_same_map_ui=&same_map, *b2_headset_start=&headset_start;
+static cvar_t *sv_running=&running, *b2_combat=&combat, *b2_advance_world=&advance;
+static cvar_t *b2_keyboard_locomotion=&locomotion, *b2_turning_mouselook=&turning;
+static cvar_t *b2_blaster_fire=&firing, *b2_jump_crouch=&vertical, *b2_visual_target=&target;
+static cvar_t *b2_units_per_metre=&units, *b2_target_fault=&target_fault, *b2_walk_fault=&walk_fault;
+static cvar_t *cl_paused=&paused;
+static struct {
+    bool stopped, lifecycle, world_waiting, world_rebinding, combat, ui_enabled;
+    bool advancing, walking, turning, firing, vertical, target, headset_waiting;
+    bool ui_interrupted, ui_manual_pause, walk_ready, walk_release_required;
+    bool ui_paused, ui_resume_request, ui_recovery_ready, audio_pending;
+    bool origin_latched, kbm_height_reference, handoff_position_pending, recenter_pending;
+    struct { bool frame_open, valid; } history;
+    unsigned world_epoch;
+    int retired_servercount;
+    float reference_yaw;
+    void *entities, *particles, *dlights, *lightstyles, *areabits;
+    char scene[32];
+} b2_client;
+static struct { int ref_type, state; struct { bool playback; } demo; struct { int type; } serverAddress; } cls;
+static struct { int servercount, maxclients; struct { bool valid; } frame; char refdef[32], mapname[64]; } cl;
+static struct { int static_pic, width, height; } cin;
+static bool b2_menu_transition, b2_cinematic_preparing;
+static uint32_t b2_menu_interruption;
+static unsigned b2_cinematic_boundary;
+static int b2_cinematic_skip, cmd_buffer;
+static bool requested, xr_stop, controller_enabled, exclusive, focused, interaction, drop_menu;
+static bool resources_present, command_loads;
+static unsigned interruption_epoch;
+static int dispatches, input_clears, releases, menu_closes, console_closes, notices, stops;
+static int frees, invalidations, finishes, map_reads;
+static bool B2XR_Requested(void) { return requested; }
+static bool B2XR_StopRequested(void) { return xr_stop; }
+static bool b2_controller_enabled(void) { return controller_enabled; }
+static bool b2_exclusive(void) { return exclusive; }
+static bool B2_InputFocused556(void) { return focused; }
+static bool B2XR_InteractionReady(void) { return interaction; }
+static uint32_t B2XR_InterruptionEpoch(void) { return interruption_epoch; }
+static bool B2_DropMenu555(void) { return drop_menu && !b2_client.stopped && !xr_stop; }
+static bool B2_LifecycleEnabled(void) { return b2_client.lifecycle; }
+static void B2H_Reset(void) {}
+static void R_B2UIReset(void) {}
+static bool R_B2PairFinish(bool commit) { assert(!commit); return true; }
+static void b2_stop_at(const char *f, int line) { (void)f; (void)line; stops++; b2_client.stopped=true; }
+static void b2_clear_walk_input(void) { input_clears++; }
+static void CL_B2ReleaseButtons(void) { releases++; }
+static void Z_Free(void *p) { assert(!p); frees++; }
+static void B2TP_WorldReset(void) {}
+static void b2_reference_retire397(void) {}
+static void Cvar_SetByVar(cvar_t *v, const char *text, int source) { (void)source; assert(!strcmp(text,"0")); v->integer=0; }
+static void Cvar_Set(const char *name, const char *text) { assert(!strcmp(name,"sv_paused") && !strcmp(text,"0")); }
+static int Cvar_VariableInteger(const char *name) { assert(!strcmp(name,"developer")); return 0; }
+static void B2XR_InvalidateHistory(const char *why) { assert(!strcmp(why,"world-lifecycle")); invalidations++; }
+static void Com_Printf(const char *text, ...) { if (strstr(text,"New game unavailable")) notices++; }
+static void b2cs_reset(int *s) { *s=0; }
+static void OGG_Stop(void) {}
+static int COM_CompareExtension(const char *name, const char *extension) { const char *dot=strrchr(name,'.'); return dot?strcmp(dot,extension):1; }
+static int R_RegisterPic2(const char *name) { assert(!strcmp(name,"victory.pcx")); return resources_present; }
+static void R_GetPicSize(int *w, int *h, int pic) { assert(pic); *w=640; *h=480; }
+static bool SCR_StartCinematic(const char *name) { assert(!strcmp(name,"end.cin")); return resources_present; }
+static void Q_strlcpy(char *dest, const char *src, size_t size) { assert(strlen(src)<size); strcpy(dest,src); }
+static void UI_OpenMenu(int menu) { assert(menu==UIMENU_NONE); menu_closes++; }
+static void Con_Close(bool force) { (void)force; console_closes++; }
+static void SCR_EndLoadingPlaque(void) {}
+static void SCR_FinishCinematic(void) { finishes++; }
+bool B2_MenuSession(void);
+bool B2_UISurfaceActive(void);
+bool B2_MenuCommand(const char *command);
+void B2_CinematicBoundary(bool preparing);
+static void Cmd_ExecuteString(int *buffer, const char *command)
+{
+    assert(buffer==&cmd_buffer && !strcmp(command,"map *ntro.cin+base1 force"));
+    assert(input_clears && releases && menu_closes && console_closes);
+    assert(!b2_client.stopped && !b2_client.history.frame_open && !b2_client.world_rebinding);
+    assert(focused && interaction && b2_menu_transition && b2_menu_interruption==interruption_epoch);
+    // This seam receives the unchanged stock command. No filesystem mutation
+    // is modelled; the real parser/save/spawn functions remain unmodified.
+    dispatches++; map_reads++;
+    if (command_loads) {
+        if (cls.state==ca_cinematic) {
+            // Selected SV_InitGame synchronously disconnects the old client;
+            // CL_ClearState/SCR_StopCinematic records this boundary before the
+            // normal reconnect pump activates the new cinematic or map.
+            B2_CinematicBoundary(false); cls.state=ca_disconnected;
+        } else cls.state=ca_loading;
+    }
+}
+
+/* PRODUCTION */
+/* MENU_COMMAND */
+/* NEWGAME */
+
+static void reset(void)
+{
+    memset(&b2_client,0,sizeof(b2_client)); memset(&cls,0,sizeof(cls)); memset(&cl,0,sizeof(cl)); memset(&cin,0,sizeof(cin));
+    lifecycle.integer=same_map.integer=headset_start.integer=running.integer=combat.integer=1;
+    advance.integer=locomotion.integer=turning.integer=firing.integer=vertical.integer=target.integer=1;
+    units.modified=false; target_fault.string=walk_fault.string=""; paused.integer=0;
+    b2_client.lifecycle=b2_client.combat=b2_client.ui_enabled=true;
+    b2_client.advancing=b2_client.walking=b2_client.turning=b2_client.firing=b2_client.vertical=b2_client.target=true;
+    b2_client.walk_ready=b2_client.origin_latched=b2_client.history.valid=true;
+    b2_client.world_epoch=7; cls.state=ca_active; cls.ref_type=REF_TYPE_VKPT; cls.serverAddress.type=NA_LOOPBACK;
+    cl.servercount=47; cl.maxclients=1; cl.frame.valid=true;
+    requested=controller_enabled=exclusive=focused=interaction=resources_present=command_loads=true;
+    xr_stop=drop_menu=b2_menu_transition=b2_cinematic_preparing=false; interruption_epoch=9;
+    b2_menu_interruption=0; b2_cinematic_boundary=0; b2_cinematic_skip=0;
+    dispatches=input_clears=releases=menu_closes=console_closes=notices=stops=frees=invalidations=finishes=map_reads=0;
+}
+
+static void ending(const char *name)
+{
+    reset(); B2_BeginWorldChange("game-exit");
+    assert(b2_client.world_waiting && b2_client.ui_interrupted && !b2_client.walk_ready);
+    assert(!b2_client.origin_latched && b2_client.walk_release_required && b2_client.world_epoch==8);
+    assert(frees==5 && invalidations==1 && b2_client.retired_servercount==47);
+    // Repeated stock transition callers must not retire or increment again.
+    B2_BeginWorldChange("server-spawn"); B2_BeginWorldChange("client-clear");
+    assert(b2_client.world_epoch==8 && frees==5 && invalidations==1);
+    cl.frame.valid=false; cl.maxclients=0; cls.state=ca_connected;
+    SCR_PlayCinematic(name);
+    assert(cls.state==ca_cinematic && !b2_cinematic_preparing && B2_UISurfaceActive());
+    assert(!strcmp(cl.mapname,name));
+}
+
+static void refused(void)
+{
+    int old_clears=input_clears, old_releases=releases, old_menu=menu_closes, old_console=console_closes;
+    b2_newgame_f();
+    assert(!dispatches && !map_reads && notices==1);
+    assert(input_clears==old_clears && releases==old_releases && menu_closes==old_menu && console_closes==old_console);
+}
+
+int main(void)
+{
+    const char *names[]={"end.cin","victory.pcx"};
+    for (unsigned i=0;i<2;i++) {
+        ending(names[i]); b2_newgame_f();
+#ifdef EXPECT_PREVIOUS_REFUSAL
+        assert(dispatches==0 && notices==1 && cls.state==ca_cinematic);
+#else
+        assert(dispatches==1 && notices==0 && cls.state==ca_disconnected && !stops && b2_menu_transition);
+#endif
+        assert(b2_client.world_waiting && b2_client.ui_interrupted && !b2_client.walk_ready);
+        assert(!b2_client.origin_latched && b2_client.walk_release_required && b2_client.world_epoch==8);
+    }
+    // Unaffected initial-start and ordinary in-game New Game routes.
+    reset(); cls.state=ca_disconnected; b2_client.world_epoch=0; running.integer=0;
+    b2_newgame_f(); assert(dispatches==1 && !notices);
+    reset(); b2_newgame_f(); assert(dispatches==1 && !notices);
+    // A rejected/missing target cannot arm a later unrelated map from gameplay.
+    reset(); command_loads=false; b2_newgame_f(); assert(dispatches==1 && !b2_menu_transition);
+    // A rejected New Game target while an old film/picture stays open must
+    // not arm an unrelated later transition. The old surface stays retired.
+    for (unsigned i=0;i<2;i++) {
+        ending(names[i]); command_loads=false;
+        unsigned boundary=b2_cinematic_boundary; b2_newgame_f();
+#ifdef EXPECT_PREVIOUS_REFUSAL
+        assert(!dispatches && notices==1);
+#else
+        assert(dispatches==1 && !notices && !b2_menu_transition);
+#endif
+        assert(cls.state==ca_cinematic && b2_cinematic_boundary==boundary);
+        assert(b2_client.world_waiting && !b2_client.walk_ready && !stops);
+    }
+    // The exception is not a general command, load or gamemap admission.
+    ending("victory.pcx"); assert(!B2_MenuCommand("gamemap base1"));
+    assert(!B2_MenuCommand("load save0") && !B2_MenuCommand("map base1 force")); assert(!dispatches);
+    // Preserve all focus, session, ownership and in-progress transition guards.
+    ending("victory.pcx"); focused=false; refused();
+    ending("victory.pcx"); interaction=false; refused();
+    ending("victory.pcx"); requested=false; refused();
+    ending("victory.pcx"); xr_stop=true; refused();
+    ending("victory.pcx"); b2_client.stopped=true; refused(); assert(b2_client.stopped);
+    ending("victory.pcx"); b2_client.history.frame_open=true; refused();
+    ending("victory.pcx"); b2_client.world_rebinding=true; refused();
+    ending("victory.pcx"); cls.state=ca_loading; refused();
+    ending("victory.pcx"); cls.state=ca_connected; refused();
+    ending("victory.pcx"); b2_cinematic_preparing=true; refused();
+    ending("victory.pcx"); cls.serverAddress.type=2; refused();
+    ending("victory.pcx"); running.integer=0; refused();
+    ending("victory.pcx"); b2_client.world_epoch=UINT_MAX; refused();
+    ending("victory.pcx"); b2_client.world_epoch=0; refused();
+    ending("victory.pcx"); cls.demo.playback=true; refused();
+    ending("victory.pcx"); exclusive=false; refused();
+    ending("victory.pcx"); b2_client.lifecycle=false; refused();
+    ending("victory.pcx"); lifecycle.integer=0; refused();
+    ending("victory.pcx"); b2_client.combat=false; refused();
+    ending("victory.pcx"); b2_client.ui_enabled=false; refused();
+    ending("victory.pcx"); advance.integer=0; refused();
+    ending("victory.pcx"); units.modified=true; refused();
+    ending("victory.pcx"); walk_fault.string="unsupported_pmove_result"; refused();
+    ending("victory.pcx"); target_fault.string="invalid"; refused();
+    ending("victory.pcx"); cl.frame.valid=true; cl.maxclients=2; refused();
+    // A missing film is not promoted to a completed cinematic surface.
+    reset(); B2_BeginWorldChange("game-exit"); cls.state=ca_loading; resources_present=false;
+    SCR_PlayCinematic("end.cin"); assert(finishes==1 && cls.state==ca_loading); refused();
+#ifdef EXPECT_PREVIOUS_REFUSAL
+    puts("pre-correction campaign ending New Game refusal reproduced; unaffected/negative boundaries PASS");
+#else
+    puts("campaign film/victory New Game reaches unchanged stock dispatch; retired-world/focus/ownership boundaries PASS");
+#endif
+    return 0;
+}

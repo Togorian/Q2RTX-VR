@@ -1,0 +1,83 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright (C) 2026 Togorian; implementation with Codex assistance.
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <limits.h>
+#define assert(x) do { if (!(x)) { fprintf(stderr,"FAIL %d: %s\n",__LINE__,#x); exit(86); } } while(0)
+#define q_exported
+#define q_countof(x) (sizeof(x)/sizeof((x)[0]))
+enum {B2_COMBAT_API=1,B2_COMBAT_STAT=1,B2_COMBAT_SERIAL_HIGH_STAT=2,STAT_HEALTH=0,
+ PMF_TIME_TELEPORT=1,PMF_TIME_WATERJUMP=2,PMF_DUCKED=4,PMF_JUMP_HELD=8};
+typedef struct {int pm_type,pm_flags,pm_time,gravity;short origin[3],velocity[3],delta_angles[3];} pmove_state_t;
+typedef struct {pmove_state_t pmove;short stats[32];int gunindex;} player_state_t;
+typedef struct {unsigned serial,epoch,returns;bool dead;unsigned relocations;} b2_combat_state_t;
+typedef struct {player_state_t ps;b2_combat_state_t state;int frame;} publication_t;
+static struct {unsigned serial;bool anchored;publication_t publications[32];} combat;
+static struct {bool walk_faulted;} obs_trace;
+static struct {int framenum;} level;
+static int b2_observer;
+static bool observer=true,angles=true;
+static bool G_CombatObserver(int ignored){return observer;}
+static struct {bool walking,combat,lifecycle,advancing,frozen,world_waiting,pending;
+ pmove_state_t walk_previous,anchor_player;int walk_previous_time,frame_number;
+ bool vertical;struct {bool valid,frame_open;} history;} b2_client;
+static struct {int servertime;struct {int number;bool valid;player_state_t ps;} frame;} cl;
+static struct {const char *string;} fault={""},*b2_walk_fault=&fault;
+typedef struct {float vieworg[3];} refdef_t;
+static int stops,invalidations,gap_logs;static unsigned input_generation;
+static bool b2_input_angles_match488(void){return angles;}
+static void b2_log_player_anchor(const char *why){}
+static void b2_stop_at(const char *why,int line){stops++;}
+static void B2XR_InvalidateHistory(const char *why){assert(!b2_client.history.frame_open);assert(!strcmp(why,"server-publication-gap"));invalidations++;input_generation++;}
+#define Com_Printf(format,...) ((void)(strstr(format,"refreshed view history") ? ++gap_logs : 0))
+
+/* @GETTER@ */
+
+// The source extractor verifies that these three admission points precede
+// the walking block in B2_ObserveScene. Side effects outside this block are
+// irrelevant to this focused time-boundary fixture.
+static bool observe(const refdef_t *fd)
+{
+ bool initial=b2_client.pending;
+ if(b2_client.world_waiting || b2_client.history.frame_open || !cl.frame.valid)return false;
+ b2_combat_state_t state;
+ if(b2_client.combat && !GetB2CombatState(B2_COMBAT_API,&cl.frame.ps,&state))return false;
+ /* @WALKING@ */
+ return true;
+}
+static void init(void)
+{
+ memset(&combat,0,sizeof(combat));memset(&b2_client,0,sizeof(b2_client));memset(&cl,0,sizeof(cl));
+ combat.serial=40;combat.anchored=true;level.framenum=40;observer=angles=true;obs_trace.walk_faulted=false;
+ b2_client.walking=b2_client.combat=b2_client.lifecycle=b2_client.advancing=b2_client.frozen=b2_client.vertical=true;
+ b2_client.history.valid=true;b2_client.anchor_player.gravity=800;b2_client.frame_number=20;b2_client.walk_previous_time=2000;
+ cl.servertime=4000;cl.frame.number=40;cl.frame.valid=true;cl.frame.ps.pmove.gravity=800;cl.frame.ps.stats[B2_COMBAT_STAT]=40;
+ combat.publications[40%32]=(publication_t){cl.frame.ps,{40,1,0,false,0},40};
+ fault.string="";stops=invalidations=gap_logs=0;input_generation=10;
+}
+int main(void)
+{
+ refdef_t fd={{0,0,32}};
+ // Current, exact publication following a two-second *snapshot* gap.
+ init();assert(observe(&fd));assert(!stops&&invalidations==1&&gap_logs==1&&!b2_client.history.valid&&input_generation==11);assert(b2_client.walk_previous_time==4000);
+ // Same snapshot again must not repeatedly invalidate or synthesize movement.
+ assert(observe(&fd));assert(invalidations==1&&gap_logs==1);
+ init();cl.servertime=3000;assert(observe(&fd));assert(!invalidations&&!gap_logs&&b2_client.history.valid);
+ init();cl.servertime=2000;assert(observe(&fd));assert(!invalidations&&!gap_logs);
+ init();cl.servertime=1999;assert(!observe(&fd)&&stops==1&&!invalidations&&!gap_logs);
+ // Widen before subtracting; an oversized forward interval is not signed UB.
+ init();cl.servertime=INT_MAX;b2_client.walk_previous_time=-1;assert(observe(&fd)&&invalidations==1&&gap_logs==1);
+ init();cl.servertime=INT_MIN;b2_client.walk_previous_time=INT_MAX;assert(!observe(&fd)&&stops==1&&!invalidations&&!gap_logs);
+ // Only ordinary authenticated advancing combat can use the gap route.
+ for(int i=0;i<6;i++){init();switch(i){case 0:b2_client.combat=false;break;case 1:b2_client.lifecycle=false;break;case 2:b2_client.advancing=false;break;case 3:b2_client.frozen=false;break;case 4:b2_client.pending=true;break;case 5:cl.frame.number=20;break;}assert(!observe(&fd)&&stops==1&&!invalidations&&!gap_logs);}
+ // Actual game getter still rejects aged, altered and unavailable publication.
+ for(int i=0;i<5;i++){init();switch(i){case 0:level.framenum=51;break;case 1:cl.frame.ps.pmove.origin[0]=8;break;case 2:combat.anchored=false;break;case 3:obs_trace.walk_faulted=true;break;case 4:observer=false;break;}assert(!observe(&fd)&&!invalidations&&!gap_logs);}
+ for(int i=0;i<3;i++){init();switch(i){case 0:b2_client.history.frame_open=true;break;case 1:cl.frame.valid=false;break;case 2:b2_client.world_waiting=true;break;}assert(!observe(&fd)&&!invalidations&&!gap_logs);}
+ // Existing movement/angle/gravity/non-finite guards remain fatal.
+ for(int i=0;i<4;i++){init();switch(i){case 0:fault.string="actual_movement_fault";break;case 1:angles=false;break;case 2:b2_client.anchor_player.gravity=400;break;case 3:fd.vieworg[0]=NAN;break;}assert(!observe(&fd)&&stops==1&&!invalidations&&!gap_logs);fd.vieworg[0]=0;}
+ puts("PASS: fresh publication gap retires history; age/identity/movement/angle/closed-frame and negative-time guards preserved");return 0;
+}

@@ -1,0 +1,20 @@
+// Copyright (C) 2026 Togorian, to the extent of rights held in project additions.
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Generated from VERSION; edit VERSION, not this generated file.
+#ifndef Q2RTX_PRODUCT_VERSION_H
+#define Q2RTX_PRODUCT_VERSION_H
+#include "q2rtx-upstream-origin.h"
+#define Q2RTX_PRODUCT_VERSION "@Q2RTX_PRODUCT_VERSION@"
+#define Q2RTX_PRODUCT_NAME "Q2RTX VR"
+#define Q2RTX_PRODUCT_LABEL Q2RTX_PRODUCT_NAME " " Q2RTX_PRODUCT_VERSION
+// Compatibility userinfo identity; display/product naming stays separate.
+#define Q2RTX_CLIENT_VERSION "q2rtx " Q2RTX_PRODUCT_VERSION
+#define Q2RTX_PRODUCT_VERSION_RESOURCE @Q2RTX_MAJOR@,@Q2RTX_MINOR@,@Q2RTX_PATCH@,@Q2RTX_RC@
+#define Q2RTX_PRODUCT_PRERELEASE @Q2RTX_PRERELEASE@
+#define VERSION_MAJOR @Q2RTX_MAJOR@
+#define VERSION_MINOR @Q2RTX_MINOR@
+#define VERSION_POINT @Q2RTX_PATCH@
+#define Q2RTX_LOG_STEM "console" Q2RTX_PRODUCT_VERSION
+#define Q2RTX_LOG_FILE Q2RTX_LOG_STEM ".log"
+#define Q2RTX_LOG_STEM_W L"console@Q2RTX_PRODUCT_VERSION@"
+#endif

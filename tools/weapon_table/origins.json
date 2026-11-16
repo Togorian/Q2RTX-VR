@@ -1,0 +1,44 @@
+{
+  "sources": {
+    "generator": {
+      "name": "b2-vr-tracked-weapon-wheel-20261003/implementation-08/tools/cpu/table-01.py",
+      "bytes": 3028,
+      "sha256": "1381f3b3b7e5ce478ea759a017b3c36a60c82cfb9c50771b66e9dc40f3c94b86"
+    },
+    "parser": {
+      "name": "b2-vr-tracked-weapon-wheel-20261003/implementation-08/tools/cpu/model_geometry.py",
+      "bytes": 2668,
+      "sha256": "b5a416713ef69d3895361b506d511da3088071a50495de59079882fd3583510a"
+    },
+    "calibration": {
+      "name": "b2-vr-tracked-weapon-wheel-20261003/model-calibration-01/CALIBRATION-06.json",
+      "bytes": 2461946,
+      "sha256": "93694a0ccee7741e903e85210ac43932ae3eed77d54c9d62bd92f5e29888f537"
+    },
+    "correspondence": {
+      "name": "b2-vr-tracked-weapon-wheel-20261003/implementation-08/MODEL-TABLE-GENERATION.json",
+      "bytes": 1549393,
+      "sha256": "d3403482ce999f00bed9d65884edf0593175ddad736f2229f47561bb27889317"
+    },
+    "originalTable": {
+      "name": "b2-vr-tracked-weapon-wheel-20261003/implementation-08/source/include/refresh/b2_weapon_model_data.inc",
+      "bytes": 329372,
+      "sha256": "530426f2c22263dbb31368cd67dfe8de2a142cc2904c096b05ba0924c75ca608"
+    },
+    "priorSelectedTable": {
+      "name": "b2-consolidated215/inputs/origin-003/include/refresh/b2_weapon_model_data.inc",
+      "bytes": 329372,
+      "sha256": "135c93b214a945a35ba420b33e4c093f6e35acdbfb37b7193e08ffc61fe2c17f"
+    },
+    "selectedTable": {
+      "name": "source/baseline/b2-consolidated215/inputs/origin-003/include/refresh/b2_weapon_model_data.inc",
+      "bytes": 25191,
+      "sha256": "3554c861ba89173bf03607b692139584634d5ba7a113af6815ab8c16c9d0e1f7"
+    }
+  },
+  "generator": "Modified 10 November 2026: portable calibration/count output only. All copied triangle-index arrays removed; consumer compares the loaded topology to the exact validated raw owned asset.",
+  "parser": "Byte-for-byte original model_geometry.py; GPL-2.0-or-later notice retained.",
+  "calibration": "Selected editable fields and authored rationale from CALIBRATION-06.json, without local paths or calculated geometry. The historical JSON has no separate file-level licence notice. This provenance record does not relicense model assets.",
+  "inputs": "User-owned model files are external inputs and are not included. Exact hashes identify compatibility; they do not establish redistribution rights.",
+  "retained": "All authored references, mesh counts, vertex counts, asset identities, ready frames, scales, basis modes and runtime model names remain unchanged. Prior table identity is provenance only; its bytes are excluded from the prospective shipping tree."
+}

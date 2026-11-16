@@ -1,0 +1,22 @@
+{
+  "finding": "A7",
+  "readme": false,
+  "cases": [
+    {
+      "file": "A7-error-budget.c",
+      "includes": [
+        "source/baseline/b2-consolidated215/inputs/origin-008/vendor/openxr/include"
+      ],
+      "production": [
+        {
+          "source": "source/baseline/b2-menu-defaults320/source/refresh/b2_haptics_xr.inc"
+        },
+        {
+          "source": "source/current/reference-realignment397/source/b2_controller_native397.inc",
+          "start": "#define B2C_XR_FUNCTIONS",
+          "end": "#include \"../../../baseline/b2-menu-defaults320"
+        }
+      ]
+    }
+  ]
+}

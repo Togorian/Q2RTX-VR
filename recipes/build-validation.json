@@ -1,0 +1,45 @@
+{
+  "recordInterpretation": {"scope": "This entire validation record is historical RC2 evidence. Its original values are preserved, including version, counts, hashes and pending states. It is not validation of the current source or package. Use the actual current BUILD-RECORD.json."},
+  "status": "RC2_PRODUCTS_BUILT_AND_LAUNCHER_CPU_CHECKED_PACKAGE_RUNTIME_PENDING",
+  "version": "0.8.4-rc.2",
+  "platform": "Windows x64",
+  "expectedC": 183,
+  "expectedResources": 3,
+  "expectedProducts": 3,
+  "products": [
+    {
+      "path": "q2rtx.exe",
+      "bytes": 8904192,
+      "sha256": "cda25d96469129115a22688c73a8e60aa038f4521383173f4a63724979dd0cfc"
+    },
+    {
+      "path": "baseq2/gamex86_64.dll",
+      "bytes": 840704,
+      "sha256": "dde809ad262c1fb53049d00fe68581c85fdba670fd9f87c5bdcb46660fbfe4c6"
+    },
+    {
+      "path": "Q2RTX VR.exe",
+      "bytes": 155648,
+      "sha256": "b9c91f5c43cfdcd54f0a6fb9d05486dd74d58aad30275956ab1fbc537e5199b3"
+    }
+  ],
+  "dependencyBuildVerified": true,
+  "productionExecuted": false,
+  "basis": "Actual rc.2 build, direct product-byte review and isolated production-launcher checks; no real launcher/game/runtime execution.",
+  "actualC": 183,
+  "actualResources": 3,
+  "actualProducts": 3,
+  "launcherCpuChecksPassed": true,
+  "productStaticReviewPassed": true,
+  "productReceipt": "recipes/product-build-validation.json",
+  "packageVerificationPending": true,
+  "headsetAndUserRuntimeAcceptancePending": true,
+  "historicalRecord": {
+    "classification": "Historical evidence only",
+    "recordedStatus": "RC2_PRODUCTS_BUILT_AND_LAUNCHER_CPU_CHECKED_PACKAGE_RUNTIME_PENDING",
+    "recordedDate": null,
+    "activeRecipeFields": [],
+    "scope": "Retained preparation, toolchain, validation, acceptance, hashes and output observations describe their original recorded inputs, not a current build. Active recipe arrays/payload selection remain usable. VERSION defines the current version. Actual source/library/product identities require a fresh release-build.json or packaged BUILD-RECORD.json; this record is not a substitute.",
+    "originalValuesRetained": true
+  }
+}

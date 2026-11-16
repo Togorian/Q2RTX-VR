@@ -1,0 +1,28 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright (C) 2026 Togorian, to the extent of rights held in project additions.
+// Retained pre-correction function from source commit
+// 4e829ea926d3f72dee481ac5dbf02e7d5e1053f8, g_combat.c.
+static bool observer_stock_snap_fallback(const pmove_t *pm, const vec3_t sampled_origin)
+{
+    // PM_SnapPosition restores previous_origin only after these eight exact
+    // stationary jitter tests all fail. Water was categorized before them.
+    // Initial-snap fallback needs separate evidence and remains unadmitted.
+    if (obs_trace.snapinitial || obs_trace.pm_tail_count < 8 ||
+        memcmp(pm->s.origin, obs_trace.pm_before.origin, sizeof(pm->s.origin))) return false;
+    static const byte jitterbits[8] = {0, 4, 1, 2, 3, 5, 6, 7};
+    int base[3], sign[3];
+    for (unsigned axis = 0; axis < 3; ++axis) {
+        if (!isfinite(sampled_origin[axis]) || fabsf(sampled_origin[axis]) > 4095.f) return false;
+        base[axis] = (int)(sampled_origin[axis] * 8);
+        sign[axis] = base[axis] * .125f == sampled_origin[axis] ? 0 : sampled_origin[axis] >= 0 ? 1 : -1;
+    }
+    for (unsigned i = 0; i < 8; ++i) {
+        unsigned n = (obs_trace.pm_tail_count - 8 + i) % 8;
+        if (!obs_trace.pm_tail[n].trace.allsolid) return false;
+        for (unsigned axis = 0; axis < 3; ++axis) {
+            float expected = (base[axis] + ((jitterbits[i] & (1 << axis)) ? sign[axis] : 0)) * .125f;
+            if (obs_trace.pm_tail[n].start[axis] != expected || obs_trace.pm_tail[n].end[axis] != expected) return false;
+        }
+    }
+    return true;
+}

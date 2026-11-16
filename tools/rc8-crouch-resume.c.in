@@ -1,0 +1,113 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright (C) 2026 Togorian, to the extent of rights held in project additions.
+// Exact selected production functions are inserted by rc8-regression.py.
+#include <assert.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <string.h>
+#include <math.h>
+#include "source/baseline/b2-consolidated215/inputs/origin-085/include/refresh/b2_roomscale.h"
+#define VectorCopy(a,b) memcpy(b,a,sizeof(float)*3)
+#define Com_Printf(...) ((void)0)
+#define PM_NORMAL 1
+#define PMF_DUCKED 2
+#define PMF_NO_PREDICTION 4
+#define KEY_GAME 1
+#define K_PAUSE 255
+#define ca_active 1
+#define STAT_HEALTH 0
+#define B2C_GAME 1
+#define B2C_MAX_AGE_MS 100
+typedef struct {int integer;float value;} cvar_t;
+static cvar_t room={0},physical={1},predict={1};
+static cvar_t *b2_roomscale=&room,*b2_physical_crouch=&physical,*cl_predict=&predict;
+typedef struct {bool ready;uint64_t serial;uint32_t generation,xr_generation,capture_ms,head_ms;float head_position[3],head_orientation[4];} b2c_snapshot_t;
+typedef struct {bool valid;float position[3];uint64_t serial;uint32_t generation,captured_ms;} b2rs_head_t;
+typedef struct {int unused;} b2w_game_api_t;
+typedef struct {struct {float x,y,z,w;}orientation;struct {float x,y,z;}position;} XrPosef;
+static struct {bool frame_open,tracking;unsigned view_count,controller_head_generation,input_generation,controller_head_ms;int64_t display_time;struct{XrPosef pose;}views[2];}xr;
+static struct {bool walking,vertical,combat,walk_ready,walk_release_required,origin_latched,stopped,world_waiting,world_rebinding,recenter_pending,handoff_position_pending,ui_interrupted,headset_waiting,ui_manual_resume582,ui_recovery_ready,ui_resume_request,ui_manual_pause,recenter_crouch_held,kbm_height_reference,audio_pending;unsigned world_epoch,recenter_epoch,ui_good_frames582;float reference_origin[3],reference_yaw;struct{bool dead;}combat_state;struct{bool valid;}history;}b2_client;
+static struct {bool requested,valid,wait_neutral;int destination;struct{int up;}intent;}b2_controller;
+static struct {struct{bool valid;struct{struct{int pm_type,pm_flags;}pmove;int stats[1];}ps;}frame,oldframe;struct{int upmove;}cmd;float localmove[3];}cl;
+static struct {int state,key_dest;}cls;
+static b2c_snapshot_t b2_controller_sample;
+static b2rs_stance_t b2rs_stance;
+static struct {bool active,head_seen,reproject;b2rs_eye_t eye;uint32_t world,recentre,owner,xr,sample_ms,activation_ms;uint64_t serial;float anchor[3],last_head[3];}b2rs_client;
+static bool b2_realign_duck,b2_realign_duck_seen,b2_realign_duck_standing602;static unsigned b2_realign_duck_world,b2w_owner_epoch=1;
+static struct{bool pending;}b2_resume;
+static struct{bool automatic,staged,known;unsigned owner,revision,generation;}b2_reset397;
+static bool focus=true,interaction=true,neutral=true,commit_ready=true,hold_valid=true,reference_ready=true;
+static unsigned now=1000,reset_count;
+static uint32_t Sys_Milliseconds(void){return now;}
+static bool B2_InputFocused556(void){return focus;}
+static bool B2XR_InteractionReady(void){return interaction;}
+static bool B2_UISimulationHeld(void){return b2_client.ui_interrupted;}
+static bool SV_B2WeaponAPI(b2w_game_api_t*p){return true;}
+static int Key_IsDown(int k){return k=='c' && b2_controller.intent.up<0;}
+static void B2RM_Reset(void){reset_count++;}
+static void B2RM_AcknowledgedOffset(float*p){memset(p,0,3*sizeof(float));}
+static bool B2RM_Pending(uint32_t t){return false;}
+static unsigned B2RM_LastRequestMs(void){return 0;}
+static void b2rs_diagnostic(unsigned n){}
+static void b2rs_retire_movement(uint32_t t){}
+static bool B2_KeepFramePump(void){return true;}
+static bool B2_RealignActive391(void){return false;}
+static int Cvar_VariableInteger(const char*s){return 0;}
+static bool b2_auto_resume582(bool r,unsigned n){return false;}
+static bool b2c_sample_valid(const b2c_snapshot_t*,uint32_t);
+static bool b2_resume_neutral256(unsigned n){return neutral && !b2_controller.intent.up && b2c_sample_valid(&b2_controller_sample,n);}
+static bool b2_controller_resume_commit_ready(unsigned n){return commit_ready;}
+static bool b2_ui_validate_hold(void){return hold_valid;}
+static void b2_clear_walk_input(void){}
+static void CL_B2ReleaseButtons(void){}
+static void b2_ui_apply_pause(void){}
+static bool b2_recenter_crouch484(bool*held){*held=b2_controller.intent.up<0;return b2c_sample_valid(&b2_controller_sample,now);}
+static bool b2_reference_sample397(unsigned t){return reference_ready && b2c_sample_valid(&b2_controller_sample,t);}
+static bool b2_headset_reference(const b2c_snapshot_t*p,float*origin,float*yaw){VectorCopy(p->head_position,origin);*yaw=0;return true;}
+static unsigned B2B_Revision(void){return 1;}
+// Quake II PM_CheckDuck below retains id Software GPL-2.0-or-later code.
+// Copyright (C) 1997-2001 Id Software, Inc.
+#define PM_GIB 2
+#define PM_DEAD 3
+#define PMF_ON_GROUND 8
+typedef struct {bool allsolid;} trace_t;
+static bool ceiling;static unsigned trace_calls;
+static trace_t trace_head(const float*a,const float*b,const float*c,const float*d){trace_calls++;return (trace_t){ceiling};}
+static struct {float mins[3],maxs[3],viewheight;struct{int pm_type,pm_flags;}s;struct{int upmove;}cmd;trace_t(*trace)(const float*,const float*,const float*,const float*);}pm_value,*pm=&pm_value;
+static struct {float origin[3];}pml;
+/* PRODUCTION */
+static void sample(float h){now+=50;xr.controller_head_ms=now;xr.controller_head_generation=xr.input_generation;xr.display_time++;for(int i=0;i<2;i++)xr.views[i].pose.position.y=h;b2_controller_sample=(b2c_snapshot_t){.ready=true,.serial=1,.generation=1,.xr_generation=xr.input_generation,.capture_ms=now,.head_ms=now,.head_position={0,h,0},.head_orientation={0,0,0,1}};cl.cmd.upmove=0;cl.localmove[2]=0;}
+static void init(void){memset(&b2_client,0,sizeof b2_client);memset(&b2rs_client,0,sizeof b2rs_client);memset(&b2rs_stance,0,sizeof b2rs_stance);memset(&cl,0,sizeof cl);memset(&b2_reset397,0,sizeof b2_reset397);b2_realign_duck=b2_realign_duck_seen=false;b2_realign_duck_standing602=true;focus=interaction=neutral=commit_ready=hold_valid=reference_ready=true;physical.integer=1;room.integer=0;b2_client.walking=b2_client.vertical=b2_client.combat=b2_client.walk_ready=b2_client.origin_latched=true;b2_client.world_epoch=1;b2_controller.requested=b2_controller.valid=true;b2_controller.wait_neutral=false;b2_controller.destination=B2C_GAME;b2_controller.intent.up=0;cls.key_dest=KEY_GAME;cls.state=ca_active;cl.frame.valid=true;cl.frame.ps.pmove.pm_type=PM_NORMAL;cl.frame.ps.stats[0]=100;xr.tracking=true;xr.frame_open=false;xr.view_count=2;xr.input_generation=1;b2rs_stance.calibrated=true;b2rs_stance.baseline=1.7f;sample(1.7f);b2rs_filter();}
+static void tick(float h){sample(h);b2rs_filter();b2_realign_stance391();}
+static void low_pause(void){tick(.8f);tick(.8f);tick(.8f);assert(b2rs_stance.crouched);b2_client.ui_interrupted=true;focus=false;b2rs_filter();xr.input_generation++;focus=true;sample(1.7f);}
+static void resume(void){b2_client.ui_resume_request=true;b2_resume.pending=true;b2_finish_interruption256(true,true,true,true);assert(!b2_client.ui_interrupted && b2_client.walk_release_required);b2rs_filter();assert(!b2rs_client.active);b2_client.walk_release_required=false;}
+int main(void){
+ init();low_pause();resume();tick(1.7f);tick(1.7f);tick(1.7f);
+#ifdef EXPECT_RC7_DEFECT
+ assert(b2rs_stance.baseline>2.5f && b2rs_stance.crouched);puts("RC7 generic-generation baseline inflation reproduced");
+ init();b2_realign_duck=true;b2_realign_duck_world=1;tick(1.7f);assert(b2_realign_duck && cl.cmd.upmove==-200);puts("RC7 standing reference-event latch reproduced");return 0;
+#else
+ assert(fabsf(b2rs_stance.baseline-1.7f)<.0001f && !b2rs_stance.crouched && cl.cmd.upmove==0);
+ init();low_pause();sample(1.1f);resume();tick(1.1f);tick(1.1f);tick(1.1f);assert(b2rs_stance.crouched && cl.cmd.upmove==-200 && b2rs_stance.baseline==1.7f);
+ init();low_pause();b2_controller.intent.up=-200;b2_client.ui_resume_request=true;b2_finish_interruption256(true,true,true,true);assert(b2_client.ui_interrupted);b2_controller.intent.up=0;sample(1.7f);resume();
+ for(int fail=0;fail<7;fail++){init();low_pause();b2_client.ui_resume_request=true;b2_resume.pending=true;if(fail==4)now+=101;if(fail==5)hold_valid=false;if(fail==6)commit_ready=false;b2_finish_interruption256(fail!=0,fail!=1,fail!=2,fail!=3);assert(b2_client.ui_interrupted && b2rs_stance.baseline==1.7f && !b2_client.ui_resume_request);}
+ init();low_pause();b2_controller_sample.head_position[1]=NAN;b2_client.ui_resume_request=true;b2_finish_interruption256(true,true,true,true);assert(b2_client.ui_interrupted && b2rs_stance.baseline==1.7f);
+ init();now+=101;xr.input_generation++;b2rs_filter();assert(!b2rs_client.active && b2rs_stance.baseline==1.7f);sample(1.7f);b2rs_filter();assert(b2rs_client.active && b2rs_client.xr==xr.input_generation && b2rs_stance.transition_ms==0);
+ init();xr.views[0].pose.position.y=NAN;b2rs_filter();assert(!b2rs_client.active && b2rs_stance.baseline==1.7f);
+ init();b2_realign_duck=true;b2_realign_duck_world=1;cl.frame.ps.pmove.pm_flags=PMF_DUCKED;tick(1.7f);assert(!b2_realign_duck && cl.cmd.upmove==0 && cl.frame.ps.pmove.pm_flags==PMF_DUCKED);
+ init();b2_realign_duck=true;b2_realign_duck_world=1;tick(1.1f);assert(b2_realign_duck);tick(1.1f);tick(1.1f);assert(b2rs_stance.crouched && b2_realign_duck);tick(1.7f);tick(1.7f);tick(1.7f);assert(!b2_realign_duck && !b2rs_stance.crouched);
+ init();b2_realign_duck=true;b2_realign_duck_world=1;b2_controller.intent.up=-200;tick(1.7f);assert(b2_realign_duck && cl.cmd.upmove==-200);b2_controller.intent.up=0;tick(1.7f);assert(!b2_realign_duck);
+ init();b2_realign_duck=true;b2_realign_duck_world=1;now+=101;b2_realign_stance391();assert(b2_realign_duck);sample(1.7f);b2_controller.wait_neutral=true;b2_realign_stance391();assert(b2_realign_duck);b2_controller.wait_neutral=false;physical.integer=0;b2_realign_stance391();assert(!b2_realign_duck);
+ init();b2_reset397.automatic=true;b2_reset397.known=true;sample(1.1f);b2_reference_stage397(now);assert(b2rs_stance.baseline==1.7f && b2_client.walk_release_required);
+ init();b2_reset397.automatic=true;b2_reset397.known=false;sample(1.1f);b2_reference_stage397(now);assert(b2rs_stance.baseline==1.1f && b2_client.walk_release_required);
+ init();b2_reset397.automatic=true;now+=101;b2_reference_stage397(now);assert(!b2_reset397.staged && b2rs_stance.baseline==1.7f);
+ init();float o[3]={0,1.2f,0};b2_recenter_height484(o,true);assert(b2rs_stance.baseline==1.2f && b2_client.recenter_crouch_held && !b2_realign_duck);
+ XrPosef old={.orientation.w=1},change={.orientation.w=1,.position.y=.9f},out;assert(b2_xr_continuity_offset(&old,&change,&out));assert(fabsf(out.position.y+.9f)<.0001f);change.position.y=NAN;assert(!b2_xr_continuity_offset(&old,&change,&out));
+ init();b2_realign_duck=true;b2_realign_duck_world=1;sample(1.44f);b2_realign_stance391();assert(b2_realign_duck);sample(1.7f);b2_controller_sample.xr_generation++;b2_realign_stance391();assert(b2_realign_duck);sample(1.7f);b2rs_stance.baseline=NAN;b2_realign_stance391();assert(b2_realign_duck);
+ init();b2_reset397.automatic=true;b2_reset397.known=false;cl.frame.ps.pmove.pm_flags=PMF_DUCKED;sample(.8f);b2_reference_stage397(now);assert(!b2_realign_duck_standing602);b2_client.walk_release_required=false;b2_realign_stance391();assert(b2_realign_duck);
+ init();b2_realign_duck=b2_realign_duck_seen=true;b2_realign_duck_world=1;sample(1.7f);b2_controller_sample.xr_generation++;b2_realign_stance391();assert(b2_realign_duck);sample(1.7f);xr.controller_head_generation--;b2_realign_stance391();assert(b2_realign_duck);sample(1.7f);b2_client.walk_release_required=true;b2_realign_stance391();assert(b2_realign_duck);b2_client.walk_release_required=false;b2_realign_stance391();assert(!b2_realign_duck);
+ memset(pm,0,sizeof *pm);pm->trace=trace_head;pm->s.pm_type=PM_NORMAL;pm->s.pm_flags=PMF_DUCKED;ceiling=true;PM_CheckDuck();assert(pm->s.pm_flags&PMF_DUCKED);assert(pm->viewheight==-2 && trace_calls==1);ceiling=false;PM_CheckDuck();assert(!(pm->s.pm_flags&PMF_DUCKED) && pm->viewheight==22 && trace_calls==2);pm->s.pm_flags=PMF_ON_GROUND;pm->cmd.upmove=-200;PM_CheckDuck();assert(pm->s.pm_flags&PMF_DUCKED);
+ puts("RC8 crouch/resume, fresh posture latch, rejection, reference continuity and recentre boundaries PASS");return 0;
+#endif
+}

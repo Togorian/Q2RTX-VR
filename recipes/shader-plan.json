@@ -1,0 +1,1815 @@
+{
+  "shipped": [
+    {
+      "output": "animate_materials.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/animate_materials.comp",
+      "sourceBytes": 2615,
+      "sourceSha256": "65f4f3973a6cead007980176b5e22231611c9d07b45eaf1cfdb3bb346f7ae65e",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 24344,
+      "referenceSha256": "fa91414411d5e6b5ce5d83657e4d538d672b6a777ee039f773acce3d075d0567",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 24644,
+        "sha256": "ed7742c6470d189bde68134e0d8b9400c363813a7a69fe56381e3c80538b90a2"
+      }
+    },
+    {
+      "output": "asvgf_atrous.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/combined/vkpt/shader/asvgf_atrous.comp",
+      "sourceBytes": 23567,
+      "sourceSha256": "15e0b32cb7cca268df41084fb69696c8e32b843bbee8c6ec7d172d45951709c8",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/combined/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 73320,
+      "referenceSha256": "d5357187f257e70c0762d8aa4dba4543597801380461393039b1ae4b5045fc4b",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 117916,
+        "sha256": "e9e0db2f01a1fe41c6b79534116b15b6808c1a00856d843d49e02932f38166e4"
+      }
+    },
+    {
+      "output": "asvgf_gradient_atrous.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/asvgf_gradient_atrous.comp",
+      "sourceBytes": 6330,
+      "sourceSha256": "a6b0fe5d8a2eebefd8370096f8099649be09454b2b879397a1c0c51a1f0e5eb2",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 36244,
+      "referenceSha256": "6da8d62451b9ccc19088fe82f72c5fcff3506f414fe7ebc1c76c66f3d487fb8d",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 36244,
+        "sha256": "6da8d62451b9ccc19088fe82f72c5fcff3506f414fe7ebc1c76c66f3d487fb8d"
+      }
+    },
+    {
+      "output": "asvgf_gradient_img.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/asvgf_gradient_img.comp",
+      "sourceBytes": 7315,
+      "sourceSha256": "92a32b13c768f5dbb8abbc71d86a61abdfd2c6713280c3a40d2b5fb2dfb6b355",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 37876,
+      "referenceSha256": "2960d32ed5c452b3bc0a8365e140b2ff13b96065424bcb510d72329b03e9468b",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 37876,
+        "sha256": "2960d32ed5c452b3bc0a8365e140b2ff13b96065424bcb510d72329b03e9468b"
+      }
+    },
+    {
+      "output": "asvgf_gradient_reproject.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/eye-rank/vkpt/shader/asvgf_gradient_reproject.comp",
+      "sourceBytes": 17732,
+      "sourceSha256": "a9ce5b3deb07e631651616866e9258a21b01a828d228c1b68013453aafd02da6",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/eye-rank/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 88544,
+      "referenceSha256": "67e460763ac43c709eae91f6cbf59905b6d411142de02581829e2bab1ce50c31",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 88844,
+        "sha256": "7b955d6b91c76cba1a96c1c2543f98dc35efd9aac4fd6b21f46da17259cebcde"
+      }
+    },
+    {
+      "output": "asvgf_lf.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/asvgf_lf.comp",
+      "sourceBytes": 10457,
+      "sourceSha256": "87407e41f82206789074389ce57514c102755e22e8d2671342b97ede07b7bf1a",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 49500,
+      "referenceSha256": "3d2c369f100648a77ae4b0abc0f5ce193f48a7b6c21ca5bc740fd0766b12edd7",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 49500,
+        "sha256": "3d2c369f100648a77ae4b0abc0f5ce193f48a7b6c21ca5bc740fd0766b12edd7"
+      }
+    },
+    {
+      "output": "asvgf_taau.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/asvgf_taau.comp",
+      "sourceBytes": 11653,
+      "sourceSha256": "b4915d0cd7bd35413453dc3a48959abce8229439f0d0f0934734ea4af5a08703",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 55384,
+      "referenceSha256": "2645a6166f57acd44007de22481068b082b681811b5f2d74171d26ec48d3580a",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 55684,
+        "sha256": "570fb1755a59eab4c31018dca51e49fb6cdbadce05e96d6084bea285a13ab905"
+      }
+    },
+    {
+      "output": "asvgf_temporal.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/asvgf_temporal.comp",
+      "sourceBytes": 21556,
+      "sourceSha256": "dc1e032d65394c5882f39b23d40de4e180f6362ebbccd418de4aa620dbf14909",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 68480,
+      "referenceSha256": "4c3fec9410241f8c601e371f07e43b544a8c03abf72e8ca164a8a867f54678da",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 95480,
+        "sha256": "d29693d29c39f7c7f9da2d5802287627aaac8451e455ed70be95668cfc01f677"
+      }
+    },
+    {
+      "output": "bloom_blur.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/bloom_blur.comp",
+      "sourceBytes": 3950,
+      "sourceSha256": "f5ed25722d017de5810e445348ffdc39f99b6a05722b33792926be3fb272dcbb",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 33576,
+      "referenceSha256": "b967f460f719b976b5143256596c3a5f4c2ccc860b1976634e9317021225652d",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 33576,
+        "sha256": "b967f460f719b976b5143256596c3a5f4c2ccc860b1976634e9317021225652d"
+      }
+    },
+    {
+      "output": "bloom_composite.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/bloom_composite.comp",
+      "sourceBytes": 2351,
+      "sourceSha256": "394d961cf7b4f825b1c992664ca23de118b55e049b2a1849285d04b45dc55449",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 29224,
+      "referenceSha256": "09c5ad7807d889d19691a830add90d17883bf43014a61f642f329fd3d9c25c5f",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 29224,
+        "sha256": "09c5ad7807d889d19691a830add90d17883bf43014a61f642f329fd3d9c25c5f"
+      }
+    },
+    {
+      "output": "bloom_downscale.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/bloom_downscale.comp",
+      "sourceBytes": 2082,
+      "sourceSha256": "fe805f6193e4add5f169297617818d1894291018a4a3685222832b6a6d6b75b8",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 28904,
+      "referenceSha256": "5e3f3a9b555c4728e70f2a4ac3d3974f2acc8ff27a7991e6823fca32796aa98c",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 28904,
+        "sha256": "5e3f3a9b555c4728e70f2a4ac3d3974f2acc8ff27a7991e6823fca32796aa98c"
+      }
+    },
+    {
+      "output": "bloom_margin.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/bloom_margin.comp",
+      "sourceBytes": 5719,
+      "sourceSha256": "be65829849fdd73687f5ba65d9476f429f08ca203896128b94b345ef4bf80aaf",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 44340,
+      "referenceSha256": "67330e40951c9cc74fc9e77b5d0131621c92fc2363e662b70c24a03f8be1ef8c",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 44340,
+        "sha256": "67330e40951c9cc74fc9e77b5d0131621c92fc2363e662b70c24a03f8be1ef8c"
+      }
+    },
+    {
+      "output": "checkerboard_interleave.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/checkerboard_interleave.comp",
+      "sourceBytes": 7454,
+      "sourceSha256": "a52e858e10138613e94dc148f057df927d25db2f3fb2996b015e087e5e10ae48",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 33348,
+      "referenceSha256": "490281a8aa8ade537868a123bda49984153e29da65e6bfa249d1b3b87b2a7770",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 33348,
+        "sha256": "490281a8aa8ade537868a123bda49984153e29da65e6bfa249d1b3b87b2a7770"
+      }
+    },
+    {
+      "output": "compositing.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/compositing.comp",
+      "sourceBytes": 2965,
+      "sourceSha256": "9d1be7aa3a1507138a60f49c31c76a6ff914a179c50cf08ad9a359ad8db35ca5",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 33872,
+      "referenceSha256": "46d21855d5302e3d23f55cee8cba0f7baea5f6657b00caabc73f5eb1291bbd80",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 33872,
+        "sha256": "46d21855d5302e3d23f55cee8cba0f7baea5f6657b00caabc73f5eb1291bbd80"
+      }
+    },
+    {
+      "output": "debug_line.frag.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/debug_line.frag",
+      "sourceBytes": 2448,
+      "sourceSha256": "fd430acf8e24b10a872960e92b35cea30f816b6b5650a023aef802e76cc9871f",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 28604,
+      "referenceSha256": "c37f751aae8a007f1e263f952e824f99e0a42570ddcb648c2833897cb9d40ff2",
+      "spirvExecutionModels": [
+        4
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 28604,
+        "sha256": "c37f751aae8a007f1e263f952e824f99e0a42570ddcb648c2833897cb9d40ff2"
+      }
+    },
+    {
+      "output": "debug_line.vert.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/debug_line.vert",
+      "sourceBytes": 2220,
+      "sourceSha256": "506347f431d7f50dff78d00f46e864752b58d71f2790deaa36d37dcd68038c2c",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 26604,
+      "referenceSha256": "bd37bf3df35fbf18c58eff9adc9e4c36e07f02b8d9c16d22752e17fcde5ed595",
+      "spirvExecutionModels": [
+        0
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 26604,
+        "sha256": "bd37bf3df35fbf18c58eff9adc9e4c36e07f02b8d9c16d22752e17fcde5ed595"
+      }
+    },
+    {
+      "output": "direct_lighting.rgen.pipeline.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/combined/vkpt/shader/direct_lighting.rgen",
+      "sourceBytes": 5692,
+      "sourceSha256": "742e0be61db2999301886123ebad5d3410e2b2987bfa48b80e03684b7f6fbd96",
+      "variant": "pipeline",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/combined/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 138856,
+      "referenceSha256": "7a08ebdaa328304b90a63ad53cd782fde4154e7f3e1a98368e8d612549f43604",
+      "spirvExecutionModels": [
+        5313
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 139156,
+        "sha256": "b8390a4859fe8cd8078754a2c68e7ac4a877e0b958cac99d8eb21e78efa82473"
+      }
+    },
+    {
+      "output": "direct_lighting.rgen.query.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/combined/vkpt/shader/direct_lighting.rgen",
+      "sourceBytes": 5692,
+      "sourceSha256": "742e0be61db2999301886123ebad5d3410e2b2987bfa48b80e03684b7f6fbd96",
+      "variant": "query",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val",
+        "-S",
+        "comp",
+        "-DKHR_RAY_QUERY"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/combined/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 146244,
+      "referenceSha256": "a771a31f2dc339c0078bcbfe66444a6756796fda2493665610fe2e35d5514fa2",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 146544,
+        "sha256": "4e2679f03199692d1532910706d01ac875522b91a5a1284fc00a86b2a5969299"
+      }
+    },
+    {
+      "output": "final_blit.frag.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/final_blit.frag",
+      "sourceBytes": 6499,
+      "sourceSha256": "2a72daf099f0819ddd5ee942a8d8f4314b1d5a3b6976c9ffe7c69a7fd6416c5b",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 28512,
+      "referenceSha256": "446972bd2369ab7573db6c136f793da1ca68762d3c1e80d2ce237bb15c1fd84e",
+      "spirvExecutionModels": [
+        4
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 28512,
+        "sha256": "446972bd2369ab7573db6c136f793da1ca68762d3c1e80d2ce237bb15c1fd84e"
+      }
+    },
+    {
+      "output": "final_blit.vert.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/final_blit.vert",
+      "sourceBytes": 1781,
+      "sourceSha256": "25beb8d48c8e7ac13c0ef8df6b69a49d84655e60d9bf9a0b9d5fc9993ae9992a",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 1236,
+      "referenceSha256": "4461a1d8c87948db955b501fbe6053aba7d48888436d23bf75658a75776c5963",
+      "spirvExecutionModels": [
+        0
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 1236,
+        "sha256": "4461a1d8c87948db955b501fbe6053aba7d48888436d23bf75658a75776c5963"
+      }
+    },
+    {
+      "output": "fsr_easu_fp16.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/fsr_easu_fp16.comp",
+      "sourceBytes": 1710,
+      "sourceSha256": "1f3cd0bc77604f359d71e8b57ca7de6083e8dda03f8ebef932af47cfb26f9e1c",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 65280,
+      "referenceSha256": "60dbe3ed33dd7553fcefac1629c32fcc627586c70fa38432f3abbb9c83ff87b9",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 65280,
+        "sha256": "60dbe3ed33dd7553fcefac1629c32fcc627586c70fa38432f3abbb9c83ff87b9"
+      }
+    },
+    {
+      "output": "fsr_easu_fp32.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/fsr_easu_fp32.comp",
+      "sourceBytes": 1694,
+      "sourceSha256": "f6a53b03469448438941e018d26a6a11c62be6d1aa23340db7c2b6830d526a49",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 66468,
+      "referenceSha256": "d6dcacd98e3772674b544c5d9a99bc7ce26031ad40b14d90da7f5c81d03d3c35",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 66468,
+        "sha256": "d6dcacd98e3772674b544c5d9a99bc7ce26031ad40b14d90da7f5c81d03d3c35"
+      }
+    },
+    {
+      "output": "fsr_rcas_fp16.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/fsr_rcas_fp16.comp",
+      "sourceBytes": 1773,
+      "sourceSha256": "8db314a8a3abc995164c29897fa7ac9c8bccb5e824428b793fb8dc30c2e6a9a1",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 50328,
+      "referenceSha256": "b647bc78e494918f2730a22267e6e6e5a43b75e333d351e507525a62a6872b7f",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 50328,
+        "sha256": "b647bc78e494918f2730a22267e6e6e5a43b75e333d351e507525a62a6872b7f"
+      }
+    },
+    {
+      "output": "fsr_rcas_fp32.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/fsr_rcas_fp32.comp",
+      "sourceBytes": 1757,
+      "sourceSha256": "f1fe71277a0f452f6e13d5829b9dfdf076a9229a686be63e6c2603c92b217ad8",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 49860,
+      "referenceSha256": "5c8f812b4966efd50b89041750178d7f57ec8b1e72f5b9f3d0bf810c430550f8",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 49860,
+        "sha256": "5c8f812b4966efd50b89041750178d7f57ec8b1e72f5b9f3d0bf810c430550f8"
+      }
+    },
+    {
+      "output": "god_rays.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/god_rays.comp",
+      "sourceBytes": 7890,
+      "sourceSha256": "56d23e120696795ff9a3f19a8524e3370ea5a208ca9b03af12e14a5cd02266ad",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 47664,
+      "referenceSha256": "54f2926d5d54768476a6f98fac4984904b8fcfc918f4c2edaf3fe87839dd06cb",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 47964,
+        "sha256": "6de5094d7b2fa1f8f9e0965da82f95951c8b2343c0eee37ca5d1c8ee08f87e93"
+      }
+    },
+    {
+      "output": "god_rays_filter.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/god_rays_filter.comp",
+      "sourceBytes": 4277,
+      "sourceSha256": "7c63f6598d69a45f6e49057b2f805da16ba649475f3f907aaf8ac8f6f7704090",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 32108,
+      "referenceSha256": "ea8bb96ba95b18adb9d7aba547c9fbe9f9692d713495060bed442adbb8e16ab6",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 32108,
+        "sha256": "ea8bb96ba95b18adb9d7aba547c9fbe9f9692d713495060bed442adbb8e16ab6"
+      }
+    },
+    {
+      "output": "indirect_lighting.rgen.pipeline.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/combined/vkpt/shader/indirect_lighting.rgen",
+      "sourceBytes": 17217,
+      "sourceSha256": "0c9e8767b386a0cb8f79bbb60f99fc57498456f3daf48c64bf8a0c6adf812aab",
+      "variant": "pipeline",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/combined/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 176128,
+      "referenceSha256": "25e2b2635d2519f428caf92b40410cde300d830789067a0bd6a676900b876299",
+      "spirvExecutionModels": [
+        5313
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 177676,
+        "sha256": "90a9bbba1d644c7c53381890f78646b95cf10f30610eb423ce63de4d5bd8c94c"
+      }
+    },
+    {
+      "output": "indirect_lighting.rgen.query.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/combined/vkpt/shader/indirect_lighting.rgen",
+      "sourceBytes": 17217,
+      "sourceSha256": "0c9e8767b386a0cb8f79bbb60f99fc57498456f3daf48c64bf8a0c6adf812aab",
+      "variant": "query",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val",
+        "-S",
+        "comp",
+        "-DKHR_RAY_QUERY"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/combined/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 212380,
+      "referenceSha256": "c7561e241f6af86b40036b67c954dc2dc404079d4ad0b0c3d31da214097d9e2a",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 213928,
+        "sha256": "25b6c6dc8bb558de1a683509716168a4dd100867d68dc6258950c6bd796be592"
+      }
+    },
+    {
+      "output": "instance_geometry.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/instance_geometry.comp",
+      "sourceBytes": 7808,
+      "sourceSha256": "7a93a9736d2a79231f38aa12d0005aee12573bd66d28c6f97bbf0ab77bd997d0",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 49704,
+      "referenceSha256": "b8ed2800b6b72ff4a1ddb0fe5f46e85f039f0ef56879864be627892e8ed7829b",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 50004,
+        "sha256": "03fea3dcbcbd52f0213f6e56d36a74b609b9d87dcd71b4a4723efec92b92de32"
+      }
+    },
+    {
+      "output": "normalize_normal_map.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/normalize_normal_map.comp",
+      "sourceBytes": 1882,
+      "sourceSha256": "0aad7d690933c63287caed791f876f831741a67472f16b6431277b811a822079",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 2508,
+      "referenceSha256": "8e97a43fc291df9e37a3ae159c9ede939b01739910fc8ccdd4fb72bce3c335ea",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 2508,
+        "sha256": "8e97a43fc291df9e37a3ae159c9ede939b01739910fc8ccdd4fb72bce3c335ea"
+      }
+    },
+    {
+      "output": "path_tracer.rchit.pipeline.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/path_tracer.rchit",
+      "sourceBytes": 1805,
+      "sourceSha256": "9ac0286e3c9826992ac3403025b1077712d07cc5bdbb099b738a004469495f9b",
+      "variant": "pipeline",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 36004,
+      "referenceSha256": "e09eb43f2edf217df79dd7a54e94246adeacd2f57147bbbfbd0ec90eff1c6255",
+      "spirvExecutionModels": [
+        5316
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 36304,
+        "sha256": "6b54c4ad4958888b8b06c18fae4cf3f3ba124efb9d8455ebdfc887bb737a902c"
+      }
+    },
+    {
+      "output": "path_tracer.rmiss.pipeline.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/path_tracer.rmiss",
+      "sourceBytes": 1186,
+      "sourceSha256": "3c012b54160546ff2a0a2401ad217bcc088bc5539619ebc9d77b0c1106da4510",
+      "variant": "pipeline",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 192,
+      "referenceSha256": "c0ba96b9a802cb5e6d1980fd5d601df1a44cd767dd214b917593dc1c2c96dc4a",
+      "spirvExecutionModels": [
+        5317
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 192,
+        "sha256": "c0ba96b9a802cb5e6d1980fd5d601df1a44cd767dd214b917593dc1c2c96dc4a"
+      }
+    },
+    {
+      "output": "path_tracer_beam.rahit.pipeline.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/path_tracer_beam.rahit",
+      "sourceBytes": 1977,
+      "sourceSha256": "b57efa3b6a5ab6a2af3a6ed3c445f2243996ff6ec509dbeec02221b5ff534ab3",
+      "variant": "pipeline",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 44988,
+      "referenceSha256": "40fd90665462e81bb71c2388e1afbf9ef7905b88af88521def5ec56f7188314e",
+      "spirvExecutionModels": [
+        5315
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 45288,
+        "sha256": "34f39df2dab297b569cda30593781578b80b055bf4fe5463c69efae20c8db8fb"
+      }
+    },
+    {
+      "output": "path_tracer_beam.rint.pipeline.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/path_tracer_beam.rint",
+      "sourceBytes": 1939,
+      "sourceSha256": "7b7243432698e722c830865b363fe776420db87f45ecd29afb3489d074fc951e",
+      "variant": "pipeline",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 45472,
+      "referenceSha256": "073e327878076ded729d877fbe3c7df6867ec40517f0dede907c6a59feeeaff3",
+      "spirvExecutionModels": [
+        5314
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 45772,
+        "sha256": "379b63c877ad07c2fed82a63c57586aa3900e871c986db00590574ade2583c7f"
+      }
+    },
+    {
+      "output": "path_tracer_explosion.rahit.pipeline.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/path_tracer_explosion.rahit",
+      "sourceBytes": 1897,
+      "sourceSha256": "96b4427bf1ac7450847e4eacd8fb7e5ede79808ce16f5b0206df34e471bec291",
+      "variant": "pipeline",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 54076,
+      "referenceSha256": "2cb2d61a77d4fbd67feddbeffe737b69c019119fc8e34c740c48f1827f58fbea",
+      "spirvExecutionModels": [
+        5315
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 54376,
+        "sha256": "92177bf09053c229006de58bdfb88a4e69617d3077f223875ff4d914aed618f1"
+      }
+    },
+    {
+      "output": "path_tracer_masked.rahit.pipeline.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/path_tracer_masked.rahit",
+      "sourceBytes": 1680,
+      "sourceSha256": "93913dcc52987450e01c288545ae137c49577a0c6d56c03cfd0584da6395cf6c",
+      "variant": "pipeline",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 55268,
+      "referenceSha256": "f67f4235fae8e7b2482e10d57092c40f3d96afd4c633791b08a56c2dca80f219",
+      "spirvExecutionModels": [
+        5315
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 55568,
+        "sha256": "c03b82f5b45ef689df6880944aed523d32f29896b17eccec0aca94fbb4e20438"
+      }
+    },
+    {
+      "output": "path_tracer_particle.rahit.pipeline.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/path_tracer_particle.rahit",
+      "sourceBytes": 1829,
+      "sourceSha256": "50d63754d9663044e9566e484763589174210b6b38d0b50f3f2bd0651aabcea4",
+      "variant": "pipeline",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 42692,
+      "referenceSha256": "932d005c565d3944c80463abd5df607e0c70c3cc96de4cb75c3decdefb9f7ad1",
+      "spirvExecutionModels": [
+        5315
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 42992,
+        "sha256": "578ffde53d2e2c74614132ad67bc9ea51e3561fc13c1da3ad34e9ad742fa8fb8"
+      }
+    },
+    {
+      "output": "path_tracer_sprite.rahit.pipeline.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/path_tracer_sprite.rahit",
+      "sourceBytes": 1828,
+      "sourceSha256": "6ddf39b306df7ad10ad5f80566b3ac687e096073956d966122e65bd10bb4947c",
+      "variant": "pipeline",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 44184,
+      "referenceSha256": "befb66dd79bc9a2f0f2557e419d0ec604a0c1bdecbef10a4293100768da40b02",
+      "spirvExecutionModels": [
+        5315
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 44484,
+        "sha256": "1ffcc8c972e5aa9aba967cb04f5848370c7133850db369f99d47e587efa20457"
+      }
+    },
+    {
+      "output": "physical_sky.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/physical_sky.comp",
+      "sourceBytes": 16387,
+      "sourceSha256": "f9720ee9794758df1bc8fe80017a2cb4e91a2c904873e8954f23a45a3c7852f5",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 97316,
+      "referenceSha256": "755ea09348ab3209c6ea765c7c559b808d86263241c70da11513d3cb8b547046",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 97616,
+        "sha256": "cb70c813dff30b9894ea4cf6b5c9ba23becbaed2c32126d3da8be96cc01cae2c"
+      }
+    },
+    {
+      "output": "physical_sky_space.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/physical_sky_space.comp",
+      "sourceBytes": 16006,
+      "sourceSha256": "90b2f5ccb60367c49abb967f36fdda72705cb87b43a2c40acb578e9322f092b7",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 63676,
+      "referenceSha256": "880f9aef3a3de49b8294a140450410c23d17feedf088ef2b1c5789c9f8c2de79",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 63976,
+        "sha256": "2b64063c4b9aad21a7da887bf5f776bb79466100bcac81841cfa4d5803c819ae"
+      }
+    },
+    {
+      "output": "primary_rays.rgen.pipeline.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/primary_rays.rgen",
+      "sourceBytes": 16577,
+      "sourceSha256": "f510ab6531aa8a262ba9a3d31d89b763bf590b72509e2b564ffb920fdcdbbcd0",
+      "variant": "pipeline",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 150944,
+      "referenceSha256": "69b8a4f3b1486b8a194e8604707a89484033f0730e694beac85e3c8d11bddd17",
+      "spirvExecutionModels": [
+        5313
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 152492,
+        "sha256": "6032f18c627bd4c1ea806a35935819c9b03cc9610c00f05381736129c449f943"
+      }
+    },
+    {
+      "output": "primary_rays.rgen.query.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/primary_rays.rgen",
+      "sourceBytes": 16577,
+      "sourceSha256": "f510ab6531aa8a262ba9a3d31d89b763bf590b72509e2b564ffb920fdcdbbcd0",
+      "variant": "query",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val",
+        "-S",
+        "comp",
+        "-DKHR_RAY_QUERY"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 185396,
+      "referenceSha256": "685018a6b28bdf5c3345df2b109cfbcd92ede198aecc99dd32514e530d7c964d",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 186944,
+        "sha256": "b5b4f09d23a8441b4ad521b0f51f99a89e126f760ba4ca698d4f16285afbdb68"
+      }
+    },
+    {
+      "output": "reflect_refract.rgen.pipeline.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/reflect_refract.rgen",
+      "sourceBytes": 26232,
+      "sourceSha256": "af3618313a9d832afb67d572430acf4bd03c5242673e5ce4dddf90f4795f1e1d",
+      "variant": "pipeline",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 147280,
+      "referenceSha256": "1b959d64f21e9d67856f2516bef0c48c34dadcc9ad7f884d01f14262a1abaa86",
+      "spirvExecutionModels": [
+        5313
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 148828,
+        "sha256": "b575d6f9fd58e40fda696d035914ffc710e5414dcf7de64335e0b03465bb6dd9"
+      }
+    },
+    {
+      "output": "reflect_refract.rgen.query.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/reflect_refract.rgen",
+      "sourceBytes": 26232,
+      "sourceSha256": "af3618313a9d832afb67d572430acf4bd03c5242673e5ce4dddf90f4795f1e1d",
+      "variant": "query",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val",
+        "-S",
+        "comp",
+        "-DKHR_RAY_QUERY"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 181732,
+      "referenceSha256": "f4390f8341d4dcdf1a9fa68d04208bef2eb7d35522bd5064ec828073f5573fa4",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 183280,
+        "sha256": "ab69c63c449917c28c17bfc88a8262f4e2af733e79a1033af6af3e96337445c6"
+      }
+    },
+    {
+      "output": "shadow_map.vert.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/shadow_map.vert",
+      "sourceBytes": 1812,
+      "sourceSha256": "3ad445fd5abdae49dee9af77af10160632d1ac0e3e8d98c77e42d4974ecede6b",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 1084,
+      "referenceSha256": "eba92ba9f6b0e37546ebb46b7b5c5abeffa2abaa2feed04801b2728e2b25779c",
+      "spirvExecutionModels": [
+        0
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 1084,
+        "sha256": "eba92ba9f6b0e37546ebb46b7b5c5abeffa2abaa2feed04801b2728e2b25779c"
+      }
+    },
+    {
+      "output": "sky_buffer_resolve.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/sky_buffer_resolve.comp",
+      "sourceBytes": 2774,
+      "sourceSha256": "7c4aba507ebfa29d91a40e135e34b61798ca1c42ac9df0d0b5a334c376577b02",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 20592,
+      "referenceSha256": "431a9264c16d1b0d9b2d32efc035f3f90f124b4e347657483ea8d7aeea1aec4d",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 20892,
+        "sha256": "2d2efad8ed5c7044cbdd91091bcfcdebacbecc167e666b627e42207563132164"
+      }
+    },
+    {
+      "output": "stretch_pic.frag.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/stretch_pic.frag",
+      "sourceBytes": 2194,
+      "sourceSha256": "328150ba0c36e63df10c11325a63d1d33b02fff04d4be4c3c81035fd9dfe801a",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 17004,
+      "referenceSha256": "9653a258eb9267f3557b6375b4256e513d843ad114791c14189c16bd542e499d",
+      "spirvExecutionModels": [
+        4
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 17004,
+        "sha256": "9653a258eb9267f3557b6375b4256e513d843ad114791c14189c16bd542e499d"
+      }
+    },
+    {
+      "output": "stretch_pic.vert.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/stretch_pic.vert",
+      "sourceBytes": 2573,
+      "sourceSha256": "5c95e53c42de38184249bc7d098678642e20fde567685d11a1100c5d34d2d8bc",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 3868,
+      "referenceSha256": "424ebfb5d07de7d128257cb0fb39972877115805d2232ef0cd5c1f7a5c9bad23",
+      "spirvExecutionModels": [
+        0
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 3868,
+        "sha256": "424ebfb5d07de7d128257cb0fb39972877115805d2232ef0cd5c1f7a5c9bad23"
+      }
+    },
+    {
+      "output": "tone_mapping_apply.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/tone_mapping_apply.comp",
+      "currentSourceBytes": 40334,
+      "currentSourceSha256": "b88d1cd475bbe7206fd431ab3ed1b8a61c7f0cae88da7e1d1e49bae29ea4e1db",
+      "sourceBytes": 40334,
+      "sourceSha256": "242557b950a565e41d10ea5339de81cdf38af1d6a8f917099d9a599307c0fc96",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 112820,
+      "referenceSha256": "cf434bfceaaed19e41795aa3c40eddf88494d243a697af5ebaca11def9273db4",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 120936,
+        "sha256": "9845dffb780bfa5a4bb6e3532394998573e57dbaa438d8e7c0381b5a61724486"
+      }
+    },
+    {
+      "output": "tone_mapping_curve.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/tone_mapping_curve.comp",
+      "sourceBytes": 15444,
+      "sourceSha256": "06eafbbf8b3fe32f28bb7cd48984d47188ede368ecef082e19b558e6f69b80c2",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 45352,
+      "referenceSha256": "fc6564986c82f73ae4970856c69d039111589377ae8e58d8c77d890296820930",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 46688,
+        "sha256": "a6267a7369e23d507d2100bc7241a8f62387c8f4e39b1fd8baf09f2eb93b0021"
+      }
+    },
+    {
+      "output": "tone_mapping_histogram.comp.spv",
+      "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/tone_mapping_histogram.comp",
+      "sourceBytes": 12448,
+      "sourceSha256": "6245b64998adb805e47c80b1b1cd2f2425b30078eb4dc49304c6e51515e8f4f6",
+      "variant": "ordinary",
+      "flags": [
+        "--target-env",
+        "vulkan1.2",
+        "--quiet",
+        "-DVKPT_SHADER",
+        "-V",
+        "-DREFERENCE_VR_HISTORY=1",
+        "--spirv-val"
+      ],
+      "includeDirectories": [
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader",
+        "source/baseline/b2-consolidated215/shaders/baseline/vkpt/fsr"
+      ],
+      "referenceBytes": 36444,
+      "referenceSha256": "0f82a6a3a9a0a3f10445ba77527e65a8a5fdaf7c025575cb778f67c8218e567b",
+      "spirvExecutionModels": [
+        5
+      ],
+      "basis": "Source557 actual CPU regeneration and interface/material comparison; current selected reference, product/GPU acceptance pending.",
+      "historicalReference545": {
+        "bytes": 36744,
+        "sha256": "19b5a8c4ab9dd6aa39e0eb345fcedb366ca29dc7450d8ebd79c8e77bb17042d6"
+      }
+    }
+  ],
+  "embedded": [
+    {
+      "header": "bloom_margin_spv.h",
+      "selectedCopies": [
+        "source/baseline/b2-consolidated215/inputs/origin-007/margin/bloom_margin_spv.h"
+      ],
+      "arrays": [
+        {
+          "array": "bloom_margin_spv",
+          "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/bloom_margin.comp",
+          "bytes": 44340,
+          "sha256": "67330e40951c9cc74fc9e77b5d0131621c92fc2363e662b70c24a03f8be1ef8c",
+          "query": false,
+          "executionModels": [
+            5
+          ],
+          "sourceBytes535": 5719,
+          "sourceSha256535": "be65829849fdd73687f5ba65d9476f429f08ca203896128b94b345ef4bf80aaf",
+          "currentSourceBytes": 5719,
+          "currentSourceSha256": "be65829849fdd73687f5ba65d9476f429f08ca203896128b94b345ef4bf80aaf",
+          "historicalReference545": {
+            "bytes": 44340,
+            "sha256": "67330e40951c9cc74fc9e77b5d0131621c92fc2363e662b70c24a03f8be1ef8c"
+          }
+        }
+      ]
+    },
+    {
+      "header": "b2_wall_return_spv.h",
+      "selectedCopies": [
+        "source/baseline/b2-consolidated215/inputs/origin-003/include/refresh/b2_wall_return_spv.h"
+      ],
+      "arrays": [
+        {
+          "array": "b2_wall_return_spv",
+          "source": "source/baseline/b2-consolidated215/shaders/baseline/b2_wall_return.comp",
+          "bytes": 14984,
+          "sha256": "d9b3ed2c09d27fa3f5cc2c39b0a274a9abca46191ab94402aecf4943298d4aaa",
+          "query": false,
+          "executionModels": [
+            5
+          ],
+          "sourceBytes535": 1417,
+          "sourceSha256535": "e2d56625b25b9d5802ae9f29b470e3f418da94d0d56efe102d5f262b28f337d1",
+          "currentSourceBytes": 1500,
+          "currentSourceSha256": "cd2b669a236af1b718f4fba05019d461d6c854f1b2d901bfdbf16f3b95e4c0ad",
+          "historicalReference545": {
+            "bytes": 14984,
+            "sha256": "d9b3ed2c09d27fa3f5cc2c39b0a274a9abca46191ab94402aecf4943298d4aaa"
+          }
+        }
+      ]
+    },
+    {
+      "header": "b2_primary_guides_reflection_spv.h",
+      "selectedCopies": [
+        "source/baseline/b2-consolidated215/inputs/origin-003/include/refresh/b2_primary_guides_reflection_spv.h"
+      ],
+      "arrays": [
+        {
+          "array": "b2_primary_guides_hit_spv",
+          "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/b2_primary_guides_reflection.rahit",
+          "bytes": 45572,
+          "sha256": "12f821a8eb8a69fdbd96944adaff9275053dfe5f45643ef507216a6729f7eecb",
+          "query": false,
+          "executionModels": [
+            5315
+          ],
+          "sourceBytes535": 2269,
+          "sourceSha256535": "850055ceefd0536643c8ef2b4f1c9de3e02476f5ce9e3f16aa8a6642aabcea03",
+          "currentSourceBytes": 2397,
+          "currentSourceSha256": "b5f97f27c361cd5fdc314a426bc39288dbe295990428a135fcdf211eb12f3777",
+          "historicalReference545": {
+            "bytes": 45572,
+            "sha256": "12f821a8eb8a69fdbd96944adaff9275053dfe5f45643ef507216a6729f7eecb"
+          }
+        },
+        {
+          "array": "b2_primary_guides_query_spv",
+          "source": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/b2_primary_guides_reflection.rgen",
+          "bytes": 182364,
+          "sha256": "a540a641777860372530ada924fc7eab6b4356b69a7abe5b155edf6fd99f1b1c",
+          "query": true,
+          "executionModels": [
+            5
+          ],
+          "sourceBytes535": 25317,
+          "sourceSha256535": "2dd7840bc339dddc7b11fa28d373f1f9d45a4d0c83d95163ffc66abb76a09bbb",
+          "currentSourceBytes": 25445,
+          "currentSourceSha256": "bdb84869a016d37854c772e1f286f62634f7b743ba3249eb1f2c4aae66c826c8",
+          "historicalReference545": {
+            "bytes": 182364,
+            "sha256": "a540a641777860372530ada924fc7eab6b4356b69a7abe5b155edf6fd99f1b1c"
+          }
+        }
+      ],
+      "referenceCompileDefines": [
+        "VKPT_SHADER"
+      ],
+      "correspondence544": "Actual glslang15.1.0 checks reproduce both accepted module SHA256 values exactly when REFERENCE_B_B0P and REFERENCE_B_B1 are absent. Their prior presence changed UBO/readback declarations and query tone-witness instructions. No GLSL/accepted array change."
+    },
+    {
+      "header": "b2_crosshair_reflection_spv.h",
+      "selectedCopies": [
+        "source/baseline/b2-consolidated215/inputs/origin-003/include/refresh/b2_crosshair_reflection_spv.h"
+      ],
+      "arrays": [
+        {
+          "array": "b2_crosshair_hit_spv",
+          "source": "source/baseline/b2-consolidated215/shaders/crosshair87/vkpt/shader/b2_crosshair_reflection.rahit",
+          "bytes": 45784,
+          "sha256": "efbebf33f8e0cfbed83caf53cc575e9fc5145886023092f0f49f3c14c33efbd1",
+          "query": false,
+          "executionModels": [
+            5315
+          ],
+          "currentSourceBytes": 2398,
+          "currentSourceSha256": "45def402866604d59a239bf2456c0cb804f35b6e89947bf0a300d90d4a1ddbdb",
+          "sourceSelection535": {
+            "path": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/b2_crosshair_reflection.rahit",
+            "bytes": 2300,
+            "sha256": "24111abbc415e220320c5fbdd40e47d1296b0310bf9b7c2757259c16d8c2c67b",
+            "scope": "Historical previous selection; retained unchanged separately."
+          },
+          "historicalReference545": {
+            "bytes": 45884,
+            "sha256": "3311d0e4e52460a574b22b8f04a302ee57b899543ccef245d7f113511a474323"
+          }
+        },
+        {
+          "array": "b2_crosshair_query_spv",
+          "source": "source/baseline/b2-consolidated215/shaders/crosshair87/vkpt/shader/b2_crosshair_reflection.rgen",
+          "bytes": 182576,
+          "sha256": "f2312704bd1648bce7318562a751a55038ae0db82dcb3446404dd276aa62daa1",
+          "query": true,
+          "executionModels": [
+            5
+          ],
+          "currentSourceBytes": 25408,
+          "currentSourceSha256": "f5c3c059f5442ea295da0454484fc08d7378d89a449114a5895eb0710a4fae90",
+          "sourceSelection535": {
+            "path": "source/baseline/b2-consolidated215/shaders/baseline/vkpt/shader/b2_crosshair_reflection.rgen",
+            "bytes": 25312,
+            "sha256": "d41cbf7ed0102563233ee2ce8a6c041093f013dde0626a5ccbdd3d950730f695",
+            "scope": "Historical previous selection; retained unchanged separately."
+          },
+          "historicalReference545": {
+            "bytes": 183924,
+            "sha256": "bfe7ada4158a1a879fc5ac0045f1efcba71297d1eca7d4e1dbe118844f59d9ad"
+          }
+        }
+      ],
+      "producingInputSelection": "shader-input-provenance545.json"
+    }
+  ],
+  "compiler": "glslangValidator from Vulkan SDK 1.4.304.1; Vulkan 1.2 target",
+  "regenerationStatus": "Source557: 51 runtime modules and six embedded arrays compiled/validated on CPU; 27 byte-identical and 30 diagnostic changes reviewed. Two crosshair arrays adopted in selected source. No native/GPU/headset acceptance.",
+  "correction535": "Only source provenance comments and identity records changed; all shipped/embedded binary references remain exact.",
+  "sourcePreparation543": {
+    "standalone": "shader-build/CMakeLists.txt",
+    "outputs": "Fresh selected build directory only; no source/accepted blobs overwritten. Product-version includes are in product-version/, not generated/ shader headers.",
+    "referencePolicy": "No automatic adoption. Compare hashes/structure/disassembly and investigate every difference; no visual-equivalence claim."
+  },
+  "correspondence544": {
+    "compiler": "glslang15.1.0 (reported11:15.1.0), generator11; Vulkan1.2 target emits SPIR-V1.5",
+    "runtimeByteIdentical": 49,
+    "runtimeTotal": 53,
+    "embeddedByteIdenticalAfterPrimaryDefineCorrection": 4,
+    "embeddedTotal": 6,
+    "unresolvedRuntime": [
+      "direct_lighting.rgen.pipeline.spv",
+      "direct_lighting.rgen.query.spv",
+      "indirect_lighting.rgen.pipeline.spv",
+      "indirect_lighting.rgen.query.spv"
+    ],
+    "unresolvedEmbedded": [
+      "b2_crosshair_hit_spv",
+      "b2_crosshair_query_spv"
+    ],
+    "unresolvedScope": "Lighting outputs omit an accepted light-statistics guard; crosshair outputs add two readback array declarations from current shared input. No adoption or shader-algorithm edit; full recipe/source correspondence remains incomplete.",
+    "acceptedReferencesChanged": false,
+    "recordScope": "Historical intermediate observation before the producing-input selection documented in correspondence545."
+  },
+  "correspondence545": {
+    "date": "2026-11-11",
+    "runtimeByteIdentical": 53,
+    "runtimeTotal": 53,
+    "embeddedByteIdentical": 6,
+    "embeddedTotal": 6,
+    "targetedCompiled": 6,
+    "freshWholeRecipeCompiled": 59,
+    "shaderTreeFiles": 107,
+    "externalWallReturnHeader": "Unchanged additional relative include dependency.",
+    "producingInputs": "recipes/shader-input-provenance545.json",
+    "acceptedReferencesChanged": false,
+    "nativeConsumersChanged": false,
+    "generatedAdoption": false
+  },
+  "separation557": {
+    "status": "CPU_COMPARISON_RECORDED_AT_SOURCE557",
+    "omittedDiagnosticOutputs": [
+      "reference_b_b1_asvgf_coverage.comp.spv",
+      "reference_b_b1_descriptor_route.comp.spv"
+    ],
+    "historyDefine": "REFERENCE_VR_HISTORY=1",
+    "compilerSha256": "80b6455a470ce138e3f0d8718eb1832b652a4bc5e08bc00a55268201d287f4b9",
+    "materialDifferences": [
+      "ReadbackBuffer retains the exact six-member 32-byte normal prefix; B1 tone283/B2 lighting162/HF960 diagnostic word tails are removed. Parent storage binding5 changes accordingly; descriptor set depends on the shader recipe.",
+      "Ray shell tone witnesses and their atomics are removed. Actual prev_adapted_luminance frame latch remains under REFERENCE_VR_HISTORY after the first comparison exposed its B1 coupling; initial outputs are preserved as superseded.",
+      "ASVGF temporal/atrous lose only the HF capture helpers/calls and their otherwise unused included VBO/SSBO helper declarations. Ordinary samples, weights, history writes, fake specular and composite outputs remain in the complete expanded diff.",
+      "Tone curve/apply observation atomics/readbacks and their local witness-only barriers are removed. Normal accumulator, adapted luminance, display curve and output store remain.",
+      "Two standalone B1 diagnostic compute modules are omitted from final recipes; their initially generated review bytes are retained privately. Four of six embedded modules are byte-identical; both crosshair arrays are regenerated."
+    ],
+    "design": "docs/RENDERER-DESIGN.md",
+    "historicalRecords": "correspondence544/545 and shader-input-provenance545.json are unchanged prior observations."
+  }
+}

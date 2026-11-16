@@ -1,0 +1,71 @@
+{
+  "finding": "FINAL",
+  "cases": [
+    {
+      "file": "FINAL-settings.c",
+      "production": [
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cvar.c",
+          "function": "Cvar_B2GraphicsActive534"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cvar.c",
+          "function": "Cvar_B2GraphicsLocked534"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cvar.c",
+          "function": "b2_graphics_refuse534"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cvar.c",
+          "function": "change_string_value"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cvar.c",
+          "function": "Cvar_SetByVar"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_018/screen.c",
+          "function": "scr_crosshair_changed"
+        }
+      ]
+    },
+    {
+      "file": "FINAL-player-selectors.c",
+      "production": [
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cvar.c",
+          "function": "Cvar_B2GraphicsActive534"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cvar.c",
+          "function": "Cvar_B2GraphicsLocked534"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cvar.c",
+          "function": "Cvar_B2CommandLocked580"
+        },
+        {
+          "source": "source/baseline/b2-consolidated215/inputs/origin-006/src/common/cvar.c",
+          "function": "b2_graphics_refuse534"
+        },
+        {
+          "source": "source/current/rc-refine466/source/vr_menu466.inc",
+          "function": "B2VR_StockLocked534"
+        },
+        {
+          "source": "source/current/rc-refine466/source/vr_menu466.inc",
+          "function": "B2VR_StockDependencies534"
+        },
+        {
+          "source": "source/current/rc-refine466/source/engine_022/menu.c",
+          "function": "SpinControl_DoEnter"
+        },
+        {
+          "source": "source/current/rc-refine466/source/engine_022/menu.c",
+          "function": "SpinControl_DoSlide"
+        }
+      ]
+    }
+  ]
+}

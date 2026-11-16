@@ -1,0 +1,860 @@
+/* Modified 14 November 2026: added provenance notice for the Q2RTX VR
+ * source selection. Earlier adaptations retain their original notices;
+ * see docs/MODIFICATIONS.md and docs/PROVENANCE.md. */
+/*
+Copyright (C) 2019, NVIDIA CORPORATION. All rights reserved.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+/* Modified by Togorian with AI assistance, 14 November 2026, for Q2RTX VR
+ * (OpenXR VR support and source preparation). See PROVENANCE.md. */
+
+
+// ==========================================================================
+//
+// This is the third part of the shader code for the tone mapper, which is
+// based on part of Eilertsen, Mantiuk, and Unger's paper *Real-time noise-
+// aware tone mapping*, with some additional modifications that we found useful.
+//
+// This compute shader uses the tone mapping curve in tonemap_buffer.curve
+// and tonemap_buffer.adapted luminance to tone map IMG_TAA_OUTPUT in-place.
+//
+// The tone mapper consists of three compute shaders, a utilities file, and
+// a CPU-side code file. For an overview of the tone mapper, see
+// `tone_mapping_histogram.comp`.
+//   
+// ==========================================================================
+
+#version 460
+#extension GL_GOOGLE_include_directive    : enable
+#extension GL_EXT_nonuniform_qualifier    : enable
+
+layout(constant_id = 0) const uint spec_tone_mapping_hdr = 0;
+
+#include "utils.glsl"
+
+#define GLOBAL_UBO_DESC_SET_IDX 0
+#include "global_ubo.h"
+
+#define GLOBAL_TEXTURES_DESC_SET_IDX 1
+#include "global_textures.h"
+
+#define VERTEX_BUFFER_DESC_SET_IDX 2
+#include "vertex_buffer.h"
+
+#include "tone_mapping_utils.glsl"
+
+// Process the image in 16x16x1 workgroups.
+layout(local_size_x = 16, local_size_y = 16, local_size_z = 1) in;
+
+// Post-tonemapping curve adjustments; see tone_mapping.c for more info.
+layout(push_constant, std430) uniform PushConstants {
+    float knee_w;
+    float knee_a;
+    float knee_b;
+    float scene_gamma;
+    vec4 blend_uv_transform;
+} push;
+
+// When tm_debug is enabled, this displays debugging information for the
+// histogram in one of two modes on the bottom-left side of the screen. This
+// allows you to visualize both the histogram of the HDR image, as well as the
+// computed tone mapping curve.
+vec4 show_bar_chart(ivec2 pos, bool is_curve)
+{
+    const float scale = float(global_ubo.taa_output_height) / float(global_ubo.unscaled_height);
+    const float bin_width = 2 * scale;
+    ivec2 size = ivec2(HISTOGRAM_BINS * bin_width, 100 * scale);
+
+    ivec2 TL, BR;
+    TL.x = int(10 * scale);
+    BR.y = global_ubo.taa_output_height - int(22 * scale);
+    TL.y = BR.y - size.y - 1;
+    BR.x = TL.x + size.x + 1;
+    
+    if((pos.x == TL.x || pos.x == BR.x) && (pos.y >= TL.y && pos.y <= BR.y))
+        return vec4(0.5);
+
+    if((pos.y == TL.y || pos.y == BR.y) && (pos.x >= TL.x && pos.x <= BR.x))
+        return vec4(0.5);
+
+    if(pos.x < TL.x || pos.y < TL.y || pos.x > BR.x  || pos.y > BR.y)
+        return vec4(0);
+
+    int bin = int((pos.x - TL.x - 1) / bin_width);
+    float pix_value = (BR.y - pos.y + 1) / float(size.y);
+    float bin_value;
+    if(is_curve)
+    {
+        bin_value = tonemap_buffer.curve[bin];
+        const float r = global_ubo.tm_dyn_range_stops;
+        bin_value = 0.5*bin_value/r + 1.0;
+    }
+    else
+    {
+        bin_value = tonemap_buffer.normalized[bin];
+    }
+
+    if(pix_value <= bin_value)
+        return vec4(1, 1, 1, 1);
+    else
+        return vec4(0, 0, 0, 1);
+
+    return vec4(0);
+}
+
+// Applies blue-noise-based dithering for linear -> sRGB conversion.
+// This prevents onscreen banding artifacts in areas with subtle gradients.
+vec3 srgb_dither(vec3 color, ivec2 ipos)
+{
+    vec3 srgb = linear_to_srgb(color);
+    vec3 diff = srgb_to_linear(srgb + vec3(1.0/256.0)) - color;
+
+    int texnum = global_ubo.current_frame_idx & (NUM_BLUE_NOISE_TEX - 1);
+    ivec2 texpos = ipos & ivec2(BLUE_NOISE_RES - 1);
+    float noise = texelFetch(TEX_BLUE_NOISE, ivec3(texpos, texnum), 0).r;
+
+    color = color + diff * (noise - 0.5) * 2;
+    return max(vec3(0), color);
+}
+
+// Diagnostic display only. Small GPL-2.0-or-later tone/overlay helpers are
+// adapted to the CURRENT production temporal policy, without coverage reset.
+// All writes remain in final tone application, after normal exposure/history.
+bool asvgf_in_bounds(ivec2 p, ivec2 extent)
+{
+	return all(greaterThanEqual(p, ivec2(0))) && all(lessThan(p, extent));
+}
+
+ivec2 asvgf_gradient_extent(ivec2 full_extent)
+{
+	return (full_extent + ivec2(GRAD_DWN - 1)) / GRAD_DWN;
+}
+
+bool asvgf_complete_gradient_cell(ivec2 p, ivec2 full_extent)
+{
+	ivec2 grad_extent = asvgf_gradient_extent(full_extent);
+	if(!asvgf_in_bounds(p, grad_extent))
+		return false;
+
+	ivec2 cell_end = (p + ivec2(1)) * GRAD_DWN;
+	return all(lessThanEqual(cell_end, full_extent));
+}
+
+SH interpolate_lf(sampler2D img_lf_shY, sampler2D img_lf_CoCg, ivec2 ipos)
+{
+	ivec2 full_extent = ivec2(global_ubo.current_gpu_slice_width, global_ubo.height);
+	ivec2 grad_extent = asvgf_gradient_extent(full_extent);
+
+	// Target pixel parameters
+	float depth_center = texelFetch(TEX_PT_VIEW_DEPTH_A, ipos, 0).x;
+	float fwidth_depth = texelFetch(TEX_PT_MOTION, ipos, 0).w;
+	vec3 geo_normal_center = decode_normal(texelFetch(TEX_PT_GEO_NORMAL_A, ipos, 0).x);
+
+
+	vec2 pos_lowres = (vec2(ipos) + vec2(0.5)) / GRAD_DWN - vec2(0.5);
+	vec2 pos_ld = floor(pos_lowres);
+	vec2 subpix = fract(pos_lowres - pos_ld);
+
+	SH sum_lf = init_SH();
+	float sum_w = 0;
+
+	// 4 bilinear taps
+	const ivec2 off[4] = { { 0, 0 }, { 1, 0 }, { 0, 1 }, { 1, 1 } };
+	float w[4] = {
+		(1.0 - subpix.x) * (1.0 - subpix.y),
+		(subpix.x      ) * (1.0 - subpix.y),
+		(1.0 - subpix.x) * (subpix.y      ),
+		(subpix.x      ) * (subpix.y      )
+	};
+	for(int i = 0; i < 4; i++) 
+	{
+		ivec2 p_lowres = ivec2(pos_ld) + off[i];
+		if(!asvgf_in_bounds(p_lowres, grad_extent) ||
+				!asvgf_complete_gradient_cell(p_lowres, full_extent))
+			continue;
+
+		ivec2 p_hires = p_lowres * GRAD_DWN + ivec2(1);
+		if(!asvgf_in_bounds(p_hires, full_extent))
+			continue;
+
+		// Low-res pixel parameters
+		float p_depth = texelFetch(TEX_PT_VIEW_DEPTH_A, p_hires, 0).x;
+		vec3 p_geo_normal = decode_normal(texelFetch(TEX_PT_GEO_NORMAL_A, p_hires, 0).x);
+
+		// Start with bilinear weight
+		float p_w = w[i];
+
+		// Compute depth and normal similarity between the target pixel and the low-res anchor pixel
+		float dist_depth = abs(p_depth - depth_center) * fwidth_depth;
+		p_w *= exp(-dist_depth);
+		p_w *= pow(max(0.0, dot(geo_normal_center, p_geo_normal)), 8);
+
+		if(p_w > 0)
+		{
+			SH p_lf = load_SH(img_lf_shY, img_lf_CoCg, p_lowres);
+			accumulate_SH(sum_lf, p_lf, p_w);
+			sum_w += p_w;
+		}
+	}
+
+	if(sum_w > 0)
+	{
+		// We found at least one relevant pixel among the 4 bilinear taps - good
+		float inv_w = 1 / sum_w;
+		sum_lf.shY *= inv_w;
+		sum_lf.CoCg *= inv_w;
+	}
+	else
+	{
+		// We didn't find anything relevant, so use the full-res temporally filtered LF data instead
+		sum_lf = load_SH(TEX_ASVGF_HIST_COLOR_LF_SH_A, TEX_ASVGF_HIST_COLOR_LF_COCG_A, ipos);
+	}
+
+	return sum_lf;
+}
+
+float b2_lf_display_map(float luminance_value)
+{
+    return log2(1.0 + 256.0 * luminance_value) / log2(4097.0);
+}
+
+bool b2_lf_finite_signal(SH signal)
+{
+    return !any(isnan(signal.shY)) && !any(isinf(signal.shY)) &&
+        !any(isnan(signal.CoCg)) && !any(isinf(signal.CoCg));
+}
+
+vec3 b2_lf_display_colour(SH signal, vec3 normal)
+{
+    signal.shY /= STORAGE_SCALE_LF;
+    signal.CoCg /= STORAGE_SCALE_LF;
+    if(!b2_lf_finite_signal(signal) || any(isnan(normal)) || any(isinf(normal)))
+        return vec3(1, 0, 1);
+    float value = luminance(project_SH_irradiance(signal, normal));
+    if(isnan(value) || isinf(value) || value < 0.0)
+        return vec3(1, 0, 1);
+    if(value >= 16.0)
+        return vec3(1, 0.25, 0);
+    return vec3(b2_lf_display_map(value));
+}
+
+ivec2 b2_lf_packed_position(ivec2 output_pos)
+{
+    vec2 input_size = vec2(global_ubo.width, global_ubo.height);
+    vec2 output_size = vec2(global_ubo.taa_output_width, global_ubo.taa_output_height);
+    vec2 render_pos = (vec2(output_pos) + vec2(0.5)) * (input_size / output_size)
+        - vec2(0.5) - global_ubo.sub_pixel_jitter;
+    ivec2 flat_pos = ivec2(round(render_pos.x), round(render_pos.y));
+    flat_pos = clamp(flat_pos, ivec2(0), ivec2(global_ubo.width - 1, global_ubo.height - 1));
+    bool even_field = (flat_pos.x & 1) == (flat_pos.y & 1);
+    if(global_ubo.pt_swap_checkerboard != 0)
+        even_field = !even_field;
+    return ivec2(flat_pos.x / 2 + (even_field ? 0 : global_ubo.width / 2), flat_pos.y);
+}
+
+uint b2_lf_glyph(int character)
+{
+    if(character == 65) return 18859566u;
+    if(character == 66) return 16301615u;
+    if(character == 67) return 31491134u;
+    if(character == 68) return 16303663u;
+    if(character == 69) return 32554047u;
+    if(character == 70) return 1096767u;
+    if(character == 71) return 32044094u;
+    if(character == 72) return 18415153u;
+    if(character == 73) return 32641183u;
+    if(character == 76) return 32539681u;
+    if(character == 77) return 18405233u;
+    if(character == 78) return 18667121u;
+    if(character == 79) return 15255086u;
+    if(character == 80) return 1097263u;
+    if(character == 82) return 9616943u;
+    if(character == 83) return 16267326u;
+    if(character == 84) return 4329631u;
+    if(character == 85) return 15255089u;
+    if(character == 86) return 4539953u;
+    if(character == 87) return 18732593u;
+    if(character == 89) return 4329809u;
+    if(character == 48) return 15324974u;
+    if(character == 49) return 14815428u;
+    if(character == 50) return 32645678u;
+    if(character == 52) return 8682793u;
+    if(character == 54) return 15252526u;
+    if(character == 56) return 15252014u;
+    if(character == 46) return 4194304u;
+    if(character == 45) return 31744u;
+    if(character == 88) return 18157905u;
+    if(character == 51) return 16267791u;
+    if(character == 53) return 16268351u;
+    if(character == 55) return 4334111u;
+    if(character == 57) return 15235630u;
+    if(character == 43) return 162944u;
+    if(character == 81) return 23385646u;
+    return 0u;
+}
+
+ivec2 checker_to_flat(ivec2 pos, int width)
+{
+	uint half_width = width / 2;
+    bool is_even_checkerboard = pos.x < half_width;
+
+	return ivec2(
+		is_even_checkerboard 
+			? (pos.x * 2) + (pos.y & 1)
+			: ((pos.x - half_width) * 2) + ((pos.y & 1) ^ 1),
+		pos.y);
+}
+
+ivec2 flat_to_checker(ivec2 pos, int width)
+{
+	uint half_width = width / 2;
+    bool is_even_checkerboard = (pos.x & 1) == (pos.y & 1);
+
+    return ivec2(
+    	(pos.x / 2) + (is_even_checkerboard ? 0 : half_width),
+    	pos.y);
+}
+
+SH b2_lf_stage_sample(int mode, ivec2 pos)
+{
+    if(mode == 1)
+        return load_SH(TEX_PT_COLOR_LF_SH, TEX_PT_COLOR_LF_COCG, pos);
+    if(mode == 2)
+        return load_SH(TEX_ASVGF_HIST_COLOR_LF_SH_A, TEX_ASVGF_HIST_COLOR_LF_COCG_A, pos);
+    return interpolate_lf(TEX_ASVGF_ATROUS_PING_LF_SH, TEX_ASVGF_ATROUS_PING_LF_COCG, pos);
+}
+
+void b2_lf_history_input(ivec2 ipos, out SH incoming, out float current_weight, out int status, out int reason)
+{
+    incoming = init_SH();
+    current_weight = 1.0;
+    status = 1;
+    // Reason 1 is global invalidation. Inside the valid-history branch,
+    // positive bilinear taps contribute bounds/surface/diffuse failure bits.
+    // Bits describe the failed footprint collectively, never one unique tap.
+    reason = 1;
+    int rejection_mask = 0;
+    vec4 motion;
+	motion = texelFetch(TEX_PT_MOTION, ipos, 0);
+
+	// Find out if this pixel belongs to a checkerboard-split-path surface
+    float checkerboard_value = texelFetch(TEX_PT_VIEW_DIRECTION, ipos, 0).w;
+    if(isnan(checkerboard_value) || isinf(checkerboard_value) ||
+       abs(checkerboard_value) > 2147483520.0)
+    {
+        status = 3;
+        return;
+    }
+    int checkerboard_flags = int(checkerboard_value);
+    bool is_checkerboarded_surface = bitCount(checkerboard_flags & CHECKERBOARD_FLAG_FIELD_MASK) > 1;
+
+    // If it's a regular (non-split) surface and we're running on a single GPU,
+    // we can access both checkerboard fields to get higher sampling quality
+    bool sample_across_fields = !is_checkerboarded_surface && (global_ubo.current_gpu_slice_width == global_ubo.width);
+
+    vec2 pos_prev;
+    if (sample_across_fields)
+    {
+    	// Reprojection in flat-screen coordinates
+		pos_prev = ((vec2(checker_to_flat(ipos, global_ubo.width)) + vec2(0.5)) * vec2(global_ubo.inv_width, global_ubo.inv_height) + motion.xy) * vec2(global_ubo.prev_width, global_ubo.prev_height);
+	}
+	else   
+	{
+		// Reprojection in checkerboarded coordinates
+		pos_prev = ((vec2(ipos) + vec2(0.5)) * vec2(global_ubo.inv_width * 2, global_ubo.inv_height) + motion.xy) * vec2(global_ubo.prev_width / 2, global_ubo.prev_height);
+	}
+
+
+	// Load the parameters of the target pixel
+	float depth_curr;
+	vec3 normal_curr;
+	depth_curr = texelFetch(TEX_PT_VIEW_DEPTH_A, ipos, 0).x;
+	// Match temporal preload: decode, round through packed half, then unpack.
+	normal_curr = unpackHalf4x16(packHalf4x16(vec4(
+		decode_normal(texelFetch(TEX_PT_NORMAL_A, ipos, 0).x), 0.0))).xyz;
+
+
+	vec3 geo_normal_curr = decode_normal(texelFetch(TEX_PT_GEO_NORMAL_A, ipos, 0).x);
+
+	// Invalid coordinates cannot be converted to integer texture addresses.
+	if(any(isnan(motion)) || any(isinf(motion)) ||
+	   any(isnan(pos_prev)) || any(isinf(pos_prev)) || isnan(depth_curr) ||
+	   isinf(depth_curr) || any(isnan(normal_curr)) || any(isinf(normal_curr)) ||
+	   any(isnan(geo_normal_curr)) || any(isinf(geo_normal_curr)))
+	{
+		status = 3;
+		return;
+	}
+	// Try to get the history sample for all channels, including HF moments
+	bool temporal_sample_valid_diff = false;
+	SH temporal_color_lf = init_SH();
+	vec4 temporal_moments_histlen_hf = vec4(0);
+#ifdef REFERENCE_VR_HISTORY
+	if (global_ubo.temporal_history_valid != 0)
+#endif
+	{
+		reason = 2; // No eligible in-bounds support unless the loop finds it.
+		float temporal_sum_w_diff = 0.0;
+
+		if(global_ubo.prev_width <= 0 || global_ubo.prev_height <= 0 ||
+		   (global_ubo.prev_width & 1) != 0)
+		{
+			status = 3;
+			return;
+		}
+		// A wholly outside finite footprint has no history. Bound the integer
+		// conversion as well, including malformed extreme finite coordinates.
+		if(any(lessThan(pos_prev, vec2(-1.0))) ||
+		   any(greaterThan(pos_prev, vec2(global_ubo.prev_width, global_ubo.prev_height) + vec2(1.0))) ||
+		   any(greaterThan(pos_prev, vec2(2147483520.0))))
+			return;
+		vec2 pos_ld = floor(pos_prev - vec2(0.5));
+		vec2 subpix = fract(pos_prev - vec2(0.5) - pos_ld);
+
+		int field_left = 0;
+		int field_right = sample_across_fields ? global_ubo.prev_width : (global_ubo.prev_width / 2);
+		if (!sample_across_fields && ipos.x >= global_ubo.width / 2)
+		{
+			field_left = field_right;
+			field_right = global_ubo.prev_width;
+		}
+
+		// Bilinear/bilateral filter
+		const ivec2 off[4] = { { 0, 0 }, { 1, 0 }, { 0, 1 }, { 1, 1 } };
+		float w[4] = {
+			(1.0 - subpix.x) * (1.0 - subpix.y),
+			(subpix.x      ) * (1.0 - subpix.y),
+			(1.0 - subpix.x) * (subpix.y      ),
+			(subpix.x      ) * (subpix.y      )
+		};
+		for(int i = 0; i < 4; i++) {
+			ivec2 p = ivec2(pos_ld) + off[i];
+
+			if(p.x < field_left || p.x >= field_right || p.y < 0 || p.y >= global_ubo.prev_height)
+			{
+				if(w[i] > 0.0) rejection_mask |= 1;
+				continue;
+			}
+
+			if (sample_across_fields)
+			{
+				// If we're sampling both checker fields, `p` is calculated in flat coordinates,
+				// so translate it back into checkerboarded coordinates to load the G-buffer data
+				p = flat_to_checker(p, global_ubo.prev_width);
+			}
+
+			float depth_prev = texelFetch(TEX_PT_VIEW_DEPTH_B, p, 0).x;
+			vec3  normal_prev = decode_normal(texelFetch(TEX_PT_NORMAL_B, p, 0).x);
+			vec3  geo_normal_prev = decode_normal(texelFetch(TEX_PT_GEO_NORMAL_B, p, 0).x);
+			// Diagnostic validity is separate from the production admission tests.
+			if(isnan(depth_prev) || isinf(depth_prev) ||
+			   any(isnan(normal_prev)) || any(isinf(normal_prev)) ||
+			   any(isnan(geo_normal_prev)) || any(isinf(geo_normal_prev)))
+			{
+				status = 3;
+				return;
+			}
+
+			float dist_depth = abs(depth_curr - depth_prev + motion.z) / abs(depth_curr);
+			float dot_normals = dot(normal_curr, normal_prev);
+			float dot_geo_normals = dot(geo_normal_curr, geo_normal_prev);
+			
+			if(depth_curr < 0)
+			{
+				// Reduce the filter sensitivity to depth for secondary surfaces,
+				// because reflection/refraction motion vectors are often inaccurate.
+				dist_depth *= 0.25;
+			}
+
+			// Non-finite derived comparisons are malformed, not a surface reason.
+			if(isnan(dist_depth) || isinf(dist_depth) ||
+			   isnan(dot_normals) || isinf(dot_normals) ||
+			   isnan(dot_geo_normals) || isinf(dot_geo_normals))
+			{
+				status = 3;
+				return;
+			}
+			if(w[i] > 0.0)
+				rejection_mask |= (dist_depth < 0.1 && dot_geo_normals > 0.5) ? 4 : 2;
+
+			if(dist_depth < 0.1 && dot_geo_normals > 0.5)
+			{
+				float w_diff = w[i] * max(dot_normals, 0);
+
+				SH hist_color_lf = load_SH(TEX_ASVGF_HIST_COLOR_LF_SH_B, TEX_ASVGF_HIST_COLOR_LF_COCG_B, p);
+				if(!b2_lf_finite_signal(hist_color_lf))
+				{
+					status = 3;
+					return;
+				}
+				accumulate_SH(temporal_color_lf, hist_color_lf, w_diff);
+
+				vec4 previous_moments = texelFetch(TEX_ASVGF_HIST_MOMENTS_HF_B, p, 0);
+				if(isnan(previous_moments.a) || isinf(previous_moments.a))
+				{
+					status = 3;
+					return;
+				}
+				temporal_moments_histlen_hf += previous_moments * w_diff;
+				temporal_sum_w_diff           += w_diff;
+			}
+		}
+
+		// Interpret the mask only when the total diffuse weight is unusable.
+		// A surface-passing tap then belongs to normal/tiny-weight rejection,
+		// even if its own positive contribution was too small in aggregate.
+		if(rejection_mask == 1) reason = 2;
+		else if(rejection_mask == 2) reason = 3;
+		else if(rejection_mask == 4) reason = 4;
+		else if(rejection_mask != 0) reason = 5;
+
+		// We found some relevant surfaces - good
+		if(temporal_sum_w_diff > 1e-6)
+		{
+			float inv_w_diff = 1.0 / temporal_sum_w_diff;
+			temporal_color_lf.shY         *= inv_w_diff;
+			temporal_color_lf.CoCg        *= inv_w_diff;
+			temporal_moments_histlen_hf   *= inv_w_diff;
+			temporal_sample_valid_diff    = true;
+		}
+
+	}
+
+
+    incoming = temporal_color_lf;
+    if(!temporal_sample_valid_diff) return;
+	float grad_lf = texelFetch(TEX_ASVGF_GRAD_LF_PONG, ipos / GRAD_DWN, 0).r;
+	// Flag invalid inputs before clamping or the coverage override can hide them.
+	if(isnan(grad_lf) || isinf(grad_lf) ||
+	   isnan(temporal_moments_histlen_hf.a) || isinf(temporal_moments_histlen_hf.a))
+	{
+		status = 3;
+		return;
+	}
+	grad_lf = clamp(grad_lf, 0, 1);
+	float antilag_alpha_lf = clamp(mix(1.0, global_ubo.flt_antilag_lf * grad_lf, global_ubo.flt_temporal_lf), 0, 1);
+	float hist_len_lf = min(temporal_moments_histlen_hf.a * pow(1.0 - antilag_alpha_lf, 10) + 1.0, 256.0);
+	float alpha_color_lf = max(global_ubo.flt_min_alpha_color_lf, 1.0 / hist_len_lf);
+	alpha_color_lf = mix(alpha_color_lf, 1.0, antilag_alpha_lf);
+    current_weight = alpha_color_lf;
+    status = 0;
+    reason = 0;
+    // Current production has no incomplete-coverage reset override.
+    if(!b2_lf_finite_signal(incoming) || isnan(current_weight) ||
+       isinf(current_weight) || current_weight < 0.0 || current_weight > 1.0)
+        status = 3;
+}
+
+vec3 b2_lf_reason_colour(int status, int reason)
+{
+    if(status == 3) return vec3(1, 0, 1);
+    if(status == 0) return vec3(0, 0.7, 0);
+    if(reason == 1) return vec3(0.1, 0.25, 1);
+    if(reason == 2) return vec3(0, 1, 1);
+    if(reason == 3) return vec3(1, 0, 0);
+    if(reason == 4) return vec3(1, 1, 0);
+    if(reason == 5) return vec3(1);
+    return vec3(1, 0, 1);
+}
+
+vec3 b2_lf_weight_colour(float current_weight, int status)
+{
+    if(status == 3) return vec3(1, 0, 1);
+    if(status == 1) return vec3(0, 1, 1);
+    if(status != 0) return vec3(1, 0, 1);
+    return mix(vec3(0, 0.1, 1), vec3(1, 1, 0), current_weight);
+}
+
+int b2_lf_stage_mode(float selector)
+{
+    if(selector == -1.0) return 1;
+    if(selector == -2.0) return 2;
+    if(selector == -3.0) return 3;
+    if(selector == -4.0) return 4;
+    if(selector == -5.0) return 5;
+    if(selector == -6.0) return 6;
+    if(selector == -7.0) return 7;
+    if(selector == -8.0) return 8; // Private labelled Normal; product0 unchanged.
+    return 0;
+}
+
+const int b2_cycle_text[2304] = int[](48,32,78,79,82,77,65,76,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,78,79,82,77,65,76,32,76,73,71,72,84,73,78,71,32,65,78,68,32,84,79,78,69,32,32,32,32,32,32,32,32,32,32,32,32,70,57,32,78,79,82,77,65,76,32,70,49,48,32,78,69,88,84,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,70,49,49,32,79,87,78,69,82,32,72,65,78,68,79,70,70,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,68,73,65,71,78,79,83,84,73,67,32,68,73,83,80,76,65,89,32,79,70,70,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,49,32,76,70,32,67,85,82,82,69,78,84,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,70,73,88,69,68,32,76,79,71,32,76,48,32,84,79,49,54,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,79,82,65,78,71,69,32,72,73,71,72,32,77,65,71,32,73,78,86,65,76,73,68,32,32,32,32,32,32,32,32,32,32,32,32,32,70,57,32,78,79,82,77,65,76,32,70,49,48,32,78,69,88,84,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,67,85,82,82,69,78,84,32,83,65,77,80,76,69,32,66,69,70,79,82,69,32,84,69,77,80,79,82,65,76,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,50,32,76,70,32,65,67,67,85,77,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,70,73,88,69,68,32,76,79,71,32,76,48,32,84,79,49,54,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,79,82,65,78,71,69,32,72,73,71,72,32,77,65,71,32,73,78,86,65,76,73,68,32,32,32,32,32,32,32,32,32,32,32,32,32,70,57,32,78,79,82,77,65,76,32,70,49,48,32,78,69,88,84,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,84,69,77,80,79,82,65,76,32,66,69,70,79,82,69,32,68,79,87,78,83,65,77,80,76,69,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,51,32,76,70,32,83,80,65,84,73,65,76,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,70,73,88,69,68,32,76,79,71,32,76,48,32,84,79,49,54,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,79,82,65,78,71,69,32,72,73,71,72,32,77,65,71,32,73,78,86,65,76,73,68,32,32,32,32,32,32,32,32,32,32,32,32,32,70,57,32,78,79,82,77,65,76,32,70,49,48,32,78,69,88,84,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,76,70,32,79,78,76,89,32,82,69,67,79,78,83,84,82,85,67,84,69,68,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,52,32,76,70,32,72,73,83,84,79,82,89,32,82,69,45,69,86,65,76,85,65,84,69,68,32,32,32,32,32,32,32,32,32,32,32,70,73,88,69,68,32,76,79,71,32,76,48,32,84,79,49,54,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,79,82,65,78,71,69,32,72,73,71,72,32,77,65,71,32,73,78,86,65,76,73,68,32,32,32,32,32,32,32,32,32,32,32,32,32,67,89,65,78,32,78,79,32,85,83,65,66,76,69,32,72,73,83,84,79,82,89,32,32,32,32,32,32,32,32,32,32,32,32,32,32,70,57,32,78,79,82,77,65,76,32,70,49,48,32,78,69,88,84,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,53,32,76,70,32,87,69,73,71,72,84,32,82,69,45,69,86,65,76,85,65,84,69,68,32,32,32,32,32,32,32,32,32,32,32,32,66,76,85,69,32,72,73,83,84,79,82,89,32,89,69,76,76,79,87,32,67,85,82,82,69,78,84,32,32,32,32,32,32,32,32,32,67,85,82,82,69,78,84,32,87,69,73,71,72,84,32,48,32,84,79,49,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,67,89,65,78,32,78,79,32,72,73,83,84,79,82,89,32,77,65,71,32,73,78,86,65,76,73,68,32,32,32,32,32,32,32,32,32,70,57,32,78,79,82,77,65,76,32,70,49,48,32,78,69,88,84,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,54,32,76,70,32,82,69,65,83,79,78,83,32,82,69,45,69,86,65,76,85,65,84,69,68,32,32,32,32,32,32,32,32,32,32,32,71,82,69,69,78,32,65,68,77,73,84,84,69,68,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,66,76,85,69,32,71,76,79,66,65,76,32,72,73,83,84,79,82,89,32,73,78,86,65,76,73,68,32,32,32,32,32,32,32,32,32,67,89,65,78,32,66,79,85,78,68,83,32,82,69,68,32,68,69,80,84,72,32,79,82,32,71,69,79,32,32,32,32,32,32,32,32,89,69,76,76,79,87,32,78,79,82,77,65,76,32,79,82,32,84,73,78,89,32,87,69,73,71,72,84,32,32,32,32,32,32,32,32,87,72,73,84,69,32,77,73,88,69,68,32,70,65,73,76,69,68,32,84,65,80,32,70,65,77,73,76,73,69,83,32,32,32,32,32,77,65,71,69,78,84,65,32,73,78,86,65,76,73,68,32,79,82,32,85,78,83,85,80,80,79,82,84,69,68,32,32,32,32,32,32,70,57,32,78,79,82,77,65,76,32,70,49,48,32,78,69,88,84,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,55,32,66,76,79,79,77,32,66,76,85,82,32,67,79,82,82,69,67,84,69,68,32,32,32,32,32,32,32,32,32,32,32,32,32,32,78,79,82,77,65,76,32,84,79,78,69,32,65,78,68,32,66,76,69,78,68,32,65,80,80,76,73,69,68,32,32,32,32,32,32,32,81,85,65,76,73,84,65,84,73,86,69,32,78,79,84,32,82,65,87,32,82,65,68,73,65,78,67,69,32,32,32,32,32,32,32,32,77,65,71,69,78,84,65,32,73,78,86,65,76,73,68,32,79,82,32,85,78,83,85,80,80,79,82,84,69,68,32,32,32,32,32,32,70,57,32,78,79,82,77,65,76,32,70,49,48,32,78,69,88,84,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32);
+const int b2_cycle_invalid[36] = int[](73,78,86,65,76,73,68,32,79,82,32,85,78,83,85,80,80,79,82,84,69,68,32,67,79,78,84,69,88,84,32,32,32,32,32,32);
+
+vec3 b2_cycle_label(ivec2 pos, int mode, bool supported, vec3 colour)
+{
+    ivec2 q = pos - ivec2(12, 12);
+    int label_mode = mode == 8 ? 0 : mode;
+    int rows = label_mode == 6 ? 8 : 5;
+    if(q.x < 0 || q.y < 0 || q.x >= 432 || q.y >= rows * 16) return colour;
+    int row = q.y / 16;
+    int index = q.x / 12;
+    int character = b2_cycle_text[(label_mode * 8 + row) * 36 + index];
+    if(!supported && row == 1) character = b2_cycle_invalid[index];
+    ivec2 dotpos = ivec2((q.x % 12) / 2, (q.y % 16) / 2);
+    bool ink = dotpos.x < 5 && dotpos.y < 5 &&
+        ((b2_lf_glyph(character) >> uint(dotpos.y * 5 + dotpos.x)) & 1u) != 0u;
+    return ink ? vec3(1) : vec3(0.01);
+}
+
+bool b2_lf_stage_readout(ivec2 output_pos, out vec3 colour)
+{
+    int mode = b2_lf_stage_mode(global_ubo.flt_show_gradients);
+    if(mode < 1 || mode > 6) return false;
+    // Retain TAA2/jitter. This is the nearest current render sample, not TAA.
+    bool supported = spec_tone_mapping_hdr == 0 && global_ubo.width > 0 &&
+        (global_ubo.width & 1) == 0 && global_ubo.height > 0 &&
+        global_ubo.taa_output_width > 0 && global_ubo.taa_output_height > 0 &&
+        global_ubo.current_gpu_slice_width == global_ubo.width &&
+        global_ubo.flt_enable != 0 && global_ubo.pt_num_bounce_rays >= 0.5 &&
+        global_ubo.temporal_blend_factor <= 0 &&
+        !any(isnan(global_ubo.sub_pixel_jitter)) && !any(isinf(global_ubo.sub_pixel_jitter)) &&
+        all(lessThanEqual(abs(global_ubo.sub_pixel_jitter), vec2(1)));
+    colour = vec3(1, 0, 1);
+    if(supported)
+    {
+        ivec2 p = b2_lf_packed_position(output_pos);
+        float encoded_flags = texelFetch(TEX_PT_VIEW_DIRECTION, p, 0).a;
+        bool valid_flags = !isnan(encoded_flags) && !isinf(encoded_flags) &&
+            encoded_flags >= 0.0 && encoded_flags <= 15.0;
+        int flags = valid_flags ? int(encoded_flags) : 0;
+        if(valid_flags && (flags & CHECKERBOARD_FLAG_FIELD_MASK) == CHECKERBOARD_FLAG_PRIMARY)
+        {
+            vec3 normal = decode_normal(texelFetch(TEX_PT_NORMAL_A, p, 0).x);
+            if(mode >= 4)
+            {
+                SH incoming; float current_weight; int status; int reason;
+                b2_lf_history_input(p, incoming, current_weight, status, reason);
+                if(mode == 6) colour = b2_lf_reason_colour(status, reason);
+                else if(mode == 5) colour = b2_lf_weight_colour(current_weight, status);
+                else if(status == 3) colour = vec3(1, 0, 1);
+                else if(status == 1) colour = vec3(0, 1, 1);
+                else colour = b2_lf_display_colour(incoming, normal);
+            }
+            else colour = b2_lf_display_colour(b2_lf_stage_sample(mode, p), normal);
+        }
+    }
+    colour = b2_cycle_label(output_pos, mode, supported, colour);
+    return true;
+}
+
+
+
+// R48 OBSERVATION BEGIN
+#ifdef REFERENCE_B_B1
+#include "b2_lf_measurement.glsl"
+#endif
+// R48 OBSERVATION END
+void main()
+{
+    ivec2 ipos = ivec2(gl_GlobalInvocationID);
+    const ivec2 screenSize = ivec2(global_ubo.taa_output_width, global_ubo.taa_output_height);
+
+    if(any(greaterThanEqual(ipos, screenSize)))
+        return;
+
+#if defined(REFERENCE_B_B1)
+    /* Invocation (0,0) snapshots the exact curve bound to this actual apply
+     * dispatch before ordinary pixel evaluation begins. */
+    if(all(equal(ipos, ivec2(0))) &&
+       readback.b1_tone_witness[B1_TONE_WITNESS_ARMED_WORD] == 1u)
+    {
+        uint role = readback.b1_tone_witness[B1_TONE_WITNESS_ROLE_WORD];
+        uint base = role == 0u ? B1_TONE_WITNESS_LEFT_BASE :
+            B1_TONE_WITNESS_RIGHT_BASE;
+        uint curve_base = role == 0u ? B1_TONE_WITNESS_LEFT_CURVE :
+            B1_TONE_WITNESS_RIGHT_CURVE;
+        uint old = atomicCompSwap(readback.b1_tone_witness[
+            base + B1_TONE_WITNESS_APPLY_OBSERVED], 0u, 1u);
+        if(role > 1u || old != 0u)
+            atomicOr(readback.b1_tone_witness[
+                base + B1_TONE_WITNESS_APPLY_DUPLICATE], 1u);
+        readback.b1_tone_witness[base + B1_TONE_WITNESS_APPLIED_BITS] =
+            floatBitsToUint(tonemap_buffer.adapted_luminance);
+        for(uint word = 0u; word < HISTOGRAM_BINS; word++)
+            readback.b1_tone_witness[curve_base + word] =
+                floatBitsToUint(tonemap_buffer.curve[word]);
+    }
+#endif
+
+    // Diagnostic display only, after normal history, bloom and exposure measurement.
+    vec3 lf_readout;
+    if(b2_lf_stage_readout(ipos, lf_readout))
+    {
+        imageStore(IMG_TAA_OUTPUT, ipos, vec4(lf_readout, 0));
+        return;
+    }
+
+    // Get input color and luminance.
+    vec3 input_color = imageLoad(IMG_TAA_OUTPUT, ipos).rgb;
+// R51 OBSERVATION BEGIN
+#ifdef REFERENCE_B_B1
+    int b2m_pre=b2m_find(ipos,true);if(b2m_pre>=0){
+        b2m_v(b2m_pre,120u,input_color);
+        for(uint k=123u;k<126u;k++)b2m_u(b2m_pre,k,B2M_NAN);
+        b2m_u(b2m_pre,126u,1u);
+    }
+#endif
+// R51 OBSERVATION END
+
+    // The retained completed blur is read AFTER normal bloom composition and
+    // exposure measurement. bloom_debug stays0; no early bloom return is used.
+    int b2_display_mode = b2_lf_stage_mode(global_ubo.flt_show_gradients);
+    bool b2_bloom_valid = true;
+    if(b2_display_mode == 7)
+    {
+        b2_bloom_valid = spec_tone_mapping_hdr == 0 &&
+            global_ubo.taa_output_width >= 4 && global_ubo.taa_output_height >= 4 &&
+            global_ubo.taa_image_width >= global_ubo.taa_output_width &&
+            global_ubo.taa_image_height >= global_ubo.taa_output_height;
+        if(b2_bloom_valid)
+        {
+            // Same allocation-based UV mapping as current bloom_composite.comp.
+            vec2 bloom_uv = clamp((vec2(ipos) + vec2(0.5)) /
+                vec2(global_ubo.taa_image_width, global_ubo.taa_image_height), 0, 1);
+            input_color = textureLod(TEX_BLOOM_VBLUR, bloom_uv, 0).rgb;
+            b2_bloom_valid = !any(isnan(input_color)) && !any(isinf(input_color)) &&
+                all(greaterThanEqual(input_color, vec3(0)));
+        }
+        if(!b2_bloom_valid) input_color = vec3(0);
+    }
+    input_color /= STORAGE_SCALE_HDR;
+
+    /* Apply a "colorization" effect.
+     * fs_colorize.rgb is the color, fs_colorize.a is the strength
+     * (with 0 being no colorization, and 1 being replacing the color.) */
+    vec3 colorized = global_ubo.fs_colorize.rgb;
+    float colorize_lum = luminance(global_ubo.fs_colorize.rgb);
+    if (colorize_lum > 0)
+        colorized *= 1 / colorize_lum;
+    colorized *= luminance(input_color);
+    input_color = mix(input_color, colorized, global_ubo.fs_colorize.a);
+
+    // Mix in full screen blend color. Scale it up so it's noticeable against bright pixels as well.
+    vec4 blend_color = global_ubo.fs_blend_color;
+    blend_color.rgb *= tonemap_buffer.adapted_luminance / max(luminance(blend_color.rgb), exp2(min_log_luminance));
+    blend_color.a = min(blend_color.a, global_ubo.tm_blend_max_alpha);
+
+    // Fade strength of blend effect between center and border
+    vec2 blend_uv = vec2(ipos) / vec2(screenSize);
+    // Peripheral/two-view/non-B2 retain the original coordinates exactly.
+    if (any(notEqual(push.blend_uv_transform, vec4(1, 1, 0, 0))))
+        blend_uv = blend_uv * push.blend_uv_transform.xy + push.blend_uv_transform.zw;
+    vec2 norm_pos = (blend_uv - vec2(0.5)) * vec2(2.0 / max(global_ubo.tm_blend_distance_factor, 0.1));
+    float blend_factor = pow(min(length(norm_pos), 1), global_ubo.tm_blend_scale_fade_exp);
+    float blend_color_scale = mix(global_ubo.tm_blend_scale_center, global_ubo.tm_blend_scale_border,
+                                  smoothstep(0, 1, blend_factor));
+
+    input_color = mix(input_color, blend_color.rgb, blend_color.a * clamp(blend_color_scale, 0, 1));
+
+    const float lum = max(luminance(input_color), exp2(min_log_luminance));
+
+    // Apply linear interpolation manually 
+    // We're currently going to do linear interpolation manually.
+    // Must match tone_mapping_histogram.comp.
+    const float biased_log_luminance = log2(lum) * log_luminance_scale + log_luminance_bias;
+    const float histogram_bin = clamp(biased_log_luminance * HISTOGRAM_BINS, 0.0, HISTOGRAM_BINS);
+    const uint left_bin = uint(histogram_bin);
+    const uint right_bin = left_bin + 1;
+    const float right_weight_F = fract(histogram_bin);
+    const float left_weight_F = 1.0 - right_weight_F;
+
+    const float left_tonecurve = tonemap_buffer.curve[left_bin];
+    const float right_tonecurve = tonemap_buffer.curve[right_bin];
+
+    const float out_log_luminance = left_weight_F * left_tonecurve + right_weight_F * right_tonecurve;
+    const float out_luminance = exp2(out_log_luminance + global_ubo.tm_exposure_bias);
+
+    vec3 mapped_color = input_color * out_luminance / lum;
+
+    if(spec_tone_mapping_hdr == 0)
+    {
+        // Finally, since our mapped color has luminance in [0,1], but could have
+        // components greater than 1, we apply a customizable knee to bring all values
+        // fully into range.
+        const vec3 step_value = step(global_ubo.tm_knee_start, mapped_color);
+        mapped_color = mix(mapped_color, (push.knee_w*mapped_color + push.knee_a)/max(vec3(1e-6), mapped_color + push.knee_b), step_value);
+    }
+
+    // Original autoexposure tonemapping application code
+    // Exposure adjustment followed by Reinhard tonemapper
+    const float adapted_luminance = tonemap_buffer.adapted_luminance;
+    const float scaled_luminance = exp2(global_ubo.tm_exposure_bias - 2) * lum / adapted_luminance;
+    // HDR: Adjust white point upward for large brightness
+    const float white_point = (spec_tone_mapping_hdr != 0) ? max(global_ubo.tm_white_point, global_ubo.tm_hdr_peak_nits / 80) : global_ubo.tm_white_point;
+    // The autoexposure tonemap has its own Reinhard tonemapper that gets applied to luminance only:
+    const float white_point_squared = white_point * white_point;
+    const float mapped_luminance = (scaled_luminance * (1 + scaled_luminance / white_point_squared)) / (1 + scaled_luminance);
+    const vec3 ae_mapped_color = input_color * mapped_luminance / lum;
+
+    // Finally, allow for some amount of blending with the original frame:
+    mapped_color = mix(mapped_color, ae_mapped_color, global_ubo.tm_reinhard);
+
+    if(spec_tone_mapping_hdr == 0)
+    {
+        // Clip to [0,1]:
+        mapped_color = clamp(mapped_color, vec3(0), vec3(1));
+
+        // Optional B2 scene/output adjustment in bounded linear SDR RGB.
+        // Neutral bypass preserves the original arithmetic and sRGB transfer.
+        if (push.scene_gamma != 1.0)
+            mapped_color = pow(mapped_color, vec3(1.0 / push.scene_gamma));
+
+        // Apply dither:
+        mapped_color = srgb_dither(mapped_color, ipos);
+    }
+    else
+    {
+        // HDR: map colors such that values at EV 0 map to a display brightness of 'tm_hdr_peak_nits'
+        const float nits_factor = global_ubo.tm_hdr_peak_nits / 80; // an scRGB luminance of 1.0 is defined as 80 nits
+        const float nits_factor_ui = global_ubo.ui_color_scale;
+        float color_scale = mix(nits_factor, min(nits_factor, nits_factor_ui), global_ubo.tonemap_hdr_clamp_strength); // clamps color in menu mode, ensures it's legible
+        mapped_color *= color_scale;
+
+        mapped_color.rgb = apply_saturation_scale(mapped_color.rgb, global_ubo.tm_hdr_saturation_scale * 0.01);
+    }
+
+    // Show tonemapping curve if enabled:
+    if(global_ubo.tm_debug != 0)
+    {
+        vec4 bar_chart_overlay = show_bar_chart(ipos, global_ubo.tm_debug == 2);
+        if(spec_tone_mapping_hdr != 0)
+        {
+            bar_chart_overlay *= vec4(vec3(global_ubo.ui_color_scale), 1);
+        }
+        mapped_color = mix(mapped_color.rgb, bar_chart_overlay.rgb, bar_chart_overlay.a);
+    }
+
+    if(b2_display_mode == 7 || b2_display_mode == 8)
+        mapped_color = b2_cycle_label(ipos, b2_display_mode, b2_bloom_valid,
+            b2_bloom_valid ? mapped_color : vec3(1, 0, 1));
+
+    // Write out to image:
+    imageStore(IMG_TAA_OUTPUT, ipos, vec4(mapped_color, 0));
+// R48 OBSERVATION BEGIN
+#ifdef REFERENCE_B_B1
+    int b2m_base = b2m_find(ipos, true);
+    if(b2m_base >= 0) {
+        memoryBarrierImage();
+        vec3 stored_normal = imageLoad(IMG_TAA_OUTPUT,ipos).rgb;
+        b2m_v(b2m_base,123u,stored_normal);
+        b2m_u(b2m_base,126u,1u|2u|
+            ((b2_display_mode==0||b2_display_mode==8)&&global_ubo.tm_debug==0?4u:0u));
+    }
+#endif
+// R48 OBSERVATION END
+
+}

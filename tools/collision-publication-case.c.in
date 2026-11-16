@@ -1,0 +1,102 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright (C) 2026 Togorian, to the extent of rights held in project additions.
+#include "shared/shared.h"
+#include "shared/b2_combat.h"
+#include <assert.h>
+#include <limits.h>
+
+typedef struct { player_state_t ps; } gclient_t;
+typedef struct edict_s {
+    int health, deadflag;
+    struct { vec3_t origin; } s;
+    vec3_t velocity;
+    gclient_t *client;
+} edict_t;
+static edict_t g_edicts[2];
+static gclient_t client;
+static edict_t *b2_observer = &g_edicts[1];
+static struct { bool walk_faulted; } obs_trace;
+static struct { int framenum, intermission_framenum; char mapname[MAX_QPATH]; } level;
+/* COMBAT_STATE */
+static cvar_t enabled = {.value = 1}, quiet;
+static const char *last_fault;
+static cvar_t *setting(const char *name, const char *value, int flags)
+{ return strcmp(name, "developer") ? &enabled : &quiet; }
+static void diagnostic(const char *format, ...) { }
+static struct { cvar_t *(*cvar)(const char *, const char *, int); void (*dprintf)(const char *, ...); }
+gi = { setting, diagnostic };
+static bool G_CombatObserver(edict_t *ent) { return ent == b2_observer && combat.enabled; }
+static void G_ObserverTrace(const char *phase, edict_t *ent) { }
+static void observer_walk_fault(const char *phase, edict_t *ent)
+{ obs_trace.walk_faulted = true; last_fault = phase; }
+/* PUBLICATION */
+static void reset(void)
+{
+    memset(&combat, 0, sizeof combat); memset(&client, 0, sizeof client);
+    memset(g_edicts, 0, sizeof g_edicts); memset(&level, 0, sizeof level);
+    obs_trace.walk_faulted = false; last_fault = NULL;
+    combat.enabled = combat.anchored = true;
+    strcpy(combat.mapname, "base1"); strcpy(level.mapname, "base1");
+    b2_observer->client = &client; b2_observer->health = 100;
+}
+static void publish(unsigned previous)
+{
+    combat.serial = previous;
+    G_CombatPublish(b2_observer);
+}
+static void accept(unsigned id)
+{
+    b2_combat_state_t result;
+    assert(!obs_trace.walk_faulted);
+    assert(GetB2CombatState(B2_COMBAT_API, &client.ps, &result));
+    assert(result.serial == id);
+}
+static void reject(const player_state_t *ps)
+{
+    b2_combat_state_t result;
+    assert(!GetB2CombatState(B2_COMBAT_API, ps, &result));
+}
+int main(void)
+{
+    reset(); publish(0); accept(1);
+    player_state_t early = client.ps;
+    publish(32766); accept(32767); publish(32767);
+#ifdef EXPECT_PREVIOUS_REFUSAL
+    assert(obs_trace.walk_faulted && !strcmp(last_fault, "combat_serial_exhausted"));
+    puts("PRE-CORRECTION: publication 32768 stops otherwise valid ordinary play");
+#else
+    accept(32768);
+    const unsigned boundaries[] = {65534u, 65535u, 0x7ffffffeu, 0x7fffffffu, 0xffff0000u, UINT_MAX - 1};
+    for (unsigned i = 0; i < q_countof(boundaries); ++i) {
+        reset(); publish(boundaries[i]); accept(boundaries[i] + 1);
+    }
+    reset(); publish(0); early = client.ps;
+    publish(65536); accept(65537); reject(&early); // Same low word and ring slot.
+    player_state_t later = client.ps;
+    reset(); publish(0); accept(1); reject(&later); // Higher prior-world ID is rejected after reset; engine world/servercount gates protect repeated IDs.
+    publish(1); accept(2);
+    player_state_t saved = client.ps, altered = saved;
+    altered.stats[B2_COMBAT_STAT]++; reject(&altered);
+    altered = saved; altered.stats[B2_COMBAT_SERIAL_HIGH_STAT]++; reject(&altered);
+    altered = saved; altered.pmove.origin[0]++; reject(&altered);
+    altered = saved; altered.pmove.velocity[0]++; reject(&altered);
+    altered = saved; altered.pmove.delta_angles[0]++; reject(&altered);
+    altered = saved; altered.pmove.pm_flags ^= PMF_ON_GROUND; reject(&altered);
+    altered = saved; altered.pmove.pm_time++; reject(&altered);
+    altered = saved; altered.pmove.gravity++; reject(&altered);
+    altered = saved; altered.pmove.pm_type = PM_DEAD; reject(&altered);
+    altered = saved; altered.stats[STAT_HEALTH]--; reject(&altered);
+    altered = saved; altered.gunindex++; reject(&altered);
+    level.framenum = 10; accept(2); level.framenum = 11; reject(&saved);
+    reset(); publish(0); early = client.ps; publish(64); accept(65); reject(&early);
+    obs_trace.walk_faulted = true; reject(&client.ps); obs_trace.walk_faulted = false;
+    combat.enabled = false; reject(&client.ps); combat.enabled = true;
+    b2_combat_state_t out; assert(!GetB2CombatState(B2_COMBAT_API + 1, &client.ps, &out));
+    reset(); publish(UINT_MAX - 1); accept(UINT_MAX);
+    G_CombatPublish(b2_observer);
+    assert(obs_trace.walk_faulted && !strcmp(last_fault, "combat_serial_exhausted"));
+    assert(combat.serial == UINT_MAX); // No unsigned wrap or silent identity reuse.
+    puts("PASS: full publication identity survives low/high signed boundaries; stale, altered, overwritten and expired publications are rejected");
+#endif
+    return 0;
+}

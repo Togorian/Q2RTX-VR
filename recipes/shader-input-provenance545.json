@@ -1,0 +1,177 @@
+{
+  "schema": "shader-producing-input-selection-1",
+  "date": "2026-11-11",
+  "scope": "Source selection for reproducible offline shader generation; accepted binaries and existing shader/native inputs unchanged.",
+  "lighting": "The earlier combined selection included the three entry files but omitted their local path_tracer_rgen.h. The retained combined producer header contains the original light-statistics guard and is now included beside those entry files.",
+  "crosshair": "Crosshair producing command and dependency records identify this exact 17-file closure. The isolated crosshair87 directory is selected only by the two crosshair shader commands. Current shared vertex_buffer.h and native C consumers remain unchanged.",
+  "recipe": "Crosshair source paths and first include directory select crosshair87; flags, output names and fallback fsr include unchanged. Lighting retains its existing combined-first include route. The primary-guide define correction remains.",
+  "inputs": [
+    {
+      "path": "source/baseline/b2-consolidated215/shaders/combined/vkpt/shader/path_tracer_rgen.h",
+      "bytes": 38948,
+      "sha256": "531d466c8eb5729d546ed823b0f663a8b7f14371ab510c734322d5985f2b9abc",
+      "origin": "Retained combined lighting producer",
+      "selectionDate": "2026-11-11",
+      "modification": "Exact retained original bytes and notices; no source reconstruction or edit."
+    },
+    {
+      "path": "source/baseline/b2-consolidated215/shaders/crosshair87/vkpt/shader/asvgf.glsl",
+      "bytes": 6899,
+      "sha256": "2468852a5b192c3b252a5c8e6eb538a83764d39e8c3d361f886cc621cbe3dfe6",
+      "origin": "Recorded crosshair producer dependency",
+      "selectionDate": "2026-11-11",
+      "modification": "Exact retained original bytes and notices; no source reconstruction or edit."
+    },
+    {
+      "path": "source/baseline/b2-consolidated215/shaders/crosshair87/vkpt/shader/b2_crosshair_reflection.rahit",
+      "bytes": 2101,
+      "sha256": "1b5c8aad526e96d013ca346a76357f957fd69e5e966cab6d5648dbdf32083574",
+      "origin": "Recorded crosshair producer dependency",
+      "selectionDate": "2026-11-11",
+      "modification": "Exact retained original bytes and notices; no source reconstruction or edit."
+    },
+    {
+      "path": "source/baseline/b2-consolidated215/shaders/crosshair87/vkpt/shader/b2_crosshair_reflection.rgen",
+      "bytes": 25113,
+      "sha256": "0587b649c7e9339aaa25832baf8aa51a7ee9fb7b07ccfd12f9ce03dee2d60230",
+      "origin": "Recorded crosshair producer dependency",
+      "selectionDate": "2026-11-11",
+      "modification": "Exact retained original bytes and notices; no source reconstruction or edit."
+    },
+    {
+      "path": "source/baseline/b2-consolidated215/shaders/crosshair87/vkpt/shader/b2_crosshair_reflection_rgen.h",
+      "bytes": 38121,
+      "sha256": "7fa8d2946d77c1fc8e81abe1262bd476afdfb554b9194a54f317567cffbf2a96",
+      "origin": "Recorded crosshair producer dependency",
+      "selectionDate": "2026-11-11",
+      "modification": "Exact retained original bytes and notices; no source reconstruction or edit."
+    },
+    {
+      "path": "source/baseline/b2-consolidated215/shaders/crosshair87/vkpt/shader/brdf.glsl",
+      "bytes": 6005,
+      "sha256": "fe62710444ad049f1977e24ccc1c8cad506ba22e4fb78c1ff18b09cc2db0c453",
+      "origin": "Recorded crosshair producer dependency",
+      "selectionDate": "2026-11-11",
+      "modification": "Exact retained original bytes and notices; no source reconstruction or edit."
+    },
+    {
+      "path": "source/baseline/b2-consolidated215/shaders/crosshair87/vkpt/shader/constants.h",
+      "bytes": 6760,
+      "sha256": "84e2d27984d3358b9a3936476d515bf92c8e5b7dbdd94515fb473b83a8e4e4cb",
+      "origin": "Recorded crosshair producer dependency",
+      "selectionDate": "2026-11-11",
+      "modification": "Exact retained original bytes and notices; no source reconstruction or edit."
+    },
+    {
+      "path": "source/baseline/b2-consolidated215/shaders/crosshair87/vkpt/shader/global_textures.h",
+      "bytes": 19960,
+      "sha256": "4e3f2679e592774e69dacfa0e26e4d06c0d19331ebb0f40099bd2565494598cc",
+      "origin": "Recorded crosshair producer dependency",
+      "selectionDate": "2026-11-11",
+      "modification": "Exact retained original bytes and notices; no source reconstruction or edit."
+    },
+    {
+      "path": "source/baseline/b2-consolidated215/shaders/crosshair87/vkpt/shader/global_ubo.h",
+      "bytes": 18928,
+      "sha256": "faa7661d5020d224c0682f83c56f3961b87edabfb7f10590b899236b518c7f36",
+      "origin": "Recorded crosshair producer dependency",
+      "selectionDate": "2026-11-11",
+      "modification": "Exact retained original bytes and notices; no source reconstruction or edit."
+    },
+    {
+      "path": "source/baseline/b2-consolidated215/shaders/crosshair87/vkpt/shader/light_lists.h",
+      "bytes": 15106,
+      "sha256": "e2a6d0e6e9778b1692c8ee96e7b04d0ab3ea7d421ac8f4979f394d7c9df08326",
+      "origin": "Recorded crosshair producer dependency",
+      "selectionDate": "2026-11-11",
+      "modification": "Exact retained original bytes and notices; no source reconstruction or edit."
+    },
+    {
+      "path": "source/baseline/b2-consolidated215/shaders/crosshair87/vkpt/shader/path_tracer.h",
+      "bytes": 8392,
+      "sha256": "9ea4376e0c98f78de75813b168280d0cf78687d0515f772dd57a99c2f4d2237e",
+      "origin": "Recorded crosshair producer dependency",
+      "selectionDate": "2026-11-11",
+      "modification": "Exact retained original bytes and notices; no source reconstruction or edit."
+    },
+    {
+      "path": "source/baseline/b2-consolidated215/shaders/crosshair87/vkpt/shader/path_tracer_hit_shaders.h",
+      "bytes": 11650,
+      "sha256": "e628073f1b165fa1c09f68382d7deb225024f01f42678141d5db84b516fc0557",
+      "origin": "Recorded crosshair producer dependency",
+      "selectionDate": "2026-11-11",
+      "modification": "Exact retained original bytes and notices; no source reconstruction or edit."
+    },
+    {
+      "path": "source/baseline/b2-consolidated215/shaders/crosshair87/vkpt/shader/path_tracer_transparency.glsl",
+      "bytes": 3537,
+      "sha256": "45942ffb235bf26894066d73879a86e253b52d8fa52fa00ec27108c6a2f933c1",
+      "origin": "Recorded crosshair producer dependency",
+      "selectionDate": "2026-11-11",
+      "modification": "Exact retained original bytes and notices; no source reconstruction or edit."
+    },
+    {
+      "path": "source/baseline/b2-consolidated215/shaders/crosshair87/vkpt/shader/projection.glsl",
+      "bytes": 8138,
+      "sha256": "02575bad2b00ae097b37a3b565923d1df9b2f14c3b1629a5142988ac3469df9c",
+      "origin": "Recorded crosshair producer dependency",
+      "selectionDate": "2026-11-11",
+      "modification": "Exact retained original bytes and notices; no source reconstruction or edit."
+    },
+    {
+      "path": "source/baseline/b2-consolidated215/shaders/crosshair87/vkpt/shader/shader_structs.h",
+      "bytes": 1372,
+      "sha256": "d0215115729073ba88810309db66a7e50801f15f6abcafd086bcef76f645871c",
+      "origin": "Recorded crosshair producer dependency",
+      "selectionDate": "2026-11-11",
+      "modification": "Exact retained original bytes and notices; no source reconstruction or edit."
+    },
+    {
+      "path": "source/baseline/b2-consolidated215/shaders/crosshair87/vkpt/shader/utils.glsl",
+      "bytes": 13720,
+      "sha256": "51ae56512dad82097900d723b5a68cd77dcd7cea3667b19d1a19a2e80ae3346c",
+      "origin": "Recorded crosshair producer dependency",
+      "selectionDate": "2026-11-11",
+      "modification": "Exact retained original bytes and notices; no source reconstruction or edit."
+    },
+    {
+      "path": "source/baseline/b2-consolidated215/shaders/crosshair87/vkpt/shader/vertex_buffer.h",
+      "bytes": 17046,
+      "sha256": "8cca6fee05dcf15ab99a209d260cc2c3dd022a9950d2ccd28c29b6fb87931608",
+      "origin": "Recorded crosshair producer dependency",
+      "selectionDate": "2026-11-11",
+      "modification": "Exact retained original bytes and notices; no source reconstruction or edit."
+    },
+    {
+      "path": "source/baseline/b2-consolidated215/shaders/crosshair87/vkpt/shader/water.glsl",
+      "bytes": 2860,
+      "sha256": "0d8e1c112a5d76815f279bd14f25f80c45dcb99d69c1799c6ac8f644acdd62d6",
+      "origin": "Recorded crosshair producer dependency",
+      "selectionDate": "2026-11-11",
+      "modification": "Exact retained original bytes and notices; no source reconstruction or edit."
+    }
+  ],
+  "compiler": {
+    "reportedVersion": "11:15.1.0",
+    "sha256": "80b6455a470ce138e3f0d8718eb1832b652a4bc5e08bc00a55268201d287f4b9",
+    "target": "vulkan1.2",
+    "spirvVersion": "1.5"
+  },
+  "observed": {
+    "targetedExact": 6,
+    "freshWholeRecipeExact": 59,
+    "runtimeExact": 53,
+    "embeddedExact": 6,
+    "generatedHeaders": 4,
+    "comparison": "Actual SPIR-V bytes and decoded generated/accepted header words; formatting is separate."
+  },
+  "limits": "No generated-output adoption, native product/package result or visual/headset acceptance follows from this offline comparison.",
+  "historicalRecord": {
+    "classification": "Historical evidence only",
+    "recordedStatus": null,
+    "recordedDate": "2026-11-11",
+    "activeRecipeFields": [],
+    "scope": "Retained preparation, toolchain, validation, acceptance, hashes and output observations describe their original recorded inputs, not a current build. Active recipe arrays/payload selection remain usable. VERSION defines the current version. Actual source/library/product identities require a fresh release-build.json or packaged BUILD-RECORD.json; this record is not a substitute.",
+    "originalValuesRetained": true
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "finding": "A2",
+  "readme": false,
+  "cases": [
+    {
+      "file": "A2-renderer-pair.c",
+      "includes": [
+        "dependencies/src/Vulkan-Headers/include"
+      ],
+      "production": [
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "create_swapchain"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "destroy_swapchain"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "b2_mirror_reuse"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "b2_disable_desktop582"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "b2_discard_settings_frame580"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "b2_retire_xr_failure555"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "R_EndFrame_RTX"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "recreate_swapchain",
+          "end": "\n\t// Retire a partial acquisition"
+        },
+        {
+          "source": "source/current/key-render-crash492/source/engine_112/main.c",
+          "function": "R_BeginFrame_RTX",
+          "start": "\tif ((!qvk.swap_chain",
+          "end": "\n\tdrs_process();"
+        }
+      ]
+    }
+  ]
+}

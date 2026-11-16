@@ -1,0 +1,116 @@
+{
+  "recordInterpretation": {"scope": "Original fields in this file are historical dependency/build observations from 11 November 2026 and retain their recorded values. The current SDL option/configuration/library selection is recorded separately; this is not a new product or headset result.", "currentSDLSelection": "recipes/sdl-build-validation.json"},
+  "date": "2026-11-11",
+  "status": "ACTUAL_DEPENDENCIES_VERIFIED",
+  "toolchain": {
+    "platform": "Windows x64",
+    "MSVC": "14.44.35207",
+    "WindowsSDK": "10.0.28000.0",
+    "buildType": "Release",
+    "tryCompileConfiguration": "Release",
+    "runtime": "MultiThreaded (/MT)"
+  },
+  "successfulCommands": 8,
+  "staticLibraries": [
+    {
+      "name": "zlibstatic.lib",
+      "bytes": 192496,
+      "sha256": "f4673e939bc95f1fcd2855ee7ae1d2e2f05912238382465a57e41d4416fe700d",
+      "privatePathMatches": 0
+    },
+    {
+      "name": "SDL2-static.lib",
+      "bytes": 11055066,
+      "sha256": "bbe45455e6bf4f8e95dc93b46004e09b4aa10192fa74888987999463f4f2ee4c",
+      "privatePathMatches": 0
+    },
+    {
+      "name": "SDL2main.lib",
+      "bytes": 4242,
+      "sha256": "bb79e3585d279a6d368aa72753a6df387b6198ac8e65cacf47ec977544bbf49a",
+      "privatePathMatches": 0
+    },
+    {
+      "name": "OpenAL32.lib",
+      "bytes": 25992026,
+      "sha256": "0eac1a704aa0496912b8d6fc5f82e0272106f0a703cf1f3251306fddad5c125e",
+      "privatePathMatches": 0
+    },
+    {
+      "name": "libcurl.lib",
+      "bytes": 1699754,
+      "sha256": "36ed7cb4653d81d2ca4e4340f5fd14c1700b98cee569fe6c158ff9c7250d382a",
+      "privatePathMatches": 0
+    }
+  ],
+  "privateExternalSdkImport": {
+    "name": "vulkan-1.lib",
+    "bytes": 66154,
+    "sha256": "fac5107044a838e6eb23789f21aa9334e857d4c0626f5d194887735d91637fbd",
+    "redistributionSelected": false
+  },
+  "generatedHeaders": [
+    {
+      "path": "build-deps/SDL2/include-config-release/SDL2/SDL_config.h",
+      "bytes": 17323,
+      "sha256": "d3da4b23e0ae256bb84df02a0869eb1af01ca112fb3faffd42b30c7e40ec239b"
+    },
+    {
+      "path": "build-deps/zlib/zconf.h",
+      "bytes": 17096,
+      "sha256": "b4962930aabbbc4b54a67220b4b3ed2cae69a13688c06a564bda1bc7429d2ab2"
+    },
+    {
+      "path": "build-deps/curl/lib/curl_config.h",
+      "bytes": 22440,
+      "sha256": "9eb54894c3df7ebcf188819613cd7b46f3bd9dee09a74db68ed6bf2b5272b0d7"
+    },
+    {
+      "path": "build-deps/openal-soft/config.h",
+      "bytes": 1334,
+      "sha256": "9a9b7d93a9b9e922ff7bc2c5a040d130b95905ec66f63e9f8cfaf278ec866fa2"
+    },
+    {
+      "path": "build-deps/openal-soft/version.h",
+      "bytes": 269,
+      "sha256": "4e77eb5006f5a20e9ea655641e22f6351be913e102034bda0fce28473c21a9bd"
+    }
+  ],
+  "headerComparison": {
+    "matchingRows": 449,
+    "SDLConfigurationMacroRows": 421,
+    "outputSha256": "dc8110180bf5fab02b1dc61c647af9a61bbe6f863e6550d2bca042becd2ec5b9",
+    "rawSDLDifference": "Only HAVE_SYS_TYPES_H: defined in selected raw header, undefined in rebuilt raw header. It lies inside the disabled HAVE_LIBC block; both actual probes report HAVE_LIBC and HAVE_SYS_TYPES_H undefined. Effective output identical; no header replacement.",
+    "selectedProbeFallback": "Complete same-version public SDL include directory appended after selected/config directories solely for probe-only SDL_syswm.h; saved /showIncludes retains selected config first."
+  },
+  "SDLWindowsVulkanBackend": {
+    "enabled": true,
+    "compiledIncludePaths": [
+      "dependencies/src/Vulkan-Headers/include/vk_video/vulkan_video_codec_av1std.h",
+      "dependencies/src/Vulkan-Headers/include/vk_video/vulkan_video_codec_av1std_decode.h",
+      "dependencies/src/Vulkan-Headers/include/vk_video/vulkan_video_codec_av1std_encode.h",
+      "dependencies/src/Vulkan-Headers/include/vk_video/vulkan_video_codec_h264std.h",
+      "dependencies/src/Vulkan-Headers/include/vk_video/vulkan_video_codec_h264std_decode.h",
+      "dependencies/src/Vulkan-Headers/include/vk_video/vulkan_video_codec_h264std_encode.h",
+      "dependencies/src/Vulkan-Headers/include/vk_video/vulkan_video_codec_h265std.h",
+      "dependencies/src/Vulkan-Headers/include/vk_video/vulkan_video_codec_h265std_decode.h",
+      "dependencies/src/Vulkan-Headers/include/vk_video/vulkan_video_codec_h265std_encode.h",
+      "dependencies/src/Vulkan-Headers/include/vk_video/vulkan_video_codec_vp9std.h",
+      "dependencies/src/Vulkan-Headers/include/vk_video/vulkan_video_codec_vp9std_decode.h",
+      "dependencies/src/Vulkan-Headers/include/vk_video/vulkan_video_codecs_common.h",
+      "dependencies/src/Vulkan-Headers/include/vulkan/vk_platform.h",
+      "dependencies/src/Vulkan-Headers/include/vulkan/vulkan.h",
+      "dependencies/src/Vulkan-Headers/include/vulkan/vulkan_core.h",
+      "dependencies/src/Vulkan-Headers/include/vulkan/vulkan_win32.h"
+    ]
+  },
+  "privacyCheckScope": "The five actual static libraries had zero matches for the listed personal-path/name patterns in ASCII and both UTF-16LE alignments. This is a scoped inspection, not universal privacy certification.",
+  "compatibility": "Normal compatible rebuilds keep optional reference verification OFF. Reference checks may use these actual library pins.",
+  "OpenXR": "Accepted release-1.1.62 loader retained; not rebuilt in this dependency phase.",
+  "productBuildPerformed": true,
+  "newLauncherChecksPerformed": true,
+  "runtimeAcceptanceClaimed": false,
+  "productReceipt": "recipes/product-build-validation.json",
+  "packageVerificationPending": true,
+  "headsetAndUserRuntimeAcceptancePending": true
+}
